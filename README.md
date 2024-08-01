@@ -1,2 +1,3 @@
-# LocalMonitoring
-Qt C++ PureMvc Mvc
+Facade 是 PureMVC 架构中的一个重要概念。它充当应用程序的中央控制点，负责协调各个部分之间的交互。
+
+1. 修改目录结构
