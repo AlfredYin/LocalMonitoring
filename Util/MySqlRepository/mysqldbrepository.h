@@ -11,9 +11,6 @@
 class MySqlDBRepository
 {
 
-protected:
-    QSqlDatabase m_database;
-
 public:
     MySqlDBRepository();
 

@@ -4,6 +4,8 @@
 
 #include "mysqldbmanager.h"
 
+#include "securityhelper.h"
+
 // 初始化名称
 LoginProxy::LoginProxy()
 {
@@ -11,26 +13,31 @@ LoginProxy::LoginProxy()
 }
 
 // 处理真正的业务逻辑和数据操作。可以作为数据模型的抽象层，与数据库或其他数据源交互。
-void LoginProxy::checkLogin(LoginParam *loginInfo)
+void LoginProxy::checkLogin(LoginParam *loginParam)
 {
     LoginResult *loginResult = new LoginResult();
 
-    QString name = loginInfo->name;
-    QString passwd = loginInfo->password;
+    QString name = loginParam->name;
+    QString passwd = loginParam->password;
 
     qDebug()<<"name:" << name << ", passwd:" << passwd;
 
-    QString queryStr="SELECT id, username, password FROM users";
+    QString queryStr="SELECT id,UserName, Password, Salt FROM SysUser";
     QSqlQuery query=executeQuery(queryStr);
+
+    // if (user.Password == EncryptUserPassword(password, user.Salt))
 
     loginResult->result = false;
     while (query.next()) {
-        int id = query.value(0).toInt();
+        float id = query.value(0).toFloat();
+
         QString username = query.value(1).toString();
         QString password = query.value(2).toString();
-        qDebug() << "id:" << id << "username:" << username << ", Password:" << password;
+        QString salt = query.value(3).toString();
+        qDebug() << "id:" << id << "username:" << username << ", Password:" << password << "salt:" << salt;
+
         if(name==username){
-            if(passwd==password){
+            if(password==EncryptUserPassword(passwd,salt)){
                 loginResult->result = true;
                 loginResult->username=username;
                 loginResult->passwd=passwd;
@@ -81,3 +88,23 @@ void LoginProxy::changePwd(LoginParam *loginInfo)
     }
     sendNotification("change_passwd_finished", (void *)loginResult);
 }
+
+QString LoginProxy::EncryptUserPassword(QString password, QString salt)
+{
+
+    QString md5Password = SecurityHelper::md5ToHex(password, 32);
+    md5Password = md5Password.toLower();
+    QString combined = md5Password + salt;
+    QString encryptPassword = SecurityHelper::md5ToHex(combined, 32).toLower();
+
+    qDebug()<<encryptPassword;
+
+    return encryptPassword;
+}
+
+//private string EncryptUserPassword(string password, string salt)
+//{
+//    string md5Password = SecurityHelper.MD5ToHex(password);
+//    string encryptPassword = SecurityHelper.MD5ToHex(md5Password.ToLower() + salt).ToLower();
+//    return encryptPassword;
+//}

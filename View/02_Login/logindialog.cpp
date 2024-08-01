@@ -28,6 +28,8 @@ LoginDialog::LoginDialog(QWidget *parent) :
         // Controller 负责处理应用程序的控制逻辑。它通常由 Command 组成。
         // Command：Command 是封装应用程序行为的对象。
         // 当某个事件发生时，Command 被触发来执行相应的操作。Command 可以创建、更新或删除数据，改变应用程序的状态等。
+
+        ui->lineEdit_PassWord->setEchoMode(QLineEdit::Password);  // 设置密码模式
 }
 
 LoginDialog::~LoginDialog()

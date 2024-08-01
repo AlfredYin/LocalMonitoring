@@ -21,7 +21,7 @@ void ApplicationMediator::handleNotification(INotification *notification)
 {
     if (notification->getNotificationName() == "login_finished")
     {
-        m_viewComponent->update((IUpdateData *)notification->getBody());
+//        m_viewComponent->update((IUpdateData *)notification->getBody());
     }else if(notification->getNotificationName() == "change_passwd_finished"){
         int a=0;
     }else if(notification->getNotificationName() == "mysql_connection_error"){

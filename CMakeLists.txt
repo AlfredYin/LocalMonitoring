@@ -25,7 +25,9 @@ message(STATUS "INC: ${INC}")
 
 # Util
 aux_source_directory(Util/MySqlRepository Util_SRC)
+aux_source_directory(Util/Helper Util_SRC)
 file(GLOB Util_INC "Util/MySqlRepository/*.h")
+file(GLOB Util_INC "Util/Helper/*.h")
 
 message(STATUS "Util_SRC: ${Util_SRC}")
 message(STATUS "Util_INC: ${Util_INC}")
@@ -89,6 +91,7 @@ include_directories(
     "Patterns"
     "Model"
     "Util/MySqlRepository"
+    "Util/Helper"
 
     "Controller/01_HomeMainWindow"
     "Model/01_HomeMainWindow"

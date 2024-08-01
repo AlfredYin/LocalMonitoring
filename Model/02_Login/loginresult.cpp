@@ -2,5 +2,5 @@
 
 LoginResult::LoginResult()
 {
-
+    m_updateDataName = "LoginResult";
 }

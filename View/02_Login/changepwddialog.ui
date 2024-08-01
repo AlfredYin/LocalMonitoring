@@ -123,7 +123,7 @@
        <item>
         <widget class="QLineEdit" name="lineEdit_PassWordConfirm">
          <property name="text">
-          <string>123456</string>
+          <string>Yin1719934825</string>
          </property>
         </widget>
        </item>

@@ -13,9 +13,12 @@ class LoginProxy : public Proxy , MySqlDBRepository
 public:
     LoginProxy();
 
-    void checkLogin(LoginParam *loginInfo);
+    void checkLogin(LoginParam *loginParam);
 
-    void changePwd(LoginParam *loginInfo);
+    void changePwd(LoginParam *loginParam);
+
+private:
+    QString EncryptUserPassword(QString password, QString salt);
 };
 
 #endif // LOGINPROXY_H
