@@ -1,9 +1,8 @@
 #include <QApplication>
 #include "ApplicationFacade.h"
-#include "LoginForm.h"
+#include "logindialog.h"
 #include "mysqldbmanager.h"
 #include "mainwindow.h"
-#include "devicemainwindow.h"
 
 int main(int argc, char **argv)
 {
@@ -22,8 +21,11 @@ int main(int argc, char **argv)
         return -1;
     }
 
-    MainWindow mainWindow;
-    mainWindow.show();
+    LoginDialog dialog;
+    dialog.show();
+
+//    MainWindow mainWindow;
+//    mainWindow.show();
 
 //    DeviceMainWindow *mainWindow = new DeviceMainWindow();
 //    mainWindow->show();

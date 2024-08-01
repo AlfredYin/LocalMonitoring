@@ -15,36 +15,59 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 aux_source_directory(Core SRC)
 aux_source_directory(Patterns SRC)
-aux_source_directory(MySqlDBManager SRC)
-aux_source_directory(Util SRC)
+aux_source_directory(Model SRC)
+aux_source_directory(Controller SRC)
 aux_source_directory(. SRC)
-file(GLOB INC "Core/*.h" "Interface/*.h" "Patterns/*.h" "MySqlDBManager/*.h" "./*.h "Util/*.h"")
-file(GLOB UI "./*.ui")
+file(GLOB INC "Core/*.h" "Interface/*.h" "Patterns/*.h" "Model/*.h")
 
 message(STATUS "SRC: ${SRC}")
 message(STATUS "INC: ${INC}")
-message(STATUS "UI: ${UI}")
 
-# 01 Login
-aux_source_directory(01_Login 01_SRC)
-file(GLOB 01_INC "01_Login/*.h")
-file(GLOB 01_UI "01_Login/*.ui")
+# Util
+aux_source_directory(Util/MySqlRepository Util_SRC)
+file(GLOB Util_INC "Util/MySqlRepository/*.h")
+
+message(STATUS "Util_SRC: ${Util_SRC}")
+message(STATUS "Util_INC: ${Util_INC}")
+
+# 01 HomeMainWindow
+aux_source_directory(Controller/01_HomeMainWindow 01_SRC)
+aux_source_directory(Model/01_HomeMainWindow 01_SRC)
+aux_source_directory(View/01_HomeMainWindow 01_SRC)
+file(GLOB 01_INC "Model/01_HomeMainWindow/*.h" "View/01_HomeMainWindow/*.h")
+file(GLOB 01_UI "View/01_HomeMainWindow/*.ui")
 
 message(STATUS "01_SRC: ${01_SRC}")
 message(STATUS "01_INC: ${01_INC}")
 message(STATUS "01_UI: ${01_UI}")
 
-# 02 PrimaryService
-aux_source_directory(02_PrimaryService 02_SRC)
-file(GLOB 02_INC "02_PrimaryService/*.h")
-file(GLOB 02_UI "02_PrimaryService/*.ui")
+list(APPEND CMAKE_AUTOUIC_SEARCH_PATHS "View/01_HomeMainWindow")
+
+# 02 Login
+aux_source_directory(Controller/02_Login 02_SRC)
+aux_source_directory(Model/02_Login 02_SRC)
+aux_source_directory(View/02_Login 02_SRC)
+file(GLOB 02_INC "Model/02_Login/*.h" "View/02_Login/*.h")
+file(GLOB 02_UI "View/02_Login/*.ui")
 
 message(STATUS "02_SRC: ${02_SRC}")
 message(STATUS "02_INC: ${02_INC}")
 message(STATUS "02_UI: ${02_UI}")
 
+list(APPEND CMAKE_AUTOUIC_SEARCH_PATHS "View/02_Login")
 
-list(APPEND CMAKE_AUTOUIC_SEARCH_PATHS "02_PrimaryService")
+# 03 Device
+aux_source_directory(Controller/03_Device 03_SRC)
+aux_source_directory(Model/03_Device 03_SRC)
+aux_source_directory(View/03_Device 03_SRC)
+file(GLOB 03_INC "Model/03_Device/*.h" "View/03_Device/*.h")
+file(GLOB 03_UI "View/03_Device/*.ui")
+
+message(STATUS "03_SRC: ${03_SRC}")
+message(STATUS "03_INC: ${03_INC}")
+message(STATUS "03_UI: ${03_UI}")
+
+list(APPEND CMAKE_AUTOUIC_SEARCH_PATHS "View/03_Device")
 
 # 获取查找结果，存储到变量中 Widgets Network Multimedia
 find_package(QT NAMES Qt5 Qt6 COMPONENTS Widgets Network Multimedia Charts Sql REQUIRED)
@@ -59,7 +82,27 @@ else()
 endif()
 
 # 添加该行用于将include目录添加到头文件搜索路径中
-include_directories("Util" "Core" "Interface" "Patterns" "MySqlDBManager" "." "01_Login" "02_PrimaryService")
+include_directories(
+    "Controller"
+    "Core"
+    "Interface"
+    "Patterns"
+    "Model"
+    "Util/MySqlRepository"
+
+    "Controller/01_HomeMainWindow"
+    "Model/01_HomeMainWindow"
+    "View/01_HomeMainWindow"
+
+    "Controller/02_Login"
+    "Model/02_Login"
+    "View/02_Login"
+
+    "Controller/03_Device"
+    "Model/03_Device"
+    "View/03_Device"
+
+    )
 
 # 使用自动查找的存储的变量
 add_executable(${PROJECT_NAME}
@@ -67,12 +110,22 @@ add_executable(${PROJECT_NAME}
     ${INC}
     ${SRC}
     ${UI}
+
+    ${Util_INC}
+    ${Util_SRC}
+    ${Util_UI}
+
     ${01_INC}
     ${01_SRC}
     ${01_UI}
+
     ${02_INC}
     ${02_SRC}
     ${02_UI}
+
+    ${03_INC}
+    ${03_SRC}
+    ${03_UI}
     )
 
 target_include_directories(${PROJECT_NAME} PUBLIC $<TARGET_FILE_DIR:${PROJECT_NAME}>)

@@ -1,15 +1,15 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "Patterns/Facade.h"
-#include "LoginMediator.h"
-#include "LoginInfo.h"
-#include "LoginResult.h"
-#include "devicemainwindow.h"
+#include "loginmediator.h"
+#include "loginparam.h"
+#include "loginresult.h"
+#include "mainwindow.h"
 #include "changepwddialog.h"
 
 #include <QDebug>
 #include <QMessageBox>
-#include "LoginForm.h"
+#include "logindialog.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -63,13 +63,13 @@ void MainWindow::update(IUpdateData *updateData)
 
 void MainWindow::showDeviceMainWindow()
 {
-    deviceMainWindow=new DeviceMainWindow(this);
-    deviceMainWindow->show();
+//    deviceMainWindow=new DeviceMainWindow(this);
+//    deviceMainWindow->show();
 }
 
 void MainWindow::on_pushButtonLogin_clicked()
 {
-        loginDialog = new Dialog(this);
+        loginDialog = new LoginDialog(this);
         loginDialog->show();
 }
 

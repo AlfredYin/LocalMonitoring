@@ -1,9 +1,9 @@
 #ifndef LOGINRESULT_H
 #define LOGINRESULT_H
 
-#include "Patterns/UpdateData.h"
+#include "baseresult.h"
 
-class LoginResult : public UpdateData
+class LoginResult : public BaseResult
 {
 public:
     LoginResult();
@@ -11,9 +11,6 @@ public:
 public:
     QString username;
     QString passwd;
-    bool result;
-
-    QString message;
 };
 
 #endif // LOGINRESULT_H
