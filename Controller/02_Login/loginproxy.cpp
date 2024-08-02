@@ -59,17 +59,21 @@ void LoginProxy::changePwd(LoginParam *loginInfo)
 
     qDebug()<<"name:" << name << ", passwdChange:" << passwd;
 
-    QSqlQuery query(MySqlDBManager::instance().getDatabase());
-    query.exec("SELECT id, username, password FROM users");
+    QString queryStr="SELECT id,UserName, Password, Salt FROM SysUser";
+    QSqlQuery query=executeQuery(queryStr);
 
     loginResult->result = true;
     while (query.next()) {
-        int id = query.value(0).toInt();
+
+        float id = query.value(0).toFloat();
+
         QString username = query.value(1).toString();
         QString password = query.value(2).toString();
-        qDebug() << "id:" << id << "username:" << username << ", Password:" << password;
+        QString salt = query.value(3).toString();
+        qDebug() << "id:" << id << "username:" << username << ", Password:" << password << "salt:" << salt;
+
         if(name==username){
-            if(passwd==password){
+            if(password==EncryptUserPassword(passwd,salt)){
                 loginResult->result = false;
                 loginResult->message = "新密码与老密码相同";
                 break;
@@ -77,10 +81,13 @@ void LoginProxy::changePwd(LoginParam *loginInfo)
         }
     }
 
+
+    // 随机生产密码盐 根据修改的密码重新生产
     if(loginResult->result){
-        query.prepare("UPDATE `AlfredDb`.`users` SET password=:passwd WHERE username=:user;");
+        query.prepare("UPDATE `AlfredDb`.`SysUser` SET Password=:passwd,Salt=:salt WHERE UserName=:user;");
         query.bindValue(":user",name);
         query.bindValue(":passwd",passwd);
+        query.bindValue(":salt",salt);
 
         if(query.exec()){
             loginResult->result = true;

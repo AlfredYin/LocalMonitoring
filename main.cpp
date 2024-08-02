@@ -21,11 +21,11 @@ int main(int argc, char **argv)
         return -1;
     }
 
-    LoginDialog dialog;
-    dialog.show();
+//    LoginDialog dialog;
+//    dialog.show();
 
-//    MainWindow mainWindow;
-//    mainWindow.show();
+    MainWindow mainWindow;
+    mainWindow.show();
 
 //    DeviceMainWindow *mainWindow = new DeviceMainWindow();
 //    mainWindow->show();
