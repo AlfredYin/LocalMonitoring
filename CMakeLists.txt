@@ -32,31 +32,39 @@ file(GLOB Util_INC "Util/Helper/*.h")
 message(STATUS "Util_SRC: ${Util_SRC}")
 message(STATUS "Util_INC: ${Util_INC}")
 
+# Service
+aux_source_directory(Service SERVICE_SRC)
+file(GLOB SERVICE_INC "Service/*.h")
+
+message(STATUS "SERVICE_SRC: ${SERVICE_SRC}")
+message(STATUS "SERVICE_INC: ${SERVICE_INC}")
+
+
 # 01 HomeMainWindow
-aux_source_directory(Controller/01_HomeMainWindow 01_SRC)
-aux_source_directory(Model/01_HomeMainWindow 01_SRC)
-aux_source_directory(View/01_HomeMainWindow 01_SRC)
-file(GLOB 01_INC "Model/01_HomeMainWindow/*.h" "View/01_HomeMainWindow/*.h")
-file(GLOB 01_UI "View/01_HomeMainWindow/*.ui")
+aux_source_directory(Controller/01_Home 01_SRC)
+aux_source_directory(Model/01_Home 01_SRC)
+aux_source_directory(View/01_Home 01_SRC)
+file(GLOB 01_INC "Model/01_Home/*.h" "View/01_Home/*.h")
+file(GLOB 01_UI "View/01_Home/*.ui")
 
 message(STATUS "01_SRC: ${01_SRC}")
 message(STATUS "01_INC: ${01_INC}")
 message(STATUS "01_UI: ${01_UI}")
 
-list(APPEND CMAKE_AUTOUIC_SEARCH_PATHS "View/01_HomeMainWindow")
+list(APPEND CMAKE_AUTOUIC_SEARCH_PATHS "View/01_Home")
 
 # 02 Login
-aux_source_directory(Controller/02_Login 02_SRC)
-aux_source_directory(Model/02_Login 02_SRC)
-aux_source_directory(View/02_Login 02_SRC)
-file(GLOB 02_INC "Model/02_Login/*.h" "View/02_Login/*.h")
-file(GLOB 02_UI "View/02_Login/*.ui")
+aux_source_directory(Controller/02_User 02_SRC)
+aux_source_directory(Model/02_User 02_SRC)
+aux_source_directory(View/02_User 02_SRC)
+file(GLOB 02_INC "Model/02_User/*.h" "View/02_User/*.h")
+file(GLOB 02_UI "View/02_User/*.ui")
 
 message(STATUS "02_SRC: ${02_SRC}")
 message(STATUS "02_INC: ${02_INC}")
 message(STATUS "02_UI: ${02_UI}")
 
-list(APPEND CMAKE_AUTOUIC_SEARCH_PATHS "View/02_Login")
+list(APPEND CMAKE_AUTOUIC_SEARCH_PATHS "View/02_User")
 
 # 03 Device
 aux_source_directory(Controller/03_Device 03_SRC)
@@ -72,9 +80,9 @@ message(STATUS "03_UI: ${03_UI}")
 list(APPEND CMAKE_AUTOUIC_SEARCH_PATHS "View/03_Device")
 
 # 获取查找结果，存储到变量中 Widgets Network Multimedia
-find_package(QT NAMES Qt5 Qt6 COMPONENTS Widgets Network Multimedia Charts Sql REQUIRED)
+find_package(QT NAMES Qt5 Qt6 COMPONENTS Widgets Network Multimedia Charts Sql Concurrent REQUIRED)
 # 根据上面的结果去获取package Widgets Network Multimedia
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets Network Multimedia Charts Sql REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets Network Multimedia Charts Sql Concurrent REQUIRED)
 # 最后查看获取的情况
 if(Qt${QT_VERSION_MAJOR}_FOUND)
     message(STATUS "Found Qt version: ${Qt${QT_VERSION_MAJOR}_VERSION}")
@@ -92,14 +100,15 @@ include_directories(
     "Model"
     "Util/MySqlRepository"
     "Util/Helper"
+    "Service"
 
-    "Controller/01_HomeMainWindow"
-    "Model/01_HomeMainWindow"
-    "View/01_HomeMainWindow"
+    "Controller/01_Home"
+    "Model/01_Home"
+    "View/01_Home"
 
-    "Controller/02_Login"
-    "Model/02_Login"
-    "View/02_Login"
+    "Controller/02_User"
+    "Model/02_User"
+    "View/02_User"
 
     "Controller/03_Device"
     "Model/03_Device"
@@ -116,7 +125,9 @@ add_executable(${PROJECT_NAME}
 
     ${Util_INC}
     ${Util_SRC}
-    ${Util_UI}
+
+    ${SERVICE_INC}
+    ${SERVICE_SRC}
 
     ${01_INC}
     ${01_SRC}

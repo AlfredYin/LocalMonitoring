@@ -1,0 +1,22 @@
+#ifndef MAINWINDOWMEDIATOR_H
+#define MAINWINDOWMEDIATOR_H
+
+#include "Patterns/Mediator.h"
+
+class HomeMediator : public Mediator
+{
+public:
+    HomeMediator();
+
+    QList<QString> getListNotificationInterests();
+
+    void handleNotification(INotification *notification);
+
+    // View中的直接调用的指令
+    void startGetNtpTime();
+
+private:
+    QList<QString> m_notificationInterests;
+};
+
+#endif // MAINWINDOWMEDIATOR_H
