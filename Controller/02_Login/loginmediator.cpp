@@ -41,6 +41,8 @@ void LoginMediator::handleNotification(INotification *notification)
     {
         m_viewComponent->update((IUpdateData *)notification->getBody());
     }else if (notification->getNotificationName() == "change_passwd_finished") {
+
+        qDebug()<<"notification->getNotificationName() == change_passwd_finished";
         m_viewComponent->update((IUpdateData *)notification->getBody());
     }
 }

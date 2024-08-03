@@ -5,6 +5,9 @@
 #include "mysqldbrepository.h"
 #include "Patterns/Proxy.h"
 
+#include <QRandomGenerator>
+#include <QDateTime>
+
 class LoginInfo;
 
 // Model 代表应用程序的数据和业务逻辑。它通常由 Proxy 组成。
@@ -19,6 +22,8 @@ public:
 
 private:
     QString EncryptUserPassword(QString password, QString salt);
+
+    QString getPasswordSalt();
 };
 
 #endif // LOGINPROXY_H

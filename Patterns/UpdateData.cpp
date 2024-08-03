@@ -10,6 +10,11 @@ QString UpdateData::setType(const QString &type)
     m_updateDataType = type;
 }*/
 
+//QString UpdateData::setName(QString name)
+//{
+//    m_updateDataName=name;
+//}
+
 QString UpdateData::getName() const
 {
     return m_updateDataName;

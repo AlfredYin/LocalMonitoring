@@ -10,6 +10,7 @@ public:
 
     QString setType(const QString &type);*/
 
+//    QString setName(QString name);
     QString getName() const;
 
 protected:

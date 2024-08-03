@@ -46,7 +46,7 @@
        <item>
         <widget class="QLineEdit" name="lineEdit_PassWord">
          <property name="text">
-          <string>123456</string>
+          <string/>
          </property>
         </widget>
        </item>

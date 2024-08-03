@@ -3,6 +3,7 @@
 #include "logindialog.h"
 #include "mysqldbmanager.h"
 #include "mainwindow.h"
+#include "widget_homepage.h"
 
 int main(int argc, char **argv)
 {
@@ -21,14 +22,9 @@ int main(int argc, char **argv)
         return -1;
     }
 
-//    LoginDialog dialog;
-//    dialog.show();
 
     MainWindow mainWindow;
     mainWindow.show();
-
-//    DeviceMainWindow *mainWindow = new DeviceMainWindow();
-//    mainWindow->show();
 
     return app.exec();
 }

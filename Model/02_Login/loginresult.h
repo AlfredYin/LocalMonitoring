@@ -11,6 +11,8 @@ public:
 public:
     QString username;
     QString passwd;
+
+    QString realname;
 };
 
 #endif // LOGINRESULT_H

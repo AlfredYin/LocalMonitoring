@@ -1,14 +1,15 @@
 #include "ApplicationFacade.h"
-#include "LoginCommand.h"
-#include "LoginMediator.h"
-#include "LoginProxy.h"
+#include "logincommand.h"
+#include "loginmediator.h"
+#include "loginproxy.h"
 
 #include "changepwdcommand.h"
 
 #include "devicecommand.h"
 #include "devicemediator.h"
 #include "deviceproxy.h"
-#include "ApplicationMediator.h"
+
+#include "mainwindowmediator.h"
 
 // 客户端初始化时须对Mediator，Command，Proxy进行注册，以表明各自感兴趣的消息（观察者模式中的订阅）。
 ApplicationFacade::ApplicationFacade() : Facade()
@@ -22,7 +23,9 @@ void ApplicationFacade::initializeMediator()
 
     registerMediator(new DeviceMediator());
 
-    registerMediator(new ApplicationMediator());
+    registerMediator(new MainWindowMediator());
+
+//    registerMediator(new ApplicationMediator());
 }
 
 // Command（命令）表示一个执行操作或命令的对象。通常封装了一个操作或一系列操作，并且可以调用 Proxy 完成业务逻辑。

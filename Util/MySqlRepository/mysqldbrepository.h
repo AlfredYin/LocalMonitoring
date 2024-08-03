@@ -18,6 +18,10 @@ public:
 
     QSqlQuery executeQuery(const QString &queryStr, const QVariantList &bindValues = QVariantList());
 
+    QSqlQuery executeQuery(const QString &queryStr, const QVariantMap &namedBindValues);
+
+    QSqlQuery executeQuery(const QString &queryStr, const std::initializer_list<QPair<QString, QVariant>> &namedBindValues);
+
 };
 
 #endif // MYSQLDBREPOSITORY_H

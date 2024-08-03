@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8.12)
 
-project(Demo_PureMvc)
+project(LocalMonitoring)
 
 # CMake会自动查找和处理所有包含了Q_OBJECT宏的类，并通过moc（元对象编译器）生成对应的.moc文件。
 # 在Qt中使用信号和槽、以及某些其他特性时就需要这些.moc文件。因此开启此选项可以简化编译过程。

@@ -35,7 +35,7 @@
        <item>
         <widget class="QLineEdit" name="lineEdit_UserName">
          <property name="text">
-          <string>admin</string>
+          <string/>
          </property>
         </widget>
        </item>
@@ -53,7 +53,7 @@
        <item>
         <widget class="QLineEdit" name="lineEdit_PassWord">
          <property name="text">
-          <string>123456</string>
+          <string/>
          </property>
         </widget>
        </item>
@@ -123,7 +123,7 @@
        <item>
         <widget class="QLineEdit" name="lineEdit_PassWordConfirm">
          <property name="text">
-          <string>Yin1719934825</string>
+          <string/>
          </property>
         </widget>
        </item>

@@ -2,9 +2,12 @@
 #define MAINWINDOW_H
 
 #include "Interface/IViewComponent.h"
-#include "ApplicationMediator.h"
+#include "mainwindowmediator.h"
+#include "logindialog.h"
+#include "widget_homepage.h"
 
 #include <QMainWindow>
+#include <QPointer>
 
 namespace Ui {
 class MainWindow;
@@ -20,24 +23,13 @@ public:
 
     void update(IUpdateData *updateData);
 
-    void showDeviceMainWindow();
 
-private slots:
-    void on_pushButtonLogin_clicked();
-
-    void on_pushButtonChangePassword_clicked();
 
 private:
     Ui::MainWindow *ui;
-    ApplicationMediator *applicationMediator;
+    MainWindowMediator *mainWindowMediator;
 
-    QDialog *loginDialog;
-    QDialog *changePwdDialog;
-
-    QMainWindow *deviceMainWindow;
-
-    int m_Count=0;
-
+    QWidget *widget_HomePage;
 };
 
 #endif // MAINWINDOW_H

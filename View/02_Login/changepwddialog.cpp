@@ -1,7 +1,7 @@
 #include "changepwddialog.h"
 #include "ui_changepwddialog.h"
 #include "loginparam.h"
-#include "loginresult.h"
+#include "changepwdresult.h"
 #include "Patterns/Facade.h"
 #include "loginmediator.h"
 
@@ -29,19 +29,20 @@ void ChangePwdDialog::update(IUpdateData *updateData)
 {
     qDebug()<<"void ChangePwdDialog::update(IUpdateData *updateData)";
 
-    if (updateData->getName() == "LoginResult")
+//    if (updateData->getName() == "LoginResult_ChangePwd")
+    if (updateData->getName() == "ChangePwdResult")
     {
-        LoginResult *loginResult = (LoginResult *)updateData;
+        ChangePwdResult *changePwdResult = (ChangePwdResult *)updateData;
 
-        if (loginResult->result)
+        if (changePwdResult->result)
         {
             QMessageBox::information(nullptr, "", "修改成功");
-            qDebug() << "Login Success";
+            qDebug() << "ChangePwd Success";
         }
         else
         {
-            QMessageBox::information(nullptr, "", "修改失败:"+loginResult->message);
-            qDebug() << "Login Fail";
+            QMessageBox::information(nullptr, "", "修改失败:"+changePwdResult->message);
+            qDebug() << "ChangePwd Fail";
         }
     }
 
