@@ -8,7 +8,6 @@
 #include "Patterns/Facade.h"
 #include "devicemediator.h"
 #include "deviceproxy.h"
-#include "devicestateinfo.h"
 #include "devicestateresult.h"
 
 

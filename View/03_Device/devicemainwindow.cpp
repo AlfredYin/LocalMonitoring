@@ -36,17 +36,17 @@ void DeviceMainWindow::update(IUpdateData *updateData)
 
 void DeviceMainWindow::updateDeivceState(DeviceStateResult *result)
 {
-    foreach(auto deivceStateInfo,result->deviceStateList){
-        QString str=QString::asprintf("id:%d",deivceStateInfo.id)+
-                ",devicename:"+deivceStateInfo.device_name+
-                ",connection:"+deivceStateInfo.connection_status;
+//    foreach(auto deivceStateInfo,result->deviceStateList){
+//        QString str=QString::asprintf("id:%d",deivceStateInfo.id)+
+//                ",devicename:"+deivceStateInfo.device_name+
+//                ",connection:"+deivceStateInfo.connection_status;
 
-        ui->plainTextEdit->appendPlainText(str);
-    }
+//        ui->plainTextEdit->appendPlainText(str);
+//    }
 }
 
 void DeviceMainWindow::on_pushButton_clicked()
 {
-    DeviceStateInfo info;
-    deviceMediator->getDeviceState(&info);
+//    DeviceStateInfo info;
+//    deviceMediator->getDeviceState(&info);
 }

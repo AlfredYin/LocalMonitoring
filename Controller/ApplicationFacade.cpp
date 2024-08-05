@@ -10,6 +10,7 @@
 #include "homeproxy.h"
 #include "homemediator.h"
 #include "homentptimecommand.h"
+#include "mainwindowmediator.h"
 
 // 客户端初始化时须对Mediator，Command，Proxy进行注册，以表明各自感兴趣的消息（观察者模式中的订阅）。
 ApplicationFacade::ApplicationFacade() : Facade()
@@ -24,6 +25,8 @@ void ApplicationFacade::initializeMediator()
     registerMediator(new DeviceMediator());
 
     registerMediator(new HomeMediator());
+
+    registerMediator(new MainWindowMediator());
 
 //    registerMediator(new ApplicationMediator());
 }

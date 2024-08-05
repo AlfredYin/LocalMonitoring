@@ -25,12 +25,18 @@ typedef struct
 
 class NtpService : public QObject
 {
+    Q_OBJECT
+
 public:
     NtpService(QObject *parent = nullptr);
 
     ~NtpService();
 
     QDateTime getNtpTime();
+
+signals:
+    void updateNtpTime(QDateTime);
+    void updateData(QString);
 
 private:
     void on_connected();

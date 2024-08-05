@@ -5,15 +5,16 @@
 #include "homemediator.h"
 #include "logindialog.h"
 #include "widget_homepage.h"
+#include "mainwindowmediator.h"
 
 #include <QMainWindow>
 #include <QPointer>
 
+class MainWindowMediator;
+
 namespace Ui {
 class MainWindow;
 }
-
-class HomeMediator;
 
 class MainWindow : public QMainWindow, public IViewComponent
 {
@@ -29,9 +30,13 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    HomeMediator *homeMediator;
+
+    MainWindowMediator *mainWindowMediator;
 
     QWidget *widget_HomePage;
+
+    // 状态栏 QLabel
+    QLabel *label_ntp_status;
 };
 
 #endif // MAINWINDOW_H

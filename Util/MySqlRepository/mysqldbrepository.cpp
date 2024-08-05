@@ -194,7 +194,7 @@ QFuture<QSqlQuery> MySqlDBRepository::executeQueryAsync(const QString &queryStr,
     return QtConcurrent::run([this, queryStr, namedBindValues]() {
 
 
-        qDebug() << "Starting async query: " << queryStr;
+//        qDebug() << "Starting async query: " << queryStr;
         // 异步查询实现
 
         if(!MySqlDBManager::instance().getDatabase().isOpen()){
@@ -233,10 +233,8 @@ QFuture<QSqlQuery> MySqlDBRepository::executeQueryAsync(const QString &queryStr,
             qDebug() << "Error executing query:" << query.lastError().text();
         }
 
-        QThread::sleep(10);
-
         // 在查询完成时输出调试信息
-        qDebug() << "Async query completed: " << queryStr;
+//        qDebug() << "Async query completed: " << queryStr;
         return query;
     });
 }

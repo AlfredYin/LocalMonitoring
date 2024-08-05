@@ -6,11 +6,13 @@
 #include "loginresult.h"
 #include "mainwindow.h"
 #include "changepwddialog.h"
+#include "mainwindowmediator.h"
 
 #include <QTabWidget>
 #include <QDebug>
 #include <QMessageBox>
 #include "logindialog.h"
+#include "ntptimeresult.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -19,14 +21,18 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     Facade *facade = Facade::getInstance();
-    homeMediator=(HomeMediator *)facade->retrieveMediator("HomeMediator");
-    homeMediator->registerViewComponent(this);
+    mainWindowMediator=(MainWindowMediator *)facade->retrieveMediator("MainWindowMediator");
+    mainWindowMediator->registerViewComponent(this);
 
     // 选项卡添加元素
     widget_HomePage=new Widget_HomePage(this);
     ui->tabWidget->addTab(widget_HomePage,"主页");
 
-    homeMediator->startGetNtpTime();
+    mainWindowMediator->startGetNtpTime();
+
+    label_ntp_status=new QLabel(this);
+    label_ntp_status->setMinimumWidth(500);
+    ui->statusBar->addWidget(label_ntp_status);
 }
 
 MainWindow::~MainWindow()
@@ -36,5 +42,16 @@ MainWindow::~MainWindow()
 
 void MainWindow::update(IUpdateData *updateData)
 {
+    if(updateData->getName()=="NtpTimeResult"){
+        NtpTimeResult *result = static_cast<NtpTimeResult *>(updateData);
+        // 登录成功
+        if(result->result){
+            QString ntpTimeStr=result->ntpTime.toString("yyyy-MM-dd hh:mm:ss zzz");
+            label_ntp_status->setText("   Ntp时间获取成功: "+ntpTimeStr+" 系统时间已校正");
+        }else{
+            QString messStr=result->message;
+            label_ntp_status->setText(messStr);
+        }
 
+    }
 }

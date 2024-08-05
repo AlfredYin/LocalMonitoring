@@ -39,12 +39,12 @@ public:
 
     void startQuery(const QString &queryStr, const QList<QPair<QString, QVariant>> &namedBindValues)
     {
-        qDebug() << "Starting query with QList<QPair<QString, QVariant>>: " << queryStr;
+//        qDebug() << "Starting query with QList<QPair<QString, QVariant>>: " << queryStr;
         m_future = m_repo->executeQueryAsync(queryStr, namedBindValues);
         m_watcher->setFuture(m_future);
         // connect(m_watcher, &QFutureWatcher<QSqlQuery>::finished, this, &QueryHandler::handleResultReady);
 
-        qDebug() << "Future set for QList<QPair<QString, QVariant>> query: " << queryStr;
+//        qDebug() << "Future set for QList<QPair<QString, QVariant>> query: " << queryStr;
     }
 
 signals:

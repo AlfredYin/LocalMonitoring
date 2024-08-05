@@ -5,6 +5,7 @@
 #include "homemediator.h"
 #include "logindialog.h"
 #include <QWidget>
+#include <QLabel>
 
 namespace Ui {
 class Widget_HomePage;
@@ -25,6 +26,7 @@ private slots:
 
     void on_pushButtonChangePassword_clicked();
 
+    void updateTimeLabel();
 private:
     HomeMediator *homeMediator;
 
@@ -34,6 +36,8 @@ private:
     QDialog *changePwdDialog=nullptr;
 
     int m_Count=0;
+
+    QTimer *time_Timer;
 
     Ui::Widget_HomePage *ui;
 };

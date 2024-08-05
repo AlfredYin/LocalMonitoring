@@ -2,6 +2,7 @@
 #define APPLICATIONFACADE_H
 
 #include "Patterns/Facade.h"
+#include "mainwindowmediator.h"
 
 class ApplicationFacade : public Facade
 {

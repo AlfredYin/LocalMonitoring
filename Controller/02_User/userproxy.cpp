@@ -142,7 +142,7 @@ UserInfo UserProxy::getUserInfo(UserParam *userParam)
     QSqlQuery query=executeQuery(queryStr,{{":username",name}});
 
     if(query.first()){
-        userInfo.id=query.value(0).toFloat();
+        userInfo.id=query.value(0).toLongLong();
         userInfo.username=query.value(1).toString();
         userInfo.realname=query.value(2).toString();
         userInfo.passwd=query.value(3).toString();

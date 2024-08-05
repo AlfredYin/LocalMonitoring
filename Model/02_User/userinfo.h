@@ -11,7 +11,7 @@ public:
     UserInfo();
 
 public:
-    long id;
+    long long id;
 
     QString username;
     QString passwd;

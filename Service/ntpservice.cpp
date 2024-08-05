@@ -13,7 +13,7 @@ NtpService::NtpService(QObject *parent) : QObject(parent)
     m_socket = new QUdpSocket();
 
     connect(m_socket, &QUdpSocket::connected, this, &NtpService::on_connected);
-//    connect(m_socket, &QUdpSocket::readyRead, this, &NtpService::on_readData);
+    connect(m_socket, &QUdpSocket::readyRead, this, &NtpService::on_readData);
 
     m_socket->connectToHost("47.98.243.38", 123);
 }
@@ -23,6 +23,7 @@ NtpService::~NtpService()
     m_socket->close();
 }
 
+// 同步方法暂不启用
 QDateTime NtpService::getNtpTime()
 {
     // 发送Ntp组成报文
@@ -82,9 +83,9 @@ QDateTime NtpService::getNtpTime()
 
 void NtpService::on_connected()
 {
-    // QMetaEnum m = QMetaEnum::fromType<QAbstractSocket::SocketState>();      // 获取QUdpSocket连接状态字符串
-    // emit updateData(QString("连接成功：%1  %2").arg(m_socket->peerName()).arg(m.key(m_socket->state())));
-
+     QMetaEnum m = QMetaEnum::fromType<QAbstractSocket::SocketState>();      // 获取QUdpSocket连接状态字符串
+     emit updateData(QString("连接成功：%1  %2").arg(m_socket->peerName()).arg(m.key(m_socket->state())));
+    sendData();
 }
 
 void NtpService::on_readData()
@@ -133,13 +134,14 @@ void NtpService::on_readData()
 
     dateTime.setMSecsSinceEpoch(currentLocalTimestamp1);
     strTime = dateTime.toString("yyyy-MM-dd HH:mm:ss zzz");
-//    emit updateData(strTime);
+    emit updateData(strTime);
+    emit updateNtpTime(dateTime);
 #else        // 计算方式2：往返时延Delay=（T4-T1）-（T3-T2）            实际时间=程序处理时间（timer.elapsed()） + 服务器数据发出时间（T3）+ 通信时延（Delay）
     qint64 currentLocalTimestamp2 = timer.elapsed() + translateTimestamp + (((currentLocalTimestamp - originTimestamp) - (translateTimestamp - receiveTimestamp)) / 2);
     dateTime.setMSecsSinceEpoch(currentLocalTimestamp2);
     strTime = dateTime.toString("yyyy-MM-dd HH:mm:ss zzz");
 #endif
-    qDebug() << strTime;
+//    qDebug() << strTime;
 //    setDateTime(dateTime);
 }
 

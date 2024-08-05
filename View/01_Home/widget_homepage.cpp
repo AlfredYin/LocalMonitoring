@@ -12,6 +12,8 @@
 #include <QDebug>
 #include <QMessageBox>
 #include <QDateTime>
+#include <QTimer>
+#include <QDateTime>
 #include "logindialog.h"
 
 Widget_HomePage::Widget_HomePage(QWidget *parent) :
@@ -25,8 +27,9 @@ Widget_HomePage::Widget_HomePage(QWidget *parent) :
     homeMediator = (HomeMediator *)facade->retrieveMediator("HomeMediator");
     homeMediator->registerViewComponent(this);
 
-    NtpService *ntpService=new NtpService(this);
-
+    time_Timer=new QTimer(this);
+    connect(time_Timer, &QTimer::timeout, this, &Widget_HomePage::updateTimeLabel);
+    time_Timer->start(1000);
 }
 
 Widget_HomePage::~Widget_HomePage()
@@ -88,4 +91,11 @@ void Widget_HomePage::on_pushButtonChangePassword_clicked()
         changePwdDialog=new ChangePwdDialog(this);
     }
     changePwdDialog->show();
+}
+
+void Widget_HomePage::updateTimeLabel()
+{
+    QDateTime time=QDateTime::currentDateTime();
+    QString timeStr=time.toString("yyyy-MM-dd hh:mm:ss");
+    ui->label_time->setText(timeStr);
 }
