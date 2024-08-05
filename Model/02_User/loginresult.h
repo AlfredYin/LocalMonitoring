@@ -9,8 +9,10 @@ public:
     LoginResult();
 
 public:
+    long long id;
     QString username;
     QString passwd;
+    QString encryptedpaswd;
 
     QString realname;
 };

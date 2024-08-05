@@ -15,6 +15,7 @@ public:
 
     QString username;
     QString passwd;
+    QString encryptedpaswd;
 
     QString realname;
 };

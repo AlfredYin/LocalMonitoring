@@ -26,6 +26,8 @@ private:
     QString EncryptUserPassword(QString password, QString salt);
 
     QString getPasswordSalt();
+
+    UserInfo m_UserInfo;
 };
 
 #endif // USERPROXY_H

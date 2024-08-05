@@ -20,11 +20,12 @@ UserProxy::UserProxy()
 // 处理真正的业务逻辑和数据操作。可以作为数据模型的抽象层，与数据库或其他数据源交互。
 void UserProxy::checkLogin(LoginParam *loginParam)
 {
-    UserHelper* userHelper = UserHelper::instance();
+//    UserHelper* userHelper = UserHelper::instance();
     UserInfo userInfo;
     userInfo.username=loginParam->name;
     userInfo.passwd=loginParam->password;
-    userHelper->setUserInfo(userInfo);
+//    userHelper->setUserInfo(userInfo);
+    m_UserInfo=userInfo;
 
 //    userHelper->getUserInfo().username=loginParam->name;
 //    userHelper->getUserInfo().passwd=loginParam->password;
@@ -49,24 +50,26 @@ void UserProxy::checkLogin(LoginParam *loginParam)
         loginResult->result = false;
         if(query.first()){
             float id = query.value(0).toFloat();
-
             QString username = query.value(1).toString();
             QString realname = query.value(2).toString();
-            QString password = query.value(3).toString();
+            QString encryptedpaswd = query.value(3).toString();
             QString salt = query.value(4).toString();
 
-            UserHelper* userHelper = UserHelper::instance();
-            if(password==EncryptUserPassword(userHelper->getUserInfo().passwd,salt)){
+//            UserHelper* userHelper = UserHelper::instance();
+            if(encryptedpaswd==EncryptUserPassword(m_UserInfo.passwd,salt)){
                 loginResult->result = true;
                 loginResult->username=username;
                 loginResult->realname=realname;
-                loginResult->passwd=userHelper->getUserInfo().passwd;
+//                loginResult->passwd=userHelper->getUserInfo().passwd;
+                loginResult->passwd=m_UserInfo.passwd;
+                loginResult->encryptedpaswd=encryptedpaswd;
             }
         }else{
             loginResult->result = false;
+
         }
 
-        sendNotification("login_finished", (void *)loginResult);
+        sendNotification("login_finished", static_cast<void *>(loginResult));
     });
 
     handler->startQuery(queryStr,bindValues);

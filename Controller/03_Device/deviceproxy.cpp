@@ -10,7 +10,7 @@ DeviceProxy::DeviceProxy()
     PROXY_NAME = "DeviceProxy";
 }
 
-void DeviceProxy::getDevicestate(DeviceParam *deviceStateInfo)
+void DeviceProxy::getDeviceState(DeviceParam *deviceParam)
 {
     DeviceStateResult *deviceStateResult=new DeviceStateResult();
 
@@ -39,4 +39,9 @@ void DeviceProxy::getDevicestate(DeviceParam *deviceStateInfo)
     }else{
         sendNotification("get_devicestate_success",static_cast<void *>(deviceStateResult));
     }
+}
+
+void DeviceProxy::getDeviceStatesList(DeviceParam *deviceParam)
+{
+
 }

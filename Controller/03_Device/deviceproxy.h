@@ -10,7 +10,11 @@ class DeviceProxy : public Proxy
 public:
     DeviceProxy();
 
-    void getDevicestate(DeviceParam *deviceParam);
+    void getDeviceState(DeviceParam *deviceParam);
+
+    void getDeviceStatesList(DeviceParam *deviceParam);
+
+    private
 };
 
 #endif // DEVICEPROXY_H

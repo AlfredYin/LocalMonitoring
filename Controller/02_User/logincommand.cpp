@@ -21,6 +21,7 @@ void LoginCommand::excute(INotification *notification)
     LoginParam *loginParam = (LoginParam *)notification->getBody();
     userProxy->checkLogin(loginParam);
 
+    // 因为checkLogin改为异步方法，不能使用同步方法获取是否登录状态
 //    if(userProxy->checkLogin(loginParam)){
 //        UserParam *userParam = new UserParam();
 //        userParam->username=loginParam->name;
