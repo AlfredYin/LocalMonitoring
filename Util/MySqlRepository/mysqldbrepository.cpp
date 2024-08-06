@@ -78,7 +78,7 @@ QSqlQuery MySqlDBRepository::executeQuery(const QString &queryStr, const QVarian
     return query;
 }
 
-QSqlQuery MySqlDBRepository::executeQuery(const QString &queryStr, const std::initializer_list<QPair<QString, QVariant> > &namedBindValues)
+QSqlQuery MySqlDBRepository::executeQuery(const QString &queryStr, const QList<QPair<QString, QVariant>> &namedBindValues)
 {
     if(!MySqlDBManager::instance().getDatabase().isOpen()){
         qDebug()<<"Database is not Open !!!";
@@ -189,7 +189,7 @@ QFuture<QSqlQuery> MySqlDBRepository::executeQueryAsync(const QString &queryStr,
     });
 }
 
-QFuture<QSqlQuery> MySqlDBRepository::executeQueryAsync(const QString &queryStr, const QList<QPair<QString, QVariant> > &namedBindValues)
+QFuture<QSqlQuery> MySqlDBRepository::executeQueryAsync(const QString &queryStr, const QList<QPair<QString, QVariant>> &namedBindValues)
 {
     return QtConcurrent::run([this, queryStr, namedBindValues]() {
 

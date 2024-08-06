@@ -18,5 +18,5 @@ DeviceCommand::DeviceCommand()
 void DeviceCommand::excute(INotification *notification)
 {
     DeviceProxy *deviceProxy=(DeviceProxy *)Facade::getInstance()->retrieveProxy("DeviceProxy");
-    deviceProxy->getDevicestate((DeviceParam *)notification->getBody());
+//    deviceProxy->getDevicestate((DeviceParam *)notification->getBody());
 }

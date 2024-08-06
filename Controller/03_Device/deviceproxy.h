@@ -4,8 +4,9 @@
 #include "Proxy.h"
 #include "deviceparam.h"
 #include "devicestateresult.h"
+#include "mysqldbrepository.h"
 
-class DeviceProxy : public Proxy
+class DeviceProxy : public Proxy , MySqlDBRepository
 {
 public:
     DeviceProxy();
@@ -14,7 +15,11 @@ public:
 
     void getDeviceStatesList(DeviceParam *deviceParam);
 
-    private
+private:
+    DeviceParam m_DeviceParam;
+
+    QList<QPair<QString, QVariant>> RegisterListFilter(DeviceParam *deviceParam);
+    QString RegisterStrFilter(DeviceParam *deviceParam);
 };
 
 #endif // DEVICEPROXY_H

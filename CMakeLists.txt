@@ -77,7 +77,14 @@ message(STATUS "03_SRC: ${03_SRC}")
 message(STATUS "03_INC: ${03_INC}")
 message(STATUS "03_UI: ${03_UI}")
 
-list(APPEND CMAKE_AUTOUIC_SEARCH_PATHS "View/03_Device")
+# 05 Draw
+#aux_source_directory(Controller/03_Device 05_SRC)
+#aux_source_directory(Model/03_Device 05_SRC)
+aux_source_directory(View/03_Device 05_SRC)
+file(GLOB 05_INC "Model/05_Draw/*.h" "View/05_Draw/*.h")
+file(GLOB 05_UI "View/05_Draw/*.ui")
+
+list(APPEND CMAKE_AUTOUIC_SEARCH_PATHS "View/05_Draw")
 
 # 获取查找结果，存储到变量中 Widgets Network Multimedia
 find_package(QT NAMES Qt5 Qt6 COMPONENTS Widgets Network Multimedia Charts Sql Concurrent REQUIRED)
@@ -113,6 +120,8 @@ include_directories(
     "Controller/03_Device"
     "Model/03_Device"
     "View/03_Device"
+
+    "View/05_Draw"
 
     )
 

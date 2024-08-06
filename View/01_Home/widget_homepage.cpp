@@ -8,6 +8,7 @@
 #include "mainwindow.h"
 #include "changepwddialog.h"
 #include "ntpservice.h"
+#include "drawmainwindow.h"
 
 #include <QDebug>
 #include <QMessageBox>
@@ -98,4 +99,10 @@ void Widget_HomePage::updateTimeLabel()
     QDateTime time=QDateTime::currentDateTime();
     QString timeStr=time.toString("yyyy-MM-dd hh:mm:ss");
     ui->label_time->setText(timeStr);
+}
+
+void Widget_HomePage::on_pushButton_Draw_clicked()
+{
+//    DrawMainWindow drawMainWindow;
+//    drawMainWindow.show();
 }

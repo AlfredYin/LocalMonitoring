@@ -27,6 +27,8 @@ private slots:
     void on_pushButtonChangePassword_clicked();
 
     void updateTimeLabel();
+    void on_pushButton_Draw_clicked();
+
 private:
     HomeMediator *homeMediator;
 

@@ -119,7 +119,7 @@ void UserProxy::changePwd(LoginParam *loginInfo)
         QString passWord=EncryptUserPassword(passwd,salt);
 
         QString queryChangePwdStr="UPDATE `AlfredDb`.`SysUser` SET Password=:passwd,Salt=:salt WHERE UserName=:user;";
-        QSqlQuery query=executeQuery(queryChangePwdStr,{{":passwd",passWord},{":salt",salt},{":user",name}});
+        QSqlQuery query=executeQuery(queryChangePwdStr,QList<QPair<QString, QVariant>>{{":passwd",passWord},{":salt",salt},{":user",name}});
 
 //        QSqlQuery query=executeQuery("UPDATE `AlfredDb`.`SysUser` SET Password=:passwd,Salt=:salt WHERE UserName=:user;",
 //                                        {{":passwd","passWord"},{":salt","salt"},{":user","admin"}});
@@ -142,7 +142,7 @@ UserInfo UserProxy::getUserInfo(UserParam *userParam)
     QString name = userParam->username;
 
     QString queryStr="SELECT id,UserName,RealName,Password, Salt FROM SysUser Where UserName=:username";
-    QSqlQuery query=executeQuery(queryStr,{{":username",name}});
+    QSqlQuery query=executeQuery(queryStr,QList<QPair<QString, QVariant>>{{":username",name}});
 
     if(query.first()){
         userInfo.id=query.value(0).toLongLong();
