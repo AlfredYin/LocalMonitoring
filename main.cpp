@@ -5,6 +5,7 @@
 #include "mainwindow.h"
 #include "widget_homepage.h"
 #include "drawmainwindow.h"
+#include "alfredgraphicsscene.h"
 
 int main(int argc, char **argv)
 {
@@ -27,8 +28,14 @@ int main(int argc, char **argv)
 //    MainWindow mainWindow;
 //    mainWindow.show();
 
-    DrawMainWindow drawMainWindow;
-    drawMainWindow.show();
+//    DrawMainWindow drawMainWindow;
+//    drawMainWindow.show();
+
+    AlfredGraphicsScene scene;
+
+    QGraphicsView view(&scene);
+    view.setRenderHint(QPainter::Antialiasing);
+    view.show();
 
     return app.exec();
 }

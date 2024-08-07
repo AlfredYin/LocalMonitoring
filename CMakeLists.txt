@@ -79,7 +79,7 @@ message(STATUS "03_UI: ${03_UI}")
 
 # 05 Draw
 #aux_source_directory(Controller/03_Device 05_SRC)
-#aux_source_directory(Model/03_Device 05_SRC)
+aux_source_directory(Model/05_Draw 05_SRC)
 aux_source_directory(View/05_Draw 05_SRC)
 file(GLOB 05_INC "Model/05_Draw/*.h" "View/05_Draw/*.h")
 file(GLOB 05_UI "View/05_Draw/*.ui")
@@ -126,6 +126,7 @@ include_directories(
     "View/03_Device"
 
     "View/05_Draw"
+    "Model/05_Draw"
     )
 
 # 使用自动查找的存储的变量
