@@ -105,4 +105,8 @@ void Widget_HomePage::on_pushButton_Draw_clicked()
 {
 //    DrawMainWindow drawMainWindow;
 //    drawMainWindow.show();
+    if(drawMainWindow==nullptr){
+        drawMainWindow=new DrawMainWindow(this);
+    }
+    drawMainWindow->show();
 }

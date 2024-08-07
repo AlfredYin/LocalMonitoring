@@ -80,9 +80,13 @@ message(STATUS "03_UI: ${03_UI}")
 # 05 Draw
 #aux_source_directory(Controller/03_Device 05_SRC)
 #aux_source_directory(Model/03_Device 05_SRC)
-aux_source_directory(View/03_Device 05_SRC)
+aux_source_directory(View/05_Draw 05_SRC)
 file(GLOB 05_INC "Model/05_Draw/*.h" "View/05_Draw/*.h")
 file(GLOB 05_UI "View/05_Draw/*.ui")
+
+message(STATUS "05_SRC: ${05_SRC}")
+message(STATUS "05_INC: ${05_INC}")
+message(STATUS "05_UI: ${05_UI}")
 
 list(APPEND CMAKE_AUTOUIC_SEARCH_PATHS "View/05_Draw")
 
@@ -122,7 +126,6 @@ include_directories(
     "View/03_Device"
 
     "View/05_Draw"
-
     )
 
 # 使用自动查找的存储的变量
@@ -149,6 +152,10 @@ add_executable(${PROJECT_NAME}
     ${03_INC}
     ${03_SRC}
     ${03_UI}
+
+    ${05_INC}
+    ${05_SRC}
+    ${05_UI}
     )
 
 target_include_directories(${PROJECT_NAME} PUBLIC $<TARGET_FILE_DIR:${PROJECT_NAME}>)

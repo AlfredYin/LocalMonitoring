@@ -28,6 +28,7 @@ MainWindow::MainWindow(QWidget *parent) :
     widget_HomePage=new Widget_HomePage(this);
     ui->tabWidget->addTab(widget_HomePage,"主页");
 
+    // serivce 初始化
     mainWindowMediator->startGetNtpTime();
 
     label_ntp_status=new QLabel(this);

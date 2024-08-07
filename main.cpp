@@ -4,6 +4,7 @@
 #include "mysqldbmanager.h"
 #include "mainwindow.h"
 #include "widget_homepage.h"
+#include "drawmainwindow.h"
 
 int main(int argc, char **argv)
 {
@@ -23,8 +24,11 @@ int main(int argc, char **argv)
     }
 
 
-    MainWindow mainWindow;
-    mainWindow.show();
+//    MainWindow mainWindow;
+//    mainWindow.show();
+
+    DrawMainWindow drawMainWindow;
+    drawMainWindow.show();
 
     return app.exec();
 }

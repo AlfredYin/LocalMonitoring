@@ -4,6 +4,7 @@
 #include "IViewComponent.h"
 #include "homemediator.h"
 #include "logindialog.h"
+#include "drawmainwindow.h"
 #include <QWidget>
 #include <QLabel>
 
@@ -31,6 +32,9 @@ private slots:
 
 private:
     HomeMediator *homeMediator;
+
+    // 画图，修改主页设备连线图
+    DrawMainWindow *drawMainWindow=nullptr;
 
     LoginDialog *loginDialog=nullptr;
 //    QPointer<QDialog> loginDialog;
