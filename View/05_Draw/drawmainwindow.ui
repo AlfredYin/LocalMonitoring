@@ -26,18 +26,21 @@
      <x>0</x>
      <y>0</y>
      <width>935</width>
-     <height>26</height>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">
     <property name="title">
      <string>打开图片</string>
     </property>
+    <addaction name="action_OpenFile"/>
    </widget>
    <widget class="QMenu" name="menu_2">
     <property name="title">
      <string>保存图片</string>
     </property>
+    <addaction name="action_SaveFile"/>
+    <addaction name="action_SaveOtherFile"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menu_2"/>
@@ -83,7 +86,6 @@
    <addaction name="action_Circle"/>
    <addaction name="action_Triangle"/>
    <addaction name="action_SingleLine"/>
-   <addaction name="action_Polyline"/>
    <addaction name="action_Trapezium"/>
    <addaction name="action_Text"/>
    <addaction name="separator"/>
@@ -243,6 +245,21 @@
   <action name="action_AddDeviceModel">
    <property name="text">
     <string>添加设备模型</string>
+   </property>
+  </action>
+  <action name="action_OpenFile">
+   <property name="text">
+    <string>打开文件</string>
+   </property>
+  </action>
+  <action name="action_SaveFile">
+   <property name="text">
+    <string>保存文件</string>
+   </property>
+  </action>
+  <action name="action_SaveOtherFile">
+   <property name="text">
+    <string>另存为</string>
    </property>
   </action>
  </widget>

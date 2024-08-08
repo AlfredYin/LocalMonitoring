@@ -10,6 +10,7 @@
 #include <QMouseEvent>
 #include <QGraphicsSceneMouseEvent>
 #include <QDebug>
+#include <QPen>
 
 
 class AlfredGraphicsScene : public QGraphicsScene
@@ -36,6 +37,8 @@ private:
     SingleLineItem *currentLine;
     PloyLineItem *currentPloyLine;
 
+    QPen m_SingleLinePen;
+    QPen m_PloyLinePen;
 };
 
 #endif // ALFREDGRAPHICSSCENE_H
