@@ -28,14 +28,14 @@ int main(int argc, char **argv)
 //    MainWindow mainWindow;
 //    mainWindow.show();
 
-//    DrawMainWindow drawMainWindow;
-//    drawMainWindow.show();
+    DrawMainWindow drawMainWindow;
+    drawMainWindow.show();
 
-    AlfredGraphicsScene scene;
+//    AlfredGraphicsScene scene;
 
-    QGraphicsView view(&scene);
-    view.setRenderHint(QPainter::Antialiasing);
-    view.show();
+//    QGraphicsView view(&scene);
+//    view.setRenderHint(QPainter::Antialiasing);
+//    view.show();
 
     return app.exec();
 }

@@ -2,46 +2,39 @@
 #define ALFREDGRAPHICSSCENE_H
 
 #include "singlelineitem.h"
+#include "ploylineitem.h"
 
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QGraphicsItem>
 #include <QMouseEvent>
 #include <QGraphicsSceneMouseEvent>
+#include <QDebug>
+
 
 class AlfredGraphicsScene : public QGraphicsScene
 {
 public:
+
+    static const int LineItemId=1;
+    static const int ItemDescription=2;
+
+    bool isPaintLineEventOn=false;
+    bool isPaintPloyLineEventOn=false;
+
+    AlfredGraphicsScene(qreal x, qreal y, qreal width, qreal height, QObject *parent = nullptr);
+
     AlfredGraphicsScene(QObject *parent = nullptr);
 
-    void mousePressEvent(QGraphicsSceneMouseEvent *event) override{
-        if (event->buttons() == Qt::LeftButton) {
-            currentLine = new SingleLineItem();
-            currentLine->setStartPoint(event->scenePos());
-            currentLine->setEndPoint(event->scenePos());
-            addItem(currentLine);
-        }
-        QGraphicsScene::mousePressEvent(event);
-    }
+    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 
-    void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override
-    {
-        if (currentLine && event->buttons()&Qt::LeftButton) {
-            currentLine->setEndPoint(event->scenePos());
-        }
-        QGraphicsScene::mouseMoveEvent(event);
-    }
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
 
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override
-    {
-        if (event->button() == Qt::LeftButton && currentLine) {
-            currentLine = nullptr;
-        }
-        QGraphicsScene::mouseReleaseEvent(event);
-    }
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
 
 private:
     SingleLineItem *currentLine;
+    PloyLineItem *currentPloyLine;
 
 };
 

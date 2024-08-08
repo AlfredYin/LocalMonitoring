@@ -6,10 +6,12 @@
 class BaseInfo {
 
 public:
-    QString getName() const;
+    QString getName() const{
+        return m_InfoName;
+    }
 
 protected:
-    QString m_updateDataName;
+    QString m_InfoName;
 
 };
 

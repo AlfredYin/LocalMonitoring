@@ -7,7 +7,10 @@
 #include <QGraphicsView>
 #include <QColorDialog>
 #include <QFontDialog>
+#include <QPointF>
 
+#include "alfredgraphicsscene.h"
+#include "singlelineitem.h"
 #include "dialog_setwidth.h"
 
 namespace Ui {
@@ -20,7 +23,7 @@ class DrawMainWindow : public QMainWindow
 
 private:
     QLabel *label_ItemInfo;
-    QGraphicsScene *scene;
+    AlfredGraphicsScene *scene;
 
     int seqNum=0;
 
@@ -61,17 +64,42 @@ public slots:
     void on_action_SetLineWidth_triggered();
 
 signals:
-    void setPaintLineEvent(bool);
 
 private slots:
     void on_action_CheckArea_triggered(bool checked);
 
     void on_action_SingleLine_triggered(bool checked);
 
+    void on_action_Polyline_triggered(bool checked);
+
+    void on_action_SetGradient_triggered();
+
+    void on_action_ZoomIn_triggered();
+
+    void on_action_ZoomOut_triggered();
+
+    void on_action_Restore_triggered();
+
+    void on_action_SpinLeft_triggered();
+
+    void on_action_SpinRight_triggered();
+
+    void on_action_Front_triggered();
+
+    void on_action_Back_triggered();
+
+    void on_action_Group_triggered();
+
+    void on_action_Delete_triggered();
+
+    void on_action_GroupBreak_triggered();
+
+    void on_action_AddDeviceModel_triggered();
+
 private:
     Ui::DrawMainWindow *ui;
 
-    QColor m_Color = Qt::black;
+    QColor m_Color =  QColor(173, 216, 230);
     QFont m_Font;
     int m_FrameSize=5;
     int m_LineWidth=10;
