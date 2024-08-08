@@ -3,7 +3,11 @@
 AlfredGraphicsScene::AlfredGraphicsScene(qreal x, qreal y, qreal width, qreal height, QObject *parent) :
 QGraphicsScene(x, y, width, height,nullptr), currentLine(nullptr),currentPloyLine(nullptr)
 {
+    m_SingleLinePen=QPen();
+    m_SingleLinePen.setWidth(3);
 
+    m_PloyLinePen=QPen();
+    m_PloyLinePen.setWidth(1);
 }
 
 AlfredGraphicsScene::AlfredGraphicsScene(QObject *parent) : QGraphicsScene(parent), currentLine(nullptr),currentPloyLine(nullptr)
@@ -17,6 +21,8 @@ void AlfredGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
         if(isPaintLineEventOn){     // 可以绘制直线
             currentLine = new SingleLineItem();
+            currentLine->setPen(m_SingleLinePen);
+
             currentLine->setStartPoint(event->scenePos());
             currentLine->setEndPoint(event->scenePos());
 
@@ -25,6 +31,8 @@ void AlfredGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
             addItem(currentLine);
         }else if (isPaintPloyLineEventOn){  // 可以绘制折线
             currentPloyLine = new PloyLineItem();
+            currentLine->setPen(m_PloyLinePen);
+
             currentPloyLine->setPathStartPoint(event->scenePos());
 
             currentPloyLine->setData(1,0);

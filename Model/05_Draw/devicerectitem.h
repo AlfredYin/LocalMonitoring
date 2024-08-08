@@ -18,6 +18,12 @@ public:
 protected:
     void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override;
 
+public:
+    enum {
+        Type = 10010    // 设备001模板
+    };
+    int type() const;
+
 private:
     DeviceStateInfo m_DeviceStateInfo;
 };

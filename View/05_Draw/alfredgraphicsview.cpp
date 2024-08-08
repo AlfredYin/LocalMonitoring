@@ -28,6 +28,13 @@ void AlfredGraphicsView::mousePressEvent(QMouseEvent *event)
         QPoint point=event->pos();
         emit mouseClicked(point);
     }
+    if(event->button()==Qt::RightButton){
+
+        qDebug()<<"event->button()==Qt::RightButton";
+
+        QPoint point=event->pos();
+        emit mouseRightClicked(point);
+    }
     QGraphicsView::mousePressEvent(event);
 }
 

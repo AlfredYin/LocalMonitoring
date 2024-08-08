@@ -47,3 +47,8 @@ void DeviceRectItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
         painter->drawText(rect, Qt::AlignCenter, m_DeviceStateInfo.devicename);
     }
 }
+
+int DeviceRectItem::type() const
+{
+    return Type;
+}

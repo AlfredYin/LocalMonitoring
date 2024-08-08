@@ -28,6 +28,7 @@ signals:
     void keyPress(QKeyEvent *event);
     void mouseDoubleClick(QPoint point);
     void mouseClicked(QPoint point);
+    void mouseRightClicked(QPoint point);
 
 private:
 };

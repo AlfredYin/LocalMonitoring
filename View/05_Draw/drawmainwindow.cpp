@@ -2,6 +2,7 @@
 #include "ui_drawmainwindow.h"
 #include "devicerectitem.h"
 #include "devicestateinfo.h"
+#include "dialog_setdevicemodel.h"
 
 #include <QTime>
 #include <QDebug>
@@ -34,6 +35,9 @@ DrawMainWindow::DrawMainWindow(QWidget *parent) :
     ui->statusBar->addWidget(label_ItemInfo);
 
     connect(ui->graphicsView,SIGNAL(keyPress(QKeyEvent *)),this,SLOT(on_keyPress(QKeyEvent *)));
+    connect(ui->graphicsView,SIGNAL(mouseClicked(QPoint)),this,SLOT(on_mouseClicked(QPoint)));
+    // 左键呼出菜单
+    connect(ui->graphicsView,SIGNAL(mouseRightClicked(QPoint)),this,SLOT(on_mouseRightClicked(QPoint)));
     connect(ui->graphicsView,SIGNAL(mouseClicked(QPoint)),this,SLOT(on_mouseClicked(QPoint)));
     connect(ui->graphicsView,SIGNAL(mouseDoubleClick(QPoint)),this,SLOT(on_mouseDoubleClick(QPoint)));
 
@@ -163,15 +167,15 @@ void DrawMainWindow::on_mouseDoubleClick(QPoint point)
             if(color.isValid()){
                 thePen.setColor(color);
             }
-            Dialog_SetWidth *dialog= new Dialog_SetWidth(thePen.width(),this);
-            dialog->setToolTip("修改直线宽度");
-            if (dialog->exec() == QDialog::Accepted) {
-                int new_Width = dialog->getWidth();
-                if(new_Width!=thePen.width()){
-                    thePen.setWidth(new_Width);
-                }
-            }
-            theItem->setPen(thePen);
+//            Dialog_SetWidth *dialog= new Dialog_SetWidth(thePen.width(),this);
+//            dialog->setToolTip("修改直线宽度");
+//            if (dialog->exec() == QDialog::Accepted) {
+//                int new_Width = dialog->getWidth();
+//                if(new_Width!=thePen.width()){
+//                    thePen.setWidth(new_Width);
+//                }
+//            }
+//            theItem->setPen(thePen);
             break;
         }
     }
@@ -188,6 +192,286 @@ void DrawMainWindow::on_mouseClicked(QPoint point)
                                 ","+item->data(ItemDescription).toString()+
                                 "ScenePos:"+QString::number(pointScene.x())+ "," +QString::number(pointScene.y()));
     }
+}
+
+#include <QInputDialog>
+void DrawMainWindow::on_mouseRightClicked(QPoint point)
+{
+    // 右键，修改颜色，修改内容
+    QPointF pointScene=ui->graphicsView->mapToScene(point);
+    QGraphicsItem *item=nullptr;
+    item=scene->itemAt(pointScene,ui->graphicsView->transform());
+
+    if (!item){
+        return;
+    }
+
+    // 根据不同的选中Item，给出不同右键菜单
+    QMenu *cmenu = new QMenu();
+
+    // 修改颜色
+//    QAction *actionModifyColor = cmenu->addAction("Modify Color");
+    QAction *actionModifyColor=new QAction("Modify Color");
+    connect(actionModifyColor, &QAction::triggered, [this, item]() {
+        qDebug()<<"actionModifyColor";
+        if(item->type()==QGraphicsRectItem::Type){              // 矩形
+            QGraphicsRectItem *theItem;
+            theItem=qgraphicsitem_cast<QGraphicsRectItem *>(item);
+            QColor color=theItem->brush().color();
+            color=QColorDialog::getColor(color,nullptr,"选择颜色");
+            if(color.isValid()){
+                theItem->setBrush(QBrush(color));
+            }
+        }else if(item->type()==QGraphicsEllipseItem::Type){     // 圆形，椭圆
+            QGraphicsEllipseItem *theItem;
+            theItem=qgraphicsitem_cast<QGraphicsEllipseItem *>(item);
+            QColor color=theItem->brush().color();
+            color=QColorDialog::getColor(color,nullptr,"选择颜色");
+            if(color.isValid()){
+                theItem->setBrush(QBrush(color));
+            }
+        }else if(item->type()==QGraphicsPolygonItem::Type){     // 多边形
+            QGraphicsPolygonItem *theItem;
+            theItem=qgraphicsitem_cast<QGraphicsPolygonItem *>(item);
+            QColor color=theItem->brush().color();
+            color=QColorDialog::getColor(color,nullptr,"选择颜色");
+            if(color.isValid()){
+                theItem->setBrush(QBrush(color));
+            }
+        }else if(item->type()==QGraphicsTextItem::Type){     // 文字
+            QGraphicsTextItem *theItem;
+            theItem=qgraphicsitem_cast<QGraphicsTextItem *>(item);
+            QColor color = QColorDialog::getColor(theItem->defaultTextColor(), nullptr, "选择颜色");
+            if (color.isValid()){
+                theItem->setDefaultTextColor(color);
+            }
+        }else if(item->type()==SingleLineItem::Type){     // 直线，折线，曲线
+            SingleLineItem *theItem;
+            theItem=qgraphicsitem_cast<SingleLineItem *>(item);
+            QPen thePen=theItem->pen();
+
+            QColor color=thePen.color();
+            color=QColorDialog::getColor(color,nullptr,"选择颜色");
+            if(color.isValid()){
+                thePen.setColor(color);
+            }
+            theItem->setPen(thePen);
+        }/*else if(item->type()==DeviceRectItem::Type){     // 设备模型
+            QGraphicsPolygonItem *theItem;
+            theItem=qgraphicsitem_cast<QGraphicsPolygonItem *>(item);
+
+        }*/
+    });
+
+    // 修改内容
+    QAction *actionModifyContent = new QAction("Modify Content");
+    connect(actionModifyContent, &QAction::triggered, [this, item]() {
+        qDebug()<<"actionModifyContent";
+        if(item->type()==QGraphicsRectItem::Type){              // 矩形
+            QGraphicsRectItem *theItem;
+            theItem=qgraphicsitem_cast<QGraphicsRectItem *>(item);
+
+        }else if(item->type()==QGraphicsEllipseItem::Type){     // 圆形，椭圆
+            QGraphicsEllipseItem *theItem;
+            theItem=qgraphicsitem_cast<QGraphicsEllipseItem *>(item);
+
+        }else if(item->type()==QGraphicsPolygonItem::Type){     // 多边形
+            QGraphicsPolygonItem *theItem;
+            theItem=qgraphicsitem_cast<QGraphicsPolygonItem *>(item);
+
+        }else if(item->type()==QGraphicsTextItem::Type){     // 文字
+            QGraphicsTextItem *theItem;
+            theItem=qgraphicsitem_cast<QGraphicsTextItem *>(item);
+            QString str=QInputDialog::getText(this,"请输入文本内容","请输入：");
+            theItem->setPlainText(str);
+        }else if(item->type()==SingleLineItem::Type){     // 直线，折线，曲线
+            SingleLineItem *theItem;
+            theItem=qgraphicsitem_cast<SingleLineItem *>(item);
+            QPen thePen=theItem->pen();
+
+            Dialog_SetWidth *dialog= new Dialog_SetWidth(thePen.width(),this);
+            dialog->setToolTip("修改直线宽度");
+            if (dialog->exec() == QDialog::Accepted) {
+                int new_Width = dialog->getWidth();
+                if(new_Width!=thePen.width()){
+                    thePen.setWidth(new_Width);
+                }
+            }
+            theItem->setPen(thePen);
+
+        }else if(item->type()==DeviceRectItem::Type){     // 设备模型
+            DeviceRectItem *theItem;
+            theItem=qgraphicsitem_cast<DeviceRectItem *>(item);
+
+            Dialog_SetDeviceModel *dialog=new Dialog_SetDeviceModel(this);
+//            DeviceStateInfo deviceStateInfo=
+            dialog->setToolTip("初始化");
+            if (dialog->exec() == QDialog::Accepted) {
+                DeviceStateInfo deviceStateInfo=dialog->getDeivceStateInfo();
+                theItem->setDeviceStateInfo(deviceStateInfo);
+            }
+        }
+    });
+
+    // 修改线段宽度
+    QAction *actionModifyWidth = new QAction("Modify Width");
+
+
+
+    if(item->type()==QGraphicsRectItem::Type){              // 矩形
+        QGraphicsRectItem *theItem;
+        theItem=qgraphicsitem_cast<QGraphicsRectItem *>(item);
+        cmenu->addAction(actionModifyColor);
+    }else if(item->type()==QGraphicsEllipseItem::Type){     // 圆形，椭圆
+        QGraphicsEllipseItem *theItem;
+        theItem=qgraphicsitem_cast<QGraphicsEllipseItem *>(item);
+        cmenu->addAction(actionModifyColor);
+    }else if(item->type()==QGraphicsPolygonItem::Type){     // 多边形
+        QGraphicsPolygonItem *theItem;
+        theItem=qgraphicsitem_cast<QGraphicsPolygonItem *>(item);
+        cmenu->addAction(actionModifyColor);
+    }else if(item->type()==QGraphicsTextItem::Type){     // 文字
+        QGraphicsPolygonItem *theItem;
+        theItem=qgraphicsitem_cast<QGraphicsPolygonItem *>(item);
+        // 设置颜色和字号
+        cmenu->addAction(actionModifyColor);
+        cmenu->addAction(actionModifyContent);
+//        cmenu->addAction(actionModifyWidth);
+    }else if(item->type()==SingleLineItem::Type){     // 直线，折线，曲线
+        QGraphicsPolygonItem *theItem;
+        theItem=qgraphicsitem_cast<QGraphicsPolygonItem *>(item);
+        // 设置颜色和宽度
+        cmenu->addAction(actionModifyColor);
+        cmenu->addAction(actionModifyWidth);
+    }else if(item->type()==DeviceRectItem::Type){     // 设备模型
+        QGraphicsPolygonItem *theItem;
+        theItem=qgraphicsitem_cast<QGraphicsPolygonItem *>(item);
+        cmenu->addAction(actionModifyContent);
+    }
+        // 只能设置填充颜色
+
+
+    cmenu->exec(QCursor::pos());
+
+    // 修改颜色
+//    QAction *actionModifyColor = cmenu->addAction("Modify Color");
+    // 修改内容
+    //    QAction *actionModifyAction = cmenu->addAction("Modify Content");
+    // 修改线段宽度
+
+
+//    // 连接菜单项的信号到槽函数，并传递item指针
+//    connect(actionModifyColor, &QAction::triggered, [this, item]() {
+//        switch (item->type()) {
+//            // 矩形等只需要设置填充颜色
+//            case QGraphicsRectItem::Type:{
+//                QGraphicsRectItem *theItem;
+//                theItem=qgraphicsitem_cast<QGraphicsRectItem *>(item);
+//                QColor color=theItem->brush().color();
+//                color=QColorDialog::getColor(color,nullptr,"选择颜色");
+//                if(color.isValid()){
+//                    theItem->setBrush(QBrush(color));
+//                }
+//                break;
+//            }
+
+//            case QGraphicsEllipseItem::Type:{
+//                QGraphicsEllipseItem *theItem;
+//                theItem=qgraphicsitem_cast<QGraphicsEllipseItem *>(item);
+//                QColor color=theItem->brush().color();
+//                color=QColorDialog::getColor(color,nullptr,"选择颜色");
+//                if(color.isValid()){
+//                    theItem->setBrush(QBrush(color));
+//                }
+//                break;
+//            }
+
+//            case QGraphicsPolygonItem::Type:{
+//                QGraphicsPolygonItem *theItem;
+//                theItem=qgraphicsitem_cast<QGraphicsPolygonItem *>(item);
+//                QColor color=theItem->brush().color();
+//                color=QColorDialog::getColor(color,nullptr,"选择颜色");
+//                if(color.isValid()){
+//                    theItem->setBrush(QBrush(color));
+//                }
+//                break;
+//            }
+
+//            // 文字也可设置内容，右键
+//            case QGraphicsTextItem::Type:{
+//                QGraphicsTextItem *theItem;
+//                theItem=qgraphicsitem_cast<QGraphicsTextItem *>(item);
+//                QColor color=theItem->defaultTextColor();
+//                color=QColorDialog::getColor(color,nullptr,"选择颜色");
+//                if(color.isValid()){
+//                    theItem->setDefaultTextColor(color);
+//                }
+//                break;
+//            }
+
+//            // 直线和折线需要设置Pen的颜色和宽度
+//            case 10001:{
+//                SingleLineItem *theItem;
+//                theItem=qgraphicsitem_cast<SingleLineItem *>(item);
+
+//                QPen thePen=theItem->pen();
+
+//                QColor color=thePen.color();
+//                color=QColorDialog::getColor(color,nullptr,"选择颜色");
+//                if(color.isValid()){
+//                    thePen.setColor(color);
+//                }
+////                Dialog_SetWidth *dialog= new Dialog_SetWidth(thePen.width(),this);
+////                dialog->setToolTip("修改直线宽度");
+////                if (dialog->exec() == QDialog::Accepted) {
+////                    int new_Width = dialog->getWidth();
+////                    if(new_Width!=thePen.width()){
+////                        thePen.setWidth(new_Width);
+////                    }
+////                }
+//                theItem->setPen(thePen);
+//                break;
+//            }
+
+//            // 设备001 配置
+//            case 10010:{
+//                SingleLineItem *theItem;
+//                theItem=qgraphicsitem_cast<SingleLineItem *>(item);
+
+//                QPen thePen=theItem->pen();
+
+//                QColor color=thePen.color();
+//                color=QColorDialog::getColor(color,nullptr,"选择颜色");
+//                if(color.isValid()){
+//                    thePen.setColor(color);
+//                }
+
+//                Dialog_SetWidth *dialog= new Dialog_SetWidth(thePen.width(),this);
+//                dialog->setToolTip("修改直线宽度");
+//                if (dialog->exec() == QDialog::Accepted) {
+//                    int new_Width = dialog->getWidth();
+//                    if(new_Width!=thePen.width()){
+//                        thePen.setWidth(new_Width);
+//                    }
+//                }
+//                theItem->setPen(thePen);
+//                break;
+//            }
+//        }
+//    });
+//    connect(actionModifyContent, &QAction::triggered, [this, item]() {
+////        on_menu_click(2, item);
+
+//        Dialog_SetDeviceModel *dialog= new Dialog_SetDeviceModel(this);
+//        dialog->setToolTip("修改直线宽度");
+//        if (dialog->exec() == QDialog::Accepted) {
+
+//            DeviceStateInfo deviceStateInfo=dialog->getDeivceStateInfo();
+//            item
+//        }
+
+//    });
+
 }
 
 void DrawMainWindow::on_action_Rectangle_triggered()
@@ -325,7 +609,7 @@ void DrawMainWindow::on_action_Trapezium_triggered()
 #include <QInputDialog>
 void DrawMainWindow::on_action_Text_triggered()
 {
-    QString str=QInputDialog::getText(this,"请输入对话框","请输入：");
+    QString str=QInputDialog::getText(this,"请输入文本内容","请输入：");
     auto *item=new QGraphicsTextItem(str);
     item->setFlags(QGraphicsItem::ItemIsFocusable | QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsMovable);
 //    QFont font;
@@ -623,4 +907,12 @@ void DrawMainWindow::on_action_GroupBreak_triggered()
     foreach(auto gItem,list){
         scene->destroyItemGroup(gItem);
     }
+}
+
+// 打开文件
+// 另存为
+// 保存文件
+void DrawMainWindow::on_action_SaveFile_triggered()
+{
+    // 保存文件是存为默认位置，系统默认打开这个
 }

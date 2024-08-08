@@ -38,6 +38,7 @@ public slots:
     void on_keyPress(QKeyEvent *event);
     void on_mouseDoubleClick(QPoint point);
     void on_mouseClicked(QPoint point);
+    void on_mouseRightClicked(QPoint point);
 
     void on_action_Rectangle_triggered();
 
@@ -95,6 +96,8 @@ private slots:
     void on_action_GroupBreak_triggered();
 
     void on_action_AddDeviceModel_triggered();
+
+    void on_action_SaveFile_triggered();
 
 private:
     Ui::DrawMainWindow *ui;
