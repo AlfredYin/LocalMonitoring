@@ -5,7 +5,7 @@
 #include "userparam.h"
 #include "userinfo.h"
 #include "INotification.h"
-
+#include "userhelper.h"
 #include "homeproxy.h"
 
 #include <QDebug>
@@ -19,7 +19,14 @@ void LoginCommand::excute(INotification *notification)
 {
     UserProxy *userProxy = (UserProxy *)Facade::getInstance()->retrieveProxy("UserProxy");
     LoginParam *loginParam = (LoginParam *)notification->getBody();
-    userProxy->checkLogin(loginParam);
+    userProxy->checkLogin(loginParam);      // 已经发送通知，前端已经改变
+
+    // 回过头来获取登录信息,这个地方同步的
+//    UserParam *userParam =new UserParam();
+//    userParam->username=loginParam->name;
+//    UserInfo userInfo=userProxy->getUserInfo(userParam);
+
+//    UserHelper::instance()->setUserInfo(userInfo);
 
     // 因为checkLogin改为异步方法，不能使用同步方法获取是否登录状态
 //    if(userProxy->checkLogin(loginParam)){

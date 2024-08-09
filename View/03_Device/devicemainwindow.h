@@ -27,8 +27,6 @@ public:
 
     void update(IUpdateData *updateData);   // 虚函数继承于IviewComponent
 
-    void updateDeivceState(DeviceStateResult *result);
-
 private slots:
     void on_pushButton_clicked();
 

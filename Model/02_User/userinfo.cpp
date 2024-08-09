@@ -2,5 +2,5 @@
 
 UserInfo::UserInfo()
 {
-
+    id=0;
 }

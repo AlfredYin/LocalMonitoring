@@ -20,11 +20,13 @@ UserProxy::UserProxy()
 // 处理真正的业务逻辑和数据操作。可以作为数据模型的抽象层，与数据库或其他数据源交互。
 void UserProxy::checkLogin(LoginParam *loginParam)
 {
-//    UserHelper* userHelper = UserHelper::instance();
+    UserHelper* userHelper = UserHelper::instance();
+
     UserInfo userInfo;
     userInfo.username=loginParam->name;
     userInfo.passwd=loginParam->password;
-//    userHelper->setUserInfo(userInfo);
+    userHelper->setUserInfo(userInfo);
+
     m_UserInfo=userInfo;
 
 //    userHelper->getUserInfo().username=loginParam->name;
@@ -68,6 +70,11 @@ void UserProxy::checkLogin(LoginParam *loginParam)
             loginResult->result = false;
 
         }
+
+        UserInfo userInfo;
+        userInfo.id=1;      // 这个先暂存一个
+
+        UserHelper::instance()->setUserInfo(userInfo);
 
         sendNotification("login_finished", static_cast<void *>(loginResult));
     });
@@ -148,8 +155,6 @@ UserInfo UserProxy::getUserInfo(UserParam *userParam)
         userInfo.id=query.value(0).toLongLong();
         userInfo.username=query.value(1).toString();
         userInfo.realname=query.value(2).toString();
-        userInfo.passwd=query.value(3).toString();
-
     }else{
         userInfo.id=-1;
         return userInfo;

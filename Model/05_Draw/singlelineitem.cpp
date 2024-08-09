@@ -62,6 +62,16 @@ void SingleLineItem::setPen(const QPen &pen)
     update(); // 通知视图重绘图形项
 }
 
+QPointF SingleLineItem::getStartPoint()
+{
+    return startPoint;
+}
+
+QPointF SingleLineItem::getEndPoint()
+{
+    return endPoint;
+}
+
 int SingleLineItem::type() const
 {
     return Type;

@@ -13,6 +13,8 @@ public:
     void setUserInfo(const UserInfo& info);
     UserInfo getUserInfo() const;
 
+    bool isLogined();
+
 private:
     UserInfo userInfo_;
 

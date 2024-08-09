@@ -3,6 +3,7 @@
 #include "devicerectitem.h"
 #include "devicestateinfo.h"
 #include "dialog_setdevicemodel.h"
+#include "scenefilehelper.h"
 
 #include <QTime>
 #include <QDebug>
@@ -914,5 +915,236 @@ void DrawMainWindow::on_action_GroupBreak_triggered()
 // 保存文件
 void DrawMainWindow::on_action_SaveFile_triggered()
 {
-    // 保存文件是存为默认位置，系统默认打开这个
+    // 保存文件是存为默认位置，系统默认打开这个 ./pattern.json
+    bool flag=SceneFileHelper::saveSceneItemToFile("./pattern.json",scene);
+    if(flag){
+        QMessageBox::information(this,"提示","文件保存成功");
+    }else{
+        QMessageBox::warning(this,"警告","文件保存失败");
+    }
+}
+
+void DrawMainWindow::on_action_SaveOtherFile_triggered()
+{
+    // 保存文件到自定义位置
+    QString destPathStr=getSaveFilePath(this);
+    bool flag=SceneFileHelper::saveSceneItemToFile(destPathStr,scene);
+    if(flag){
+        QMessageBox::information(this,"提示","文件保存成功");
+    }else{
+        QMessageBox::warning(this,"警告","文件保存失败");
+    }
+}
+
+void DrawMainWindow::on_action_OpenFile_triggered()
+{
+    scene->clear();
+    SceneFileHelper::loadItemToScene(scene,"./pattern.json");
+}
+
+void DrawMainWindow::on_action_OpenOtherFile_triggered()
+{
+    QString srcPathStr=getOpenFilePath(this);
+    scene->clear();
+    SceneFileHelper::loadItemToScene(scene,srcPathStr);
+}
+
+#include <QFileDialog>
+QString DrawMainWindow::getSaveFilePath(QWidget *parent)
+{
+    QString filePath = QFileDialog::getSaveFileName(
+        parent,
+        "保存 JSON 文件",
+        "",
+        "JSON 文件 (*.json)"
+    );
+
+    // 确保用户选择了文件路径并且文件扩展名为 .json
+    if (!filePath.isEmpty()) {
+        // 如果用户没有输入文件扩展名，则自动添加 .json 扩展名
+        if (!filePath.endsWith(".json", Qt::CaseInsensitive)) {
+            filePath += ".json";
+        }
+        return filePath;
+    } else {
+        // 用户取消了对话框
+        return QString();
+    }
+}
+
+QString DrawMainWindow::getOpenFilePath(QWidget *parent)
+{
+   QString filePath = QFileDialog::getOpenFileName(
+       parent,
+       "打开 JSON 文件",
+       "",
+       "JSON 文件 (*.json)"
+   );
+
+   // 确保用户选择了文件路径
+   if (!filePath.isEmpty()) {
+       return filePath;
+   } else {
+       // 用户取消了对话框
+       return QString();
+   }
+}
+
+void DrawMainWindow::on_action_Copy_triggered()
+{
+    // 获取选中的图形项
+    QList<QGraphicsItem *> selectedItems = scene->selectedItems();
+    if (selectedItems.isEmpty()) {
+        QMessageBox::warning(this, "警告", "没有选中的图形项");
+        return;
+    }
+
+    foreach (QGraphicsItem *item, selectedItems) {
+        if(item->type()==QGraphicsRectItem::Type){
+            QGraphicsRectItem *theItem;
+            theItem=qgraphicsitem_cast<QGraphicsRectItem *>(item);
+
+            if (theItem) {
+                QGraphicsRectItem *newItem = new QGraphicsRectItem(theItem->rect());
+                newItem->setFlags(QGraphicsRectItem::ItemIsFocusable |
+                               QGraphicsRectItem::ItemIsSelectable |
+                               QGraphicsRectItem::ItemIsMovable);
+                newItem->setBrush(theItem->brush());
+                scene->addItem(newItem);
+            }
+
+        }else if(item->type()==QGraphicsEllipseItem::Type){
+            QGraphicsEllipseItem *theItem;
+            theItem=qgraphicsitem_cast<QGraphicsEllipseItem *>(item);
+
+            if (theItem) {
+                QGraphicsEllipseItem *newItem = new QGraphicsEllipseItem(theItem->rect());
+                newItem->setBrush(theItem->brush());
+                newItem->setFlags(QGraphicsRectItem::ItemIsFocusable |
+                               QGraphicsRectItem::ItemIsSelectable |
+                               QGraphicsRectItem::ItemIsMovable);
+                scene->addItem(newItem);
+            }
+
+        }else if(item->type()==QGraphicsPolygonItem::Type){
+            QGraphicsPolygonItem *theItem;
+            theItem=qgraphicsitem_cast<QGraphicsPolygonItem *>(item);
+            if (theItem) {
+                QGraphicsPolygonItem *newItem = new QGraphicsPolygonItem(theItem->polygon());
+                newItem->setBrush(theItem->brush());
+                newItem->setFlags(QGraphicsRectItem::ItemIsFocusable |
+                               QGraphicsRectItem::ItemIsSelectable |
+                               QGraphicsRectItem::ItemIsMovable);
+                scene->addItem(newItem);
+            }
+        }
+
+    }
+}
+
+void DrawMainWindow::on_action_Paste_triggered()
+{
+    // 获取选中的图形项
+    QList<QGraphicsItem *> selectedItems = scene->selectedItems();
+    if (selectedItems.isEmpty()) {
+        QMessageBox::warning(this, "警告", "没有选中的图形项");
+        return;
+    }
+
+    foreach (QGraphicsItem *item, selectedItems) {
+        if(item->type()==QGraphicsRectItem::Type){
+            QGraphicsRectItem *theItem;
+            theItem=qgraphicsitem_cast<QGraphicsRectItem *>(item);
+
+            if (theItem) {
+                QGraphicsRectItem *newItem = new QGraphicsRectItem(theItem->rect());
+                newItem->setFlags(QGraphicsRectItem::ItemIsFocusable |
+                               QGraphicsRectItem::ItemIsSelectable |
+                               QGraphicsRectItem::ItemIsMovable);
+                newItem->setBrush(theItem->brush());
+                scene->addItem(newItem);
+            }
+
+        }else if(item->type()==QGraphicsEllipseItem::Type){
+            QGraphicsEllipseItem *theItem;
+            theItem=qgraphicsitem_cast<QGraphicsEllipseItem *>(item);
+
+            if (theItem) {
+                QGraphicsEllipseItem *newItem = new QGraphicsEllipseItem(theItem->rect());
+                newItem->setBrush(theItem->brush());
+                newItem->setFlags(QGraphicsRectItem::ItemIsFocusable |
+                               QGraphicsRectItem::ItemIsSelectable |
+                               QGraphicsRectItem::ItemIsMovable);
+                scene->addItem(newItem);
+            }
+
+        }else if(item->type()==QGraphicsPolygonItem::Type){
+            QGraphicsPolygonItem *theItem;
+            theItem=qgraphicsitem_cast<QGraphicsPolygonItem *>(item);
+            if (theItem) {
+                QGraphicsPolygonItem *newItem = new QGraphicsPolygonItem(theItem->polygon());
+                newItem->setBrush(theItem->brush());
+                newItem->setFlags(QGraphicsRectItem::ItemIsFocusable |
+                               QGraphicsRectItem::ItemIsSelectable |
+                               QGraphicsRectItem::ItemIsMovable);
+                scene->addItem(newItem);
+            }
+        }
+
+    }
+}
+
+void DrawMainWindow::on_action_Cut_triggered()
+{
+    // 获取选中的图形项
+    QList<QGraphicsItem *> selectedItems = scene->selectedItems();
+    if (selectedItems.isEmpty()) {
+        QMessageBox::warning(this, "警告", "没有选中的图形项");
+        return;
+    }
+
+    foreach (QGraphicsItem *item, selectedItems) {
+        if(item->type()==QGraphicsRectItem::Type){
+            QGraphicsRectItem *theItem;
+            theItem=qgraphicsitem_cast<QGraphicsRectItem *>(item);
+
+            if (theItem) {
+                QGraphicsRectItem *newItem = new QGraphicsRectItem(theItem->rect());
+                newItem->setFlags(QGraphicsRectItem::ItemIsFocusable |
+                               QGraphicsRectItem::ItemIsSelectable |
+                               QGraphicsRectItem::ItemIsMovable);
+                newItem->setBrush(theItem->brush());
+                scene->removeItem(theItem);
+                scene->addItem(newItem);
+            }
+
+        }else if(item->type()==QGraphicsEllipseItem::Type){
+            QGraphicsEllipseItem *theItem;
+            theItem=qgraphicsitem_cast<QGraphicsEllipseItem *>(item);
+
+            if (theItem) {
+                QGraphicsEllipseItem *newItem = new QGraphicsEllipseItem(theItem->rect());
+                newItem->setBrush(theItem->brush());
+                newItem->setFlags(QGraphicsRectItem::ItemIsFocusable |
+                               QGraphicsRectItem::ItemIsSelectable |
+                               QGraphicsRectItem::ItemIsMovable);
+                scene->removeItem(theItem);
+                scene->addItem(newItem);
+            }
+
+        }else if(item->type()==QGraphicsPolygonItem::Type){
+            QGraphicsPolygonItem *theItem;
+            theItem=qgraphicsitem_cast<QGraphicsPolygonItem *>(item);
+            if (theItem) {
+                QGraphicsPolygonItem *newItem = new QGraphicsPolygonItem(theItem->polygon());
+                newItem->setBrush(theItem->brush());
+                newItem->setFlags(QGraphicsRectItem::ItemIsFocusable |
+                               QGraphicsRectItem::ItemIsSelectable |
+                               QGraphicsRectItem::ItemIsMovable);
+                scene->removeItem(theItem);
+                scene->addItem(newItem);
+            }
+        }
+
+    }
 }

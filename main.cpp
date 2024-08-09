@@ -25,11 +25,11 @@ int main(int argc, char **argv)
     }
 
 
-//    MainWindow mainWindow;
-//    mainWindow.show();
+    MainWindow mainWindow;
+    mainWindow.show();
 
-    DrawMainWindow drawMainWindow;
-    drawMainWindow.show();
+//    DrawMainWindow drawMainWindow;
+//    drawMainWindow.show();
 
 //    AlfredGraphicsScene scene;
 

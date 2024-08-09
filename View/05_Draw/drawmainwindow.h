@@ -99,6 +99,21 @@ private slots:
 
     void on_action_SaveFile_triggered();
 
+    void on_action_SaveOtherFile_triggered();
+
+    void on_action_OpenFile_triggered();
+
+    QString getSaveFilePath(QWidget *parent = nullptr);
+
+    QString getOpenFilePath(QWidget *parent = nullptr);
+    void on_action_OpenOtherFile_triggered();
+
+    void on_action_Copy_triggered();
+
+    void on_action_Paste_triggered();
+
+    void on_action_Cut_triggered();
+
 private:
     Ui::DrawMainWindow *ui;
 

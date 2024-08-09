@@ -1,6 +1,6 @@
 #include "devicestateresult.h"
 
-DeviceStateResult::DeviceStateResult()
+DeviceStateListResult::DeviceStateListResult()
 {
-
+    m_updateDataName="DeviceStateListResult";
 }

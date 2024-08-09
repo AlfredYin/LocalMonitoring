@@ -3,8 +3,11 @@
 
 #include "IViewComponent.h"
 #include "homemediator.h"
+#include "devicemediator.h"
 #include "logindialog.h"
 #include "drawmainwindow.h"
+#include "devicerectitem.h"
+#include "refreshtextitem.h"
 #include <QWidget>
 #include <QLabel>
 
@@ -22,6 +25,10 @@ public:
 
     void update(IUpdateData *updateData);
 
+    void roadScene();
+
+    void loadDeviceState(DeviceStateListResult *result);
+
 private slots:
     void on_pushButtonLogin_clicked();
 
@@ -31,9 +38,18 @@ private slots:
     void on_pushButton_Draw_clicked();
 
 private:
+
+
     HomeMediator *homeMediator;
+//    DeviceMediator *deviceMediator;
 
     // 画图，修改主页设备连线图
+    // 主页默认展示视图
+    AlfredGraphicsScene *scene=nullptr;
+
+    // 刷新按钮
+    RefreshTextItem* refreshItem=nullptr;
+
     DrawMainWindow *drawMainWindow=nullptr;
 
     LoginDialog *loginDialog=nullptr;

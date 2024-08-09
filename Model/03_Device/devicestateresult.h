@@ -1,30 +1,20 @@
 #ifndef DEVICESTATERESULT_H
 #define DEVICESTATERESULT_H
 
+#include <QJsonObject>
 #include "baseresult.h"
+#include "devicestateinfo.h"
 
 class SensorState;
 class DeivceState;
 
-class DeviceStateResult : public BaseResult
+class DeviceStateListResult : public BaseResult
 {
 public:
-    DeviceStateResult();
+    DeviceStateListResult();
 
-public:
-    QList<DeivceState> devicestatelist;
+    QList<DeviceStateInfo> resultList;
 };
 
-class DeivceState{
-    QString devicename;
-    QString devicestate;
-    QList<SensorState> sensorstatelist;
-};
-
-class SensorState{
-    QString sensorname;
-    QString sensorstate;
-//    QString sensorrealtimevalue;
-};
 
 #endif // DEVICESTATERESULT_H

@@ -3,6 +3,7 @@
 #include "usermediator.h"
 #include "userproxy.h"
 
+#include "devicestatelistcommand.h"
 #include "changepwdcommand.h"
 #include "devicecommand.h"
 #include "devicemediator.h"
@@ -39,7 +40,7 @@ void ApplicationFacade::initializeCommand()
     registerCommand("login_check", new LoginCommand());
     registerCommand("change_passwd", new ChangePwdCommand());
 
-    registerCommand("get_devicestate",new DeviceCommand());
+    registerCommand("get_devicestatelist",new DeviceStateListCommand());
 }
 
 // 负责处理真正的业务逻辑和数据操作。可以作为数据模型的抽象层，与数据库或其他数据源交互。

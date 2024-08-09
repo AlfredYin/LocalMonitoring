@@ -3,12 +3,14 @@
 
 #include <QGraphicsRectItem>
 #include <QPainter>
+#include <QObject>
 
 #include "devicestateinfo.h"
 
 class DeviceRectItem : public QGraphicsRectItem
 {
 public:
+
     DeviceRectItem(qreal x, qreal y, qreal w, qreal h, QGraphicsItem *parent = nullptr);
     DeviceRectItem();
 

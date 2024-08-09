@@ -22,27 +22,7 @@ DeviceMainWindow::~DeviceMainWindow()
 
 void DeviceMainWindow::update(IUpdateData *updateData)
 {
-    qDebug()<<"updateData->getName()="<<updateData->getName()<<endl;
-    if(updateData->getName()=="DeviceStateResult"){
-        DeviceStateResult *result=static_cast<DeviceStateResult *>(updateData);
-        updateDeivceState(result);
-    }else if(updateData->getName()=="GeneralResult"){
-         QMessageBox::information(nullptr, "", "通用失败提示");
-    }
-    else{
 
-    }
-}
-
-void DeviceMainWindow::updateDeivceState(DeviceStateResult *result)
-{
-//    foreach(auto deivceStateInfo,result->deviceStateList){
-//        QString str=QString::asprintf("id:%d",deivceStateInfo.id)+
-//                ",devicename:"+deivceStateInfo.device_name+
-//                ",connection:"+deivceStateInfo.connection_status;
-
-//        ui->plainTextEdit->appendPlainText(str);
-//    }
 }
 
 void DeviceMainWindow::on_pushButton_clicked()

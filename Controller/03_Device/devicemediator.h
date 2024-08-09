@@ -15,8 +15,11 @@ public:
 
     void handleNotification(INotification *notification);
 
-    // special
+    // 获取单个设备状态
     void getDeviceState(DeviceParam *deviceStateInfo);
+
+    // 获取设备连接列表
+    void getDeviceStateList(DeviceParam *deviceStateInfo);
 
 private:
     QList<QString> m_notificationInterests;

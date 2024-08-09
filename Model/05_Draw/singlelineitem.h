@@ -29,6 +29,9 @@ public:
     QPen pen() const;
     void setPen(const QPen &pen);
 
+    QPointF getStartPoint();
+    QPointF getEndPoint();
+
 signals:
 
 public:

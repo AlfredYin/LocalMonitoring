@@ -26,7 +26,7 @@
      <x>0</x>
      <y>0</y>
      <width>935</width>
-     <height>23</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">
@@ -34,6 +34,7 @@
      <string>打开图片</string>
     </property>
     <addaction name="action_OpenFile"/>
+    <addaction name="action_OpenOtherFile"/>
    </widget>
    <widget class="QMenu" name="menu_2">
     <property name="title">
@@ -90,6 +91,10 @@
    <addaction name="action_Text"/>
    <addaction name="separator"/>
    <addaction name="action_AddDeviceModel"/>
+   <addaction name="separator"/>
+   <addaction name="action_Copy"/>
+   <addaction name="action_Paste"/>
+   <addaction name="action_Cut"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <widget class="QToolBar" name="toolBar_3">
@@ -260,6 +265,26 @@
   <action name="action_SaveOtherFile">
    <property name="text">
     <string>另存为</string>
+   </property>
+  </action>
+  <action name="action_OpenOtherFile">
+   <property name="text">
+    <string>打开其他位置文件</string>
+   </property>
+  </action>
+  <action name="action_Copy">
+   <property name="text">
+    <string>复制</string>
+   </property>
+  </action>
+  <action name="action_Paste">
+   <property name="text">
+    <string>黏贴</string>
+   </property>
+  </action>
+  <action name="action_Cut">
+   <property name="text">
+    <string>剪贴</string>
    </property>
   </action>
  </widget>

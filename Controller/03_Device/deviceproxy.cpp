@@ -14,70 +14,59 @@ DeviceProxy::DeviceProxy()
 
 void DeviceProxy::getDeviceState(DeviceParam *deviceParam)
 {
-    DeviceStateResult *deviceStateResult=new DeviceStateResult();
+    DeviceStateListResult *deviceStateListResult=new DeviceStateListResult();
+    deviceStateListResult->result=false;
 
     // 获取数据库连接
     QSqlQuery query(MySqlDBManager::instance().getDatabase());
-    query.prepare("SELECT id,device_name,connection_status FROM `AlfredDb`.`device_connection_status`;");
+    query.prepare("SELECT GwId,GwClientId,GwConnectingFlag,GwType FROM `AlfredDb`.`SysGatewayConnected`;");
     if(query.exec()){
         while(query.next()){
             int id = query.value(0).toInt();
             QString device_name = query.value(1).toString();
-            QString connection_status=query.value(2).toString();
-//            DeviceParam deviceStateInfo;
+            int connection_status=query.value(2).toInt();
 
-//            deviceStateInfo.id=id;
-//            deviceStateInfo.device_name=device_name;
-//            deviceStateInfo.connection_status=connection_status;
-
-//            deviceStateResult->deviceStateList.append(deviceStateInfo);
+            DeviceStateInfo deviceStateInfo;
+            deviceStateInfo.devicename=device_name;
+            deviceStateInfo.connectingflag=connection_status;
+            // 传感器部分，忽略
+            deviceStateListResult->resultList.append(deviceStateInfo);
         }
     }
 
-//    if(deviceStateResult->deviceStateList.count()==0){
     if(true){
-//        GeneralResult *result = new GeneralResult();
-        sendNotification("get_devicestate_error",static_cast<void *>(deviceStateResult));
+        sendNotification("get_devicestate_error",static_cast<void *>(deviceStateListResult));
     }else{
-        sendNotification("get_devicestate_success",static_cast<void *>(deviceStateResult));
+        sendNotification("get_devicestate_success",static_cast<void *>(deviceStateListResult));
     }
 }
 
 void DeviceProxy::getDeviceStatesList(DeviceParam *deviceParam)
 {
     m_DeviceParam=*deviceParam;
-    QString queryStr="SELECT GwId,GwClientId,GwConnectedDate,GwConnectedTltDate,"
-                         "GwConnectingFlag,GwType FROM `AlfredDb`.`SysGatewayConnected`;";
+    QString queryStr="SELECT GwId,GwClientId,GwConnectingFlag,GwType FROM `AlfredDb`.`SysGatewayConnected`;";
     queryStr=queryStr+RegisterStrFilter(deviceParam);
     QueryHandler *handler=new QueryHandler(this);
 
     QObject::connect(handler, &QueryHandler::queryFinished, [this](QSqlQuery query) {
 
-        DeviceStateResult *deiveStateResult = new DeviceStateResult();
-        deiveStateResult->result = false;
-        if(query.first()){
-            float id = query.value(0).toFloat();
-            QString username = query.value(1).toString();
-            QString realname = query.value(2).toString();
-            QString encryptedpaswd = query.value(3).toString();
-            QString salt = query.value(4).toString();
+        DeviceStateListResult *deviceStateListResult = new DeviceStateListResult();
+        deviceStateListResult->result = false;
 
-//            UserHelper* userHelper = UserHelper::instance();
-            if(true){
-//            if(encryptedpaswd==EncryptUserPassword(m_UserInfo.passwd,salt)){
-                deiveStateResult->result = true;
-//                deiveStateResult->username=username;
-//                loginResult->realname=realname;
-////                loginResult->passwd=userHelper->getUserInfo().passwd;
-//                loginResult->passwd=m_UserInfo.passwd;
-//                loginResult->encryptedpaswd=encryptedpaswd;
-            }
-        }else{
-//            loginResult->result = false;
+        while(query.next()){
+            int id = query.value(0).toInt();
+            QString device_name = query.value(1).toString();
+            int connection_status=query.value(2).toInt();
 
+            DeviceStateInfo deviceStateInfo;
+            deviceStateInfo.devicename=device_name;
+            deviceStateInfo.connectingflag=connection_status;
+            // 传感器部分，忽略
+            deviceStateListResult->resultList.append(deviceStateInfo);
+            deviceStateListResult->result=true;
         }
 
-        sendNotification("login_finished", static_cast<void *>(deiveStateResult));
+        sendNotification("get_devicestatelist_finished", static_cast<void *>(deviceStateListResult));
     });
 
     handler->startQuery(queryStr,RegisterListFilter(deviceParam));
@@ -100,7 +89,7 @@ QString DeviceProxy::RegisterStrFilter(DeviceParam *deviceParam)
     if(!m_DeviceParam.devicename.isEmpty()){
         registerStr=registerStr+"GwClientId=:devicename";
     }
-    return registerStr;
+    return QString();
 }
 
 

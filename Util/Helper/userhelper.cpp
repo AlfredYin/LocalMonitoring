@@ -37,3 +37,9 @@ UserInfo UserHelper::getUserInfo() const
     UserInfo result = userInfo_;
     return result;
 }
+
+bool UserHelper::isLogined()
+{
+    return userInfo_.id!=0?true:false;
+}
+

@@ -55,10 +55,10 @@ void UserMediator::handleNotification(INotification *notification)
 // 它发送一个名为 "login_check" 的通知，并将登录信息 loginInfo 作为通知的主体数据传递出去。
 // sendNotification 方法用于将通知发送到系统中的其他部分（如 Command 或其他 Mediator）。
 // 登录活动
-void UserMediator::doLogin(LoginParam *loginInfo)
+void UserMediator::doLogin(LoginParam *loginParam)
 {
     // 发送指令
-    sendNotification("login_check", loginInfo);
+    sendNotification("login_check", loginParam);
 //    LoginCommand *loginCommand=
 
 }

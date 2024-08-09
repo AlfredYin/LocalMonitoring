@@ -10,8 +10,7 @@ DeviceMediator::DeviceMediator()
 
     // 将感兴趣的加入列表
     // m_notificationInterests 是一个保存该中介器感兴趣的通知类型的列表。在这里，它关注 "login_success" 和 "login_error" 两种通知。
-    m_notificationInterests.append("get_devicestate_success");
-    m_notificationInterests.append("get_devicestate_error");
+//    m_notificationInterests.append("get_devicestatelist_finished");
 }
 
 QList<QString> DeviceMediator::getListNotificationInterests()
@@ -21,18 +20,19 @@ QList<QString> DeviceMediator::getListNotificationInterests()
 
 void DeviceMediator::handleNotification(INotification *notification)
 {
-    if (notification->getNotificationName() == "get_devicestate_success")
-    {
-        m_viewComponent->update((IUpdateData *)notification->getBody());
-    }
-    if (notification->getNotificationName() == "get_devicestate_error")
-    {
-        m_viewComponent->update((IUpdateData *)notification->getBody());
-    }
+//    if (notification->getNotificationName() == "get_devicestatelist_finished")
+//    {
+//        m_viewComponent->update((IUpdateData *)notification->getBody());
+//    }
 }
 
 void DeviceMediator::getDeviceState(DeviceParam *deviceParam)
 {
     // 发送指令
     sendNotification("get_devicestate", deviceParam);
+}
+
+void DeviceMediator::getDeviceStateList(DeviceParam *deviceParam)
+{
+    sendNotification("get_devicestatelist", deviceParam);
 }
