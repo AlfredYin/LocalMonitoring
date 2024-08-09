@@ -11,6 +11,8 @@
 #include <alfredgraphicsscene.h>
 #include "devicerectitem.h"
 
+
+
 class SceneFileHelper
 {
 public:
