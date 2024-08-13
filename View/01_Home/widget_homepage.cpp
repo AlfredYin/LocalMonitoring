@@ -12,6 +12,8 @@
 #include "scenefilehelper.h"
 #include "refreshtextitem.h"
 #include "userhelper.h"
+#include "devicerectitem.h"
+#include "dialog_deivcesensorstate.h"
 
 #include <QDebug>
 #include <QMessageBox>
@@ -66,7 +68,25 @@ Widget_HomePage::Widget_HomePage(QWidget *parent) :
     DeviceParam *param=new DeviceParam();
     homeMediator->getDeviceStateList(param);
 
-    // 设置回调填充信息
+
+    // 右键获取改网关设备下的传感器连接状况
+    connect(ui->graphicsView,&AlfredGraphicsView::mouseRightClicked, [this](QPoint point) {
+
+        QPointF pointScene=ui->graphicsView->mapToScene(point);
+        QGraphicsItem *item=nullptr;
+        item=scene->itemAt(pointScene,ui->graphicsView->transform());
+
+        if (!item || item->type()!=DeviceRectItem::Type){
+            return;
+        }
+        DeviceRectItem *theItem;
+        theItem=qgraphicsitem_cast<DeviceRectItem *>(item);
+        qDebug()<<"item:"<<theItem->getDeviceStateInfo().devicename;
+
+        Dialog_DeivceSensorState *dialog=new Dialog_DeivceSensorState(theItem->getDeviceStateInfo(),this);
+        dialog->move(point.x(),point.y());
+        dialog->show();
+    });
 }
 
 Widget_HomePage::~Widget_HomePage()
@@ -134,7 +154,9 @@ void Widget_HomePage::roadScene()
             }
         }
     }
-    SceneFileHelper::loadItemToScene(scene,"./pattern.json");
+
+    // 修改为默认使用xml
+    SceneFileHelper::loadItemXmlToScene(scene,"./pattern.xml");
 }
 
 void Widget_HomePage::loadDeviceState(DeviceStateListResult *result)

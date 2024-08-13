@@ -91,9 +91,9 @@ message(STATUS "05_UI: ${05_UI}")
 list(APPEND CMAKE_AUTOUIC_SEARCH_PATHS "View/05_Draw")
 
 # 获取查找结果，存储到变量中 Widgets Network Multimedia
-find_package(QT NAMES Qt5 Qt6 COMPONENTS Widgets Network Multimedia Charts Sql Concurrent REQUIRED)
+find_package(QT NAMES Qt5 Qt6 COMPONENTS Widgets Network Multimedia Charts Sql Concurrent Xml XmlPatterns REQUIRED)
 # 根据上面的结果去获取package Widgets Network Multimedia
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets Network Multimedia Charts Sql Concurrent REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets Network Multimedia Charts Sql Concurrent Xml XmlPatterns REQUIRED)
 # 最后查看获取的情况
 if(Qt${QT_VERSION_MAJOR}_FOUND)
     message(STATUS "Found Qt version: ${Qt${QT_VERSION_MAJOR}_VERSION}")
@@ -161,10 +161,14 @@ add_executable(${PROJECT_NAME}
 
 target_include_directories(${PROJECT_NAME} PUBLIC $<TARGET_FILE_DIR:${PROJECT_NAME}>)
 
-# 指定Qt依赖库和头文件
-target_link_libraries(${PROJECT_NAME} Qt${QT_VERSION_MAJOR}::Widgets
+# 链接 Qt5 的库
+target_link_libraries(${PROJECT_NAME}
+    Qt${QT_VERSION_MAJOR}::Widgets
     Qt${QT_VERSION_MAJOR}::Network
     Qt${QT_VERSION_MAJOR}::Multimedia
     Qt${QT_VERSION_MAJOR}::Charts
     Qt${QT_VERSION_MAJOR}::Sql
+    Qt${QT_VERSION_MAJOR}::Concurrent
+    Qt${QT_VERSION_MAJOR}::Xml
+    Qt${QT_VERSION_MAJOR}::XmlPatterns
     )

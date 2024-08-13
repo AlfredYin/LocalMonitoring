@@ -10,6 +10,7 @@
 #include <QGraphicsRectItem>
 #include <QGraphicsEllipseItem>
 #include <QGraphicsSimpleTextItem>
+#include <QFileInfo>
 
 DrawMainWindow::DrawMainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -211,10 +212,8 @@ void DrawMainWindow::on_mouseRightClicked(QPoint point)
     QMenu *cmenu = new QMenu();
 
     // 修改颜色
-//    QAction *actionModifyColor = cmenu->addAction("Modify Color");
-    QAction *actionModifyColor=new QAction("Modify Color");
+    QAction *actionModifyColor=new QAction("修改颜色");
     connect(actionModifyColor, &QAction::triggered, [this, item]() {
-        qDebug()<<"actionModifyColor";
         if(item->type()==QGraphicsRectItem::Type){              // 矩形
             QGraphicsRectItem *theItem;
             theItem=qgraphicsitem_cast<QGraphicsRectItem *>(item);
@@ -265,9 +264,8 @@ void DrawMainWindow::on_mouseRightClicked(QPoint point)
     });
 
     // 修改内容
-    QAction *actionModifyContent = new QAction("Modify Content");
+    QAction *actionModifyContent = new QAction("修改内容");
     connect(actionModifyContent, &QAction::triggered, [this, item]() {
-        qDebug()<<"actionModifyContent";
         if(item->type()==QGraphicsRectItem::Type){              // 矩形
             QGraphicsRectItem *theItem;
             theItem=qgraphicsitem_cast<QGraphicsRectItem *>(item);
@@ -284,7 +282,9 @@ void DrawMainWindow::on_mouseRightClicked(QPoint point)
             QGraphicsTextItem *theItem;
             theItem=qgraphicsitem_cast<QGraphicsTextItem *>(item);
             QString str=QInputDialog::getText(this,"请输入文本内容","请输入：");
-            theItem->setPlainText(str);
+            if(!str.isEmpty()){
+                theItem->setPlainText(str);
+            }
         }else if(item->type()==SingleLineItem::Type){     // 直线，折线，曲线
             SingleLineItem *theItem;
             theItem=qgraphicsitem_cast<SingleLineItem *>(item);
@@ -315,9 +315,41 @@ void DrawMainWindow::on_mouseRightClicked(QPoint point)
     });
 
     // 修改线段宽度
-    QAction *actionModifyWidth = new QAction("Modify Width");
+    QAction *actionModifyWidth = new QAction("修改宽度");
 
+    // 修改字体
+    QAction *actionModifyFont = new QAction("修改字体");
+    connect(actionModifyFont, &QAction::triggered, [this, item]() {
+        if(item->type()==QGraphicsRectItem::Type){              // 矩形
+            QGraphicsRectItem *theItem;
+            theItem=qgraphicsitem_cast<QGraphicsRectItem *>(item);
 
+        }else if(item->type()==QGraphicsEllipseItem::Type){     // 圆形，椭圆
+            QGraphicsEllipseItem *theItem;
+            theItem=qgraphicsitem_cast<QGraphicsEllipseItem *>(item);
+
+        }else if(item->type()==QGraphicsPolygonItem::Type){     // 多边形
+            QGraphicsPolygonItem *theItem;
+            theItem=qgraphicsitem_cast<QGraphicsPolygonItem *>(item);
+
+        }else if(item->type()==QGraphicsTextItem::Type){     // 文字
+            QGraphicsTextItem *theItem;
+            theItem=qgraphicsitem_cast<QGraphicsTextItem *>(item);
+
+            bool flag;
+            QFont new_Font=QFontDialog::getFont(&flag,theItem->font(),this,"请选择文字字体");
+            if (flag) {
+                theItem->setFont(new_Font);
+            }
+        }else if(item->type()==SingleLineItem::Type){     // 直线，折线，曲线
+            SingleLineItem *theItem;
+            theItem=qgraphicsitem_cast<SingleLineItem *>(item);
+
+        }else if(item->type()==DeviceRectItem::Type){     // 设备模型
+            DeviceRectItem *theItem;
+            theItem=qgraphicsitem_cast<DeviceRectItem *>(item);
+        }
+    });
 
     if(item->type()==QGraphicsRectItem::Type){              // 矩形
         QGraphicsRectItem *theItem;
@@ -337,7 +369,8 @@ void DrawMainWindow::on_mouseRightClicked(QPoint point)
         // 设置颜色和字号
         cmenu->addAction(actionModifyColor);
         cmenu->addAction(actionModifyContent);
-//        cmenu->addAction(actionModifyWidth);
+        // 字体
+        cmenu->addAction(actionModifyFont);
     }else if(item->type()==SingleLineItem::Type){     // 直线，折线，曲线
         QGraphicsPolygonItem *theItem;
         theItem=qgraphicsitem_cast<QGraphicsPolygonItem *>(item);
@@ -512,7 +545,6 @@ void DrawMainWindow::on_action_AddDeviceModel_triggered()
     scene->clearSelection();
     item->setSelected(true);
 }
-
 
 void DrawMainWindow::on_action_Ellipse_triggered()
 {
@@ -753,8 +785,19 @@ void DrawMainWindow::on_action_ZoomIn_triggered()
         return;
     }
     for(int i=0;i<cnt;i++){
-        QGraphicsItem *item=scene->selectedItems().at(i);
-        item->setScale(0.1+item->scale());
+        QGraphicsItem *item = scene->selectedItems().at(i);
+
+        QTransform currentTransform = item->transform(); // 获取当前的变换
+        qreal scaleX = currentTransform.m11(); // 获取X方向的缩放系数
+        qreal scaleY = currentTransform.m22(); // 获取Y方向的缩放系数
+
+        // 调整缩放系数
+        scaleX += 0.1;
+        scaleY += 0.1;
+
+        QTransform newTransform;
+        newTransform.scale(scaleX, scaleY); // 设置新的缩放系数
+        item->setTransform(newTransform, false); // 不叠加，直接设置新的变换
     }
 }
 
@@ -766,8 +809,19 @@ void DrawMainWindow::on_action_ZoomOut_triggered()
         return;
     }
     for(int i=0;i<cnt;i++){
-        QGraphicsItem *item=scene->selectedItems().at(i);
-        item->setScale(-0.1+item->scale());
+        QGraphicsItem *item = scene->selectedItems().at(i);
+
+        QTransform currentTransform = item->transform(); // 获取当前的变换
+        qreal scaleX = currentTransform.m11(); // 获取X方向的缩放系数
+        qreal scaleY = currentTransform.m22(); // 获取Y方向的缩放系数
+
+        // 调整缩放系数
+        scaleX -= 0.1;
+        scaleY -= 0.1;
+
+        QTransform newTransform;
+        newTransform.scale(scaleX, scaleY);
+        item->setTransform(newTransform, false);
     }
 }
 
@@ -913,10 +967,10 @@ void DrawMainWindow::on_action_GroupBreak_triggered()
 // 打开文件
 // 另存为
 // 保存文件
-void DrawMainWindow::on_action_SaveFile_triggered()
+void DrawMainWindow::on_action_SaveFileJson_triggered()
 {
-    // 保存文件是存为默认位置，系统默认打开这个 ./pattern.json
-    bool flag=SceneFileHelper::saveSceneItemToFile("./pattern.json",scene);
+    // 保存文件是存为默认位置 ./pattern.json
+    bool flag=SceneFileHelper::saveSceneItemToFileJson("./pattern.json",scene);
     if(flag){
         QMessageBox::information(this,"提示","文件保存成功");
     }else{
@@ -928,7 +982,19 @@ void DrawMainWindow::on_action_SaveOtherFile_triggered()
 {
     // 保存文件到自定义位置
     QString destPathStr=getSaveFilePath(this);
-    bool flag=SceneFileHelper::saveSceneItemToFile(destPathStr,scene);
+    bool flag=false;
+
+    QFileInfo fileInfo(destPathStr); // 创建 QFileInfo 对象
+    QString suffix = fileInfo.suffix().toLower(); // 获取文件后缀并转为小写
+
+    if (suffix == "json") {
+        flag=SceneFileHelper::saveSceneItemToFileJson(destPathStr,scene);
+    } else if (suffix == "xml") {
+        flag=SceneFileHelper::saveSceneItemToFileXml(destPathStr,scene);
+    } else {
+        // 其他格式或未知格式
+    }
+
     if(flag){
         QMessageBox::information(this,"提示","文件保存成功");
     }else{
@@ -939,14 +1005,26 @@ void DrawMainWindow::on_action_SaveOtherFile_triggered()
 void DrawMainWindow::on_action_OpenFile_triggered()
 {
     scene->clear();
-    SceneFileHelper::loadItemToScene(scene,"./pattern.json");
+    // 默认打开xml文件
+    SceneFileHelper::loadItemXmlToScene(scene,"./pattern.xml");
 }
 
 void DrawMainWindow::on_action_OpenOtherFile_triggered()
 {
+    // 选择使用xml文件/json文件
     QString srcPathStr=getOpenFilePath(this);
     scene->clear();
-    SceneFileHelper::loadItemToScene(scene,srcPathStr);
+    QFileInfo fileInfo(srcPathStr); // 创建 QFileInfo 对象
+    QString suffix = fileInfo.suffix().toLower(); // 获取文件后缀并转为小写
+
+    if (suffix == "json") {
+        SceneFileHelper::loadItemJsonToScene(scene,srcPathStr);
+    } else if (suffix == "xml") {
+        SceneFileHelper::loadItemXmlToScene(scene,srcPathStr);
+    } else {
+        // 其他格式或未知格式
+    }
+
 }
 
 #include <QFileDialog>
@@ -954,32 +1032,30 @@ QString DrawMainWindow::getSaveFilePath(QWidget *parent)
 {
     QString filePath = QFileDialog::getSaveFileName(
         parent,
-        "保存 JSON 文件",
+        "保存文件",
         "",
-        "JSON 文件 (*.json)"
+        "XML 文件 (*.xml);;JSON 文件 (*.json)"
     );
 
-    // 确保用户选择了文件路径并且文件扩展名为 .json
+    // 确保用户选择了文件路径
     if (!filePath.isEmpty()) {
-        // 如果用户没有输入文件扩展名，则自动添加 .json 扩展名
-        if (!filePath.endsWith(".json", Qt::CaseInsensitive)) {
-            filePath += ".json";
+        if (!filePath.endsWith(".json", Qt::CaseInsensitive) && !filePath.endsWith(".xml", Qt::CaseInsensitive)) {
+            filePath += ".xml"; // 默认使用 .xml 扩展名
         }
         return filePath;
     } else {
-        // 用户取消了对话框
         return QString();
     }
 }
 
 QString DrawMainWindow::getOpenFilePath(QWidget *parent)
 {
-   QString filePath = QFileDialog::getOpenFileName(
-       parent,
-       "打开 JSON 文件",
-       "",
-       "JSON 文件 (*.json)"
-   );
+    QString filePath = QFileDialog::getOpenFileName(
+        parent,
+        "打开 XML/JSON 文件",
+        "",
+        "XML 文件 (*.xml);;JSON 文件 (*.json)"
+    );
 
    // 确保用户选择了文件路径
    if (!filePath.isEmpty()) {
@@ -1010,6 +1086,12 @@ void DrawMainWindow::on_action_Copy_triggered()
                                QGraphicsRectItem::ItemIsSelectable |
                                QGraphicsRectItem::ItemIsMovable);
                 newItem->setBrush(theItem->brush());
+                // 设置缩放
+                newItem->setTransform(item->transform(), false);
+
+                newItem->setPos(-100+qrand()%200,-60+qrand()%120);
+                newItem->setData(ItemId,++seqNum);
+                newItem->setData(ItemDescription,"矩形");
                 scene->addItem(newItem);
             }
 
@@ -1023,6 +1105,40 @@ void DrawMainWindow::on_action_Copy_triggered()
                 newItem->setFlags(QGraphicsRectItem::ItemIsFocusable |
                                QGraphicsRectItem::ItemIsSelectable |
                                QGraphicsRectItem::ItemIsMovable);
+                // 设置缩放
+                newItem->setTransform(item->transform(), false);
+
+                newItem->setPos(-100+qrand()%200,-60+qrand()%120);
+                newItem->setData(ItemId,++seqNum);
+                newItem->setData(ItemDescription,"圆形");
+                scene->addItem(newItem);
+            }
+
+        }else if(item->type()==QGraphicsTextItem::Type){
+            QGraphicsTextItem *theItem;
+            theItem=qgraphicsitem_cast<QGraphicsTextItem *>(item);
+
+            if (theItem) {
+                // 创建一个新的 QGraphicsTextItem，使用原始 item 的文本
+                QGraphicsTextItem *newItem = new QGraphicsTextItem(theItem->toPlainText());
+
+                // 复制原 item 的样式和属性
+                newItem->setFont(theItem->font());
+                newItem->setTextInteractionFlags(theItem->textInteractionFlags());
+                newItem->setDefaultTextColor(theItem->defaultTextColor());
+
+                // 设置新的 item 的 flags
+                newItem->setFlags(QGraphicsTextItem::ItemIsFocusable |
+                                  QGraphicsTextItem::ItemIsSelectable |
+                                  QGraphicsTextItem::ItemIsMovable);
+
+                // 复制原 item 的变换
+                newItem->setTransform(item->transform(), false);
+                newItem->setPos(-100+qrand()%200,-60+qrand()%120);
+                newItem->setData(ItemId,++seqNum);
+                newItem->setData(ItemDescription,"文字");
+
+                // 添加到场景中
                 scene->addItem(newItem);
             }
 
@@ -1035,6 +1151,43 @@ void DrawMainWindow::on_action_Copy_triggered()
                 newItem->setFlags(QGraphicsRectItem::ItemIsFocusable |
                                QGraphicsRectItem::ItemIsSelectable |
                                QGraphicsRectItem::ItemIsMovable);
+
+                // 设置缩放
+                newItem->setTransform(item->transform(), false);
+
+                newItem->setPos(-100+qrand()%200,-60+qrand()%120);
+                newItem->setData(ItemId,++seqNum);
+                newItem->setData(ItemDescription,"多边形");
+                scene->addItem(newItem);
+            }
+        }else if(item->type()==DeviceRectItem::Type){
+            DeviceRectItem *theItem;
+            theItem=qgraphicsitem_cast<DeviceRectItem *>(item);
+            if (theItem) {
+
+                QRectF rect=theItem->rect();
+
+                qreal x =rect.x();
+                qreal y =rect.y();
+                qreal width =rect.width();
+                qreal height =rect.height();
+
+                DeviceRectItem *newItem = new DeviceRectItem(x,y,width,height);
+
+//                DeviceRectItem *item=new DeviceRectItem(-50,-30,80,40);
+                newItem->setFlags(QGraphicsRectItem::ItemIsFocusable |
+                               QGraphicsRectItem::ItemIsSelectable |
+                               QGraphicsRectItem::ItemIsMovable);
+
+                newItem->setBrush(theItem->brush());
+                newItem->setDeviceStateInfo(theItem->getDeviceStateInfo());
+                newItem->setPos(-100+qrand()%200,-60+qrand()%120);
+                newItem->setData(ItemId,++seqNum);
+                newItem->setData(ItemDescription,"自定义设备模型");
+
+                // 设置缩放
+                newItem->setTransform(item->transform(), false);
+
                 scene->addItem(newItem);
             }
         }
@@ -1146,5 +1299,16 @@ void DrawMainWindow::on_action_Cut_triggered()
             }
         }
 
+    }
+}
+
+void DrawMainWindow::on_action_SaveFileXml_triggered()
+{
+    // 保存文件是存为默认位置，系统默认打开这个 ./pattern.xml
+    bool flag=SceneFileHelper::saveSceneItemToFileXml("./pattern.xml",scene);
+    if(flag){
+        QMessageBox::information(this,"提示","文件保存成功");
+    }else{
+        QMessageBox::warning(this,"警告","文件保存失败");
     }
 }

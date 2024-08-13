@@ -97,8 +97,6 @@ private slots:
 
     void on_action_AddDeviceModel_triggered();
 
-    void on_action_SaveFile_triggered();
-
     void on_action_SaveOtherFile_triggered();
 
     void on_action_OpenFile_triggered();
@@ -106,6 +104,7 @@ private slots:
     QString getSaveFilePath(QWidget *parent = nullptr);
 
     QString getOpenFilePath(QWidget *parent = nullptr);
+
     void on_action_OpenOtherFile_triggered();
 
     void on_action_Copy_triggered();
@@ -113,6 +112,10 @@ private slots:
     void on_action_Paste_triggered();
 
     void on_action_Cut_triggered();
+
+    void on_action_SaveFileXml_triggered();
+
+    void on_action_SaveFileJson_triggered();
 
 private:
     Ui::DrawMainWindow *ui;

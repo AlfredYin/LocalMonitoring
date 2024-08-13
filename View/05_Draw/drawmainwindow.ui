@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>935</width>
-    <height>668</height>
+    <width>1330</width>
+    <height>900</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -25,8 +25,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>935</width>
-     <height>23</height>
+     <width>1330</width>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">
@@ -40,7 +40,8 @@
     <property name="title">
      <string>保存图片</string>
     </property>
-    <addaction name="action_SaveFile"/>
+    <addaction name="action_SaveFileXml"/>
+    <addaction name="action_SaveFileJson"/>
     <addaction name="action_SaveOtherFile"/>
    </widget>
    <addaction name="menu"/>
@@ -254,12 +255,12 @@
   </action>
   <action name="action_OpenFile">
    <property name="text">
-    <string>打开文件</string>
+    <string>打开文件(默认xml)</string>
    </property>
   </action>
-  <action name="action_SaveFile">
+  <action name="action_SaveFileJson">
    <property name="text">
-    <string>保存文件</string>
+    <string>保存文件json</string>
    </property>
   </action>
   <action name="action_SaveOtherFile">
@@ -269,7 +270,7 @@
   </action>
   <action name="action_OpenOtherFile">
    <property name="text">
-    <string>打开其他位置文件</string>
+    <string>打开其他文件(json/xml)</string>
    </property>
   </action>
   <action name="action_Copy">
@@ -285,6 +286,11 @@
   <action name="action_Cut">
    <property name="text">
     <string>剪贴</string>
+   </property>
+  </action>
+  <action name="action_SaveFileXml">
+   <property name="text">
+    <string>保存文件xml</string>
    </property>
   </action>
  </widget>

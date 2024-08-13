@@ -5,6 +5,7 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QDomDocument>
 
 #include <QGraphicsPolygonItem>
 
@@ -18,9 +19,13 @@ class SceneFileHelper
 public:
     SceneFileHelper();
 
-    static bool saveSceneItemToFile(QString destPath,AlfredGraphicsScene* scene);
+    static bool saveSceneItemToFileJson(QString destPath,AlfredGraphicsScene* scene);
 
-    static void loadItemToScene(AlfredGraphicsScene* scene,QString srcPath);
+    static bool saveSceneItemToFileXml(QString destPath,AlfredGraphicsScene* scene);
+
+    static void loadItemJsonToScene(AlfredGraphicsScene* scene,QString srcPath);
+
+    static void loadItemXmlToScene(AlfredGraphicsScene* scene,QString srcPath);
 };
 
 #endif // SCENEFILEHELPER_H
