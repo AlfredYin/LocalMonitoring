@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SceneItems>
+ <Item>
+  <Type>8</Type>
+  <Text>远程控制WEB端</Text>
+  <Pos pos_z="7" pos_x="279" pos_y="195"/>
+  <Font family="Microsoft YaHei UI" bold="0" italic="0" underline="0" pointSize="14"/>
+  <Scale x="1" y="1"/>
+  <Color color_r="0" color_b="0" color_g="0" color_a="255"/>
+ </Item>
+ <Item>
+  <Type>10010</Type>
+  <Pos pos_z="7" pos_x="-291" pos_y="-81"/>
+  <Rect x="-50" width="80" y="-30" height="40"/>
+  <Scale x="1.4" y="1.4"/>
+  <Color color_r="173" color_b="230" color_g="216" color_a="255"/>
+  <DeviceStateInfo>
+   <devicename>Esp32_1</devicename>
+   <connectingflag>0</connectingflag>
+   <sensorstatelist/>
+  </DeviceStateInfo>
+ </Item>
+ <Item>
+  <Type>8</Type>
+  <Text>远程数据处理</Text>
+  <Pos pos_z="5" pos_x="171" pos_y="-292"/>
+  <Font family="Microsoft YaHei UI" bold="0" italic="0" underline="0" pointSize="14"/>
+  <Scale x="1" y="1"/>
+  <Color color_r="0" color_b="0" color_g="0" color_a="255"/>
+ </Item>
+ <Item>
+  <Type>8</Type>
+  <Text>库房01</Text>
+  <Pos pos_z="4" pos_x="-428" pos_y="-161"/>
+  <Font family="Microsoft YaHei UI" bold="0" italic="0" underline="0" pointSize="14"/>
+  <Scale x="1" y="1"/>
+  <Color color_r="0" color_b="0" color_g="0" color_a="255"/>
+ </Item>
+ <Item>
+  <Type>8</Type>
+  <Text>可以下发控制指令</Text>
+  <Pos pos_z="0" pos_x="307" pos_y="237"/>
+  <Font family="Microsoft YaHei UI" bold="0" italic="0" underline="0" pointSize="11"/>
+  <Scale x="1" y="1"/>
+  <Color color_r="0" color_b="0" color_g="0" color_a="255"/>
+ </Item>
+ <Item>
+  <Type>10010</Type>
+  <Pos pos_z="0" pos_x="-37" pos_y="-80"/>
+  <Rect x="-50" width="80" y="-30" height="40"/>
+  <Scale x="1.4" y="1.4"/>
+  <Color color_r="173" color_b="230" color_g="216" color_a="255"/>
+  <DeviceStateInfo>
+   <devicename>Esp32S3_1</devicename>
+   <connectingflag>1</connectingflag>
+   <sensorstatelist/>
+  </DeviceStateInfo>
+ </Item>
+ <Item>
+  <Type>10010</Type>
+  <Pos pos_z="0" pos_x="-14" pos_y="135"/>
+  <Rect x="-50" width="80" y="-30" height="40"/>
+  <Scale x="1.4" y="1.4"/>
+  <Color color_r="173" color_b="230" color_g="216" color_a="255"/>
+  <DeviceStateInfo>
+   <devicename>Esp32_2</devicename>
+   <connectingflag>0</connectingflag>
+   <sensorstatelist/>
+  </DeviceStateInfo>
+ </Item>
+ <Item>
+  <Type>10010</Type>
+  <Pos pos_z="0" pos_x="-288" pos_y="126"/>
+  <Rect x="-50" width="80" y="-30" height="40"/>
+  <Scale x="1.4" y="1.4"/>
+  <Color color_r="173" color_b="230" color_g="216" color_a="255"/>
+  <DeviceStateInfo>
+   <devicename>Esp32_1</devicename>
+   <connectingflag>0</connectingflag>
+   <sensorstatelist/>
+  </DeviceStateInfo>
+ </Item>
+ <Item>
+  <Type>8</Type>
+  <Text>库房03</Text>
+  <Pos pos_z="0" pos_x="-430" pos_y="57"/>
+  <Font family="Microsoft YaHei UI" bold="0" italic="0" underline="0" pointSize="14"/>
+  <Scale x="1" y="1"/>
+  <Color color_r="0" color_b="0" color_g="0" color_a="255"/>
+ </Item>
+ <Item>
+  <Type>8</Type>
+  <Text>库房02</Text>
+  <Pos pos_z="0" pos_x="-159" pos_y="-169"/>
+  <Font family="Microsoft YaHei UI" bold="0" italic="0" underline="0" pointSize="14"/>
+  <Scale x="1" y="1"/>
+  <Color color_r="0" color_b="0" color_g="0" color_a="255"/>
+ </Item>
+ <Item>
+  <Type>8</Type>
+  <Text>库房04</Text>
+  <Pos pos_z="0" pos_x="-159" pos_y="59"/>
+  <Font family="Microsoft YaHei UI" bold="0" italic="0" underline="0" pointSize="14"/>
+  <Scale x="1" y="1"/>
+  <Color color_r="0" color_b="0" color_g="0" color_a="255"/>
+ </Item>
+ <Item>
+  <Type>10001</Type>
+  <Pos pos_z="0" endpoint_x="80" endpoint_y="17" pos_x="-158" startpoint_x="77" startpoint_y="-80" pos_y="30"/>
+  <Scale x="1" y="1"/>
+  <Pen width="3" color_r="0" color_b="0" color_g="0" color_a="255"/>
+ </Item>
+ <Item>
+  <Type>10001</Type>
+  <Pos pos_z="0" endpoint_x="416" endpoint_y="-40" pos_x="-159" startpoint_x="-130" startpoint_y="-35" pos_y="31"/>
+  <Scale x="1" y="1"/>
+  <Pen width="3" color_r="0" color_b="0" color_g="0" color_a="255"/>
+ </Item>
+ <Item>
+  <Type>8</Type>
+  <Text></Text>
+  <Pos pos_z="0" pos_x="11" pos_y="93"/>
+  <Font family="SimSun" bold="0" italic="0" underline="0" pointSize="9"/>
+  <Scale x="1" y="1"/>
+  <Color color_r="0" color_b="0" color_g="0" color_a="255"/>
+ </Item>
+ <Item>
+  <Type>8</Type>
+  <Text>云端数据库</Text>
+  <Pos pos_z="0" pos_x="192" pos_y="-260"/>
+  <Font family="Microsoft YaHei UI" bold="0" italic="0" underline="0" pointSize="14"/>
+  <Scale x="1" y="1"/>
+  <Color color_r="0" color_b="0" color_g="0" color_a="255"/>
+ </Item>
+ <Item>
+  <Type>10001</Type>
+  <Pos pos_z="0" endpoint_x="221" endpoint_y="-140" pos_x="36" startpoint_x="219" startpoint_y="-309" pos_y="130"/>
+  <Scale x="1" y="1"/>
+  <Pen width="3" color_r="0" color_b="0" color_g="0" color_a="255"/>
+ </Item>
+ <Item>
+  <Type>10010</Type>
+  <Pos pos_z="0" pos_x="409" pos_y="194"/>
+  <Rect x="-50" width="80" y="-30" height="40"/>
+  <Scale x="2.1" y="2.1"/>
+  <Color color_r="173" color_b="230" color_g="216" color_a="255"/>
+  <DeviceStateInfo>
+   <devicename>WEB</devicename>
+   <connectingflag>0</connectingflag>
+   <sensorstatelist/>
+  </DeviceStateInfo>
+ </Item>
+ <Item>
+  <Type>10001</Type>
+  <Pos pos_z="0" endpoint_x="256" endpoint_y="-9" pos_x="0" startpoint_x="257" startpoint_y="-10" pos_y="0"/>
+  <Scale x="1" y="1"/>
+  <Pen width="3" color_r="0" color_b="0" color_g="0" color_a="255"/>
+ </Item>
+ <Item>
+  <Type>10001</Type>
+  <Pos pos_z="0" endpoint_x="377" endpoint_y="130" pos_x="-4" startpoint_x="261" startpoint_y="-10" pos_y="1"/>
+  <Scale x="1" y="1"/>
+  <Pen width="3" color_r="0" color_b="0" color_g="0" color_a="255"/>
+ </Item>
+ <Item>
+  <Type>3</Type>
+  <Pos pos_z="-2" pos_x="-328" pos_y="-117"/>
+  <Rect x="-50" width="100" y="-30" height="60"/>
+  <Scale x="2" y="2"/>
+  <Color color_r="37" color_b="230" color_g="30" color_a="255"/>
+ </Item>
+ <Item>
+  <Type>3</Type>
+  <Pos pos_z="-4" pos_x="-70" pos_y="-116"/>
+  <Rect x="-50" width="100" y="-30" height="60"/>
+  <Scale x="2.1" y="2.1"/>
+  <Color color_r="37" color_b="230" color_g="30" color_a="255"/>
+ </Item>
+ <Item>
+  <Type>3</Type>
+  <Pos pos_z="-5" pos_x="-69" pos_y="112"/>
+  <Rect x="-50" width="100" y="-30" height="60"/>
+  <Scale x="2.1" y="2.1"/>
+  <Color color_r="37" color_b="230" color_g="30" color_a="255"/>
+ </Item>
+ <Item>
+  <Type>3</Type>
+  <Pos pos_z="-6" pos_x="-332" pos_y="107"/>
+  <Rect x="-50" width="100" y="-30" height="60"/>
+  <Scale x="2" y="2"/>
+  <Color color_r="37" color_b="230" color_g="30" color_a="255"/>
+ </Item>
+ <Item>
+  <Type>3</Type>
+  <Pos pos_z="-6" pos_x="260" pos_y="-238"/>
+  <Rect x="-50" width="100" y="-30" height="60"/>
+  <Scale x="1.9" y="1.9"/>
+  <Color color_r="20" color_b="73" color_g="230" color_a="255"/>
+ </Item>
+ <Item>
+  <Type>10001</Type>
+  <Pos pos_z="-9" endpoint_x="-144" endpoint_y="51" pos_x="-147" startpoint_x="-146" startpoint_y="-103" pos_y="36"/>
+  <Scale x="1" y="1"/>
+  <Pen width="3" color_r="0" color_b="0" color_g="0" color_a="255"/>
+ </Item>
+</SceneItems>

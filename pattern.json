@@ -1,0 +1,399 @@
+[
+    {
+        "color_a": 255,
+        "color_b": 0,
+        "color_g": 0,
+        "color_r": 0,
+        "font": {
+            "bold": false,
+            "family": "Microsoft YaHei UI",
+            "italic": false,
+            "pointSize": 14,
+            "underline": false
+        },
+        "pos_x": 279,
+        "pos_y": 195,
+        "text": "远程控制WEB端",
+        "type": 8
+    },
+    {
+        "color_a": 255,
+        "color_b": 230,
+        "color_g": 216,
+        "color_r": 173,
+        "deviceStateInfo": {
+            "connectingflag": 0,
+            "devicename": "Esp32_1",
+            "sensorstatelist": [
+            ]
+        },
+        "height": 40,
+        "pos_x": -291,
+        "pos_y": -81,
+        "type": 10010,
+        "width": 80,
+        "x": -50,
+        "y": -30
+    },
+    {
+        "color_a": 255,
+        "color_b": 0,
+        "color_g": 0,
+        "color_r": 0,
+        "font": {
+            "bold": false,
+            "family": "Microsoft YaHei UI",
+            "italic": false,
+            "pointSize": 14,
+            "underline": false
+        },
+        "pos_x": 171,
+        "pos_y": -292,
+        "text": "远程数据处理",
+        "type": 8
+    },
+    {
+        "color_a": 255,
+        "color_b": 0,
+        "color_g": 0,
+        "color_r": 0,
+        "font": {
+            "bold": false,
+            "family": "Microsoft YaHei UI",
+            "italic": false,
+            "pointSize": 14,
+            "underline": false
+        },
+        "pos_x": -428,
+        "pos_y": -161,
+        "text": "库房01",
+        "type": 8
+    },
+    {
+        "color_a": 255,
+        "color_b": 0,
+        "color_g": 0,
+        "color_r": 0,
+        "font": {
+            "bold": false,
+            "family": "Microsoft YaHei UI",
+            "italic": false,
+            "pointSize": 11,
+            "underline": false
+        },
+        "pos_x": 307,
+        "pos_y": 237,
+        "text": "可以下发控制指令",
+        "type": 8
+    },
+    {
+        "color_a": 255,
+        "color_b": 230,
+        "color_g": 216,
+        "color_r": 173,
+        "deviceStateInfo": {
+            "connectingflag": 1,
+            "devicename": "Esp32S3_1",
+            "sensorstatelist": [
+            ]
+        },
+        "height": 40,
+        "pos_x": -37,
+        "pos_y": -80,
+        "type": 10010,
+        "width": 80,
+        "x": -50,
+        "y": -30
+    },
+    {
+        "color_a": 255,
+        "color_b": 230,
+        "color_g": 216,
+        "color_r": 173,
+        "deviceStateInfo": {
+            "connectingflag": 0,
+            "devicename": "Esp32_2",
+            "sensorstatelist": [
+            ]
+        },
+        "height": 40,
+        "pos_x": -14,
+        "pos_y": 135,
+        "type": 10010,
+        "width": 80,
+        "x": -50,
+        "y": -30
+    },
+    {
+        "color_a": 255,
+        "color_b": 230,
+        "color_g": 216,
+        "color_r": 173,
+        "deviceStateInfo": {
+            "connectingflag": 0,
+            "devicename": "Esp32_1",
+            "sensorstatelist": [
+            ]
+        },
+        "height": 40,
+        "pos_x": -288,
+        "pos_y": 126,
+        "type": 10010,
+        "width": 80,
+        "x": -50,
+        "y": -30
+    },
+    {
+        "color_a": 255,
+        "color_b": 0,
+        "color_g": 0,
+        "color_r": 0,
+        "font": {
+            "bold": false,
+            "family": "Microsoft YaHei UI",
+            "italic": false,
+            "pointSize": 14,
+            "underline": false
+        },
+        "pos_x": -430,
+        "pos_y": 57,
+        "text": "库房03",
+        "type": 8
+    },
+    {
+        "color_a": 255,
+        "color_b": 0,
+        "color_g": 0,
+        "color_r": 0,
+        "font": {
+            "bold": false,
+            "family": "Microsoft YaHei UI",
+            "italic": false,
+            "pointSize": 14,
+            "underline": false
+        },
+        "pos_x": -159,
+        "pos_y": -169,
+        "text": "库房02",
+        "type": 8
+    },
+    {
+        "color_a": 255,
+        "color_b": 0,
+        "color_g": 0,
+        "color_r": 0,
+        "font": {
+            "bold": false,
+            "family": "Microsoft YaHei UI",
+            "italic": false,
+            "pointSize": 14,
+            "underline": false
+        },
+        "pos_x": -159,
+        "pos_y": 59,
+        "text": "库房04",
+        "type": 8
+    },
+    {
+        "color_a": 255,
+        "color_b": 0,
+        "color_g": 0,
+        "color_r": 0,
+        "endpoint_x": 80,
+        "endpoint_y": 17,
+        "pen_width": 3,
+        "pos_x": -158,
+        "pos_y": 30,
+        "startpoint_x": 77,
+        "startpoint_y": -80,
+        "type": 10001
+    },
+    {
+        "color_a": 255,
+        "color_b": 0,
+        "color_g": 0,
+        "color_r": 0,
+        "endpoint_x": 416,
+        "endpoint_y": -40,
+        "pen_width": 3,
+        "pos_x": -159,
+        "pos_y": 31,
+        "startpoint_x": -130,
+        "startpoint_y": -35,
+        "type": 10001
+    },
+    {
+        "color_a": 255,
+        "color_b": 0,
+        "color_g": 0,
+        "color_r": 0,
+        "font": {
+            "bold": false,
+            "family": "SimSun",
+            "italic": false,
+            "pointSize": 9,
+            "underline": false
+        },
+        "pos_x": 11,
+        "pos_y": 93,
+        "text": "",
+        "type": 8
+    },
+    {
+        "color_a": 255,
+        "color_b": 0,
+        "color_g": 0,
+        "color_r": 0,
+        "font": {
+            "bold": false,
+            "family": "Microsoft YaHei UI",
+            "italic": false,
+            "pointSize": 14,
+            "underline": false
+        },
+        "pos_x": 192,
+        "pos_y": -260,
+        "text": "云端数据库",
+        "type": 8
+    },
+    {
+        "color_a": 255,
+        "color_b": 0,
+        "color_g": 0,
+        "color_r": 0,
+        "endpoint_x": 221,
+        "endpoint_y": -140,
+        "pen_width": 3,
+        "pos_x": 36,
+        "pos_y": 130,
+        "startpoint_x": 219,
+        "startpoint_y": -309,
+        "type": 10001
+    },
+    {
+        "color_a": 255,
+        "color_b": 230,
+        "color_g": 216,
+        "color_r": 173,
+        "deviceStateInfo": {
+            "connectingflag": 0,
+            "devicename": "WEB",
+            "sensorstatelist": [
+            ]
+        },
+        "height": 40,
+        "pos_x": 409,
+        "pos_y": 194,
+        "type": 10010,
+        "width": 80,
+        "x": -50,
+        "y": -30
+    },
+    {
+        "color_a": 255,
+        "color_b": 0,
+        "color_g": 0,
+        "color_r": 0,
+        "endpoint_x": 256,
+        "endpoint_y": -9,
+        "pen_width": 3,
+        "pos_x": 0,
+        "pos_y": 0,
+        "startpoint_x": 257,
+        "startpoint_y": -10,
+        "type": 10001
+    },
+    {
+        "color_a": 255,
+        "color_b": 0,
+        "color_g": 0,
+        "color_r": 0,
+        "endpoint_x": 377,
+        "endpoint_y": 130,
+        "pen_width": 3,
+        "pos_x": -4,
+        "pos_y": 1,
+        "startpoint_x": 261,
+        "startpoint_y": -10,
+        "type": 10001
+    },
+    {
+        "color_a": 255,
+        "color_b": 230,
+        "color_g": 30,
+        "color_r": 37,
+        "height": 60,
+        "pos_x": -328,
+        "pos_y": -117,
+        "type": 3,
+        "width": 100,
+        "x": -50,
+        "y": -30
+    },
+    {
+        "color_a": 255,
+        "color_b": 230,
+        "color_g": 30,
+        "color_r": 37,
+        "height": 60,
+        "pos_x": -70,
+        "pos_y": -116,
+        "type": 3,
+        "width": 100,
+        "x": -50,
+        "y": -30
+    },
+    {
+        "color_a": 255,
+        "color_b": 230,
+        "color_g": 30,
+        "color_r": 37,
+        "height": 60,
+        "pos_x": -69,
+        "pos_y": 112,
+        "type": 3,
+        "width": 100,
+        "x": -50,
+        "y": -30
+    },
+    {
+        "color_a": 255,
+        "color_b": 230,
+        "color_g": 30,
+        "color_r": 37,
+        "height": 60,
+        "pos_x": -332,
+        "pos_y": 107,
+        "type": 3,
+        "width": 100,
+        "x": -50,
+        "y": -30
+    },
+    {
+        "color_a": 255,
+        "color_b": 73,
+        "color_g": 230,
+        "color_r": 20,
+        "height": 60,
+        "pos_x": 260,
+        "pos_y": -238,
+        "type": 3,
+        "width": 100,
+        "x": -50,
+        "y": -30
+    },
+    {
+        "color_a": 255,
+        "color_b": 0,
+        "color_g": 0,
+        "color_r": 0,
+        "endpoint_x": -144,
+        "endpoint_y": 51,
+        "pen_width": 3,
+        "pos_x": -147,
+        "pos_y": 36,
+        "startpoint_x": -146,
+        "startpoint_y": -103,
+        "type": 10001
+    }
+]
