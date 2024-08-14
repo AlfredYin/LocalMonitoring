@@ -125,7 +125,7 @@ void UserProxy::changePwd(LoginParam *loginInfo)
         QString salt=getPasswordSalt();
         QString passWord=EncryptUserPassword(passwd,salt);
 
-        QString queryChangePwdStr="UPDATE `AlfredDb`.`SysUser` SET Password=:passwd,Salt=:salt WHERE UserName=:user;";
+        QString queryChangePwdStr="UPDATE SysUser SET Password=:passwd,Salt=:salt WHERE UserName=:user;";
         QSqlQuery query=executeQuery(queryChangePwdStr,QList<QPair<QString, QVariant>>{{":passwd",passWord},{":salt",salt},{":user",name}});
 
 //        QSqlQuery query=executeQuery("UPDATE `AlfredDb`.`SysUser` SET Password=:passwd,Salt=:salt WHERE UserName=:user;",

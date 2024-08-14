@@ -24,10 +24,14 @@ message(STATUS "SRC: ${SRC}")
 message(STATUS "INC: ${INC}")
 
 # Util
-aux_source_directory(Util/MySqlRepository Util_SRC)
+aux_source_directory(Util Util_SRC)
+aux_source_directory(Util/MySqlDBManager Util_SRC)
+aux_source_directory(Util/SqlServerDBManager Util_SRC)
 aux_source_directory(Util/Helper Util_SRC)
-file(GLOB Util_INC "Util/MySqlRepository/*.h")
+file(GLOB Util_INC "Util/MySqlDBManager/*.h")
+file(GLOB Util_INC "Util/SqlServerDBManager/*.h")
 file(GLOB Util_INC "Util/Helper/*.h")
+file(GLOB Util_INC "Util/*.h")
 
 message(STATUS "Util_SRC: ${Util_SRC}")
 message(STATUS "Util_INC: ${Util_INC}")
@@ -109,8 +113,10 @@ include_directories(
     "Interface"
     "Patterns"
     "Model"
-    "Util/MySqlRepository"
+    "Util/MySqlDBManager"
+    "Util/SqlServerDBManager"
     "Util/Helper"
+    "Util"
     "Service"
 
     "Controller/01_Home"

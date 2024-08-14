@@ -1,5 +1,5 @@
 #include "devicemediator.h"
-
+#include "deviceproxy.h"
 #include "Interface/INotification.h"
 
 DeviceMediator::DeviceMediator()
@@ -35,4 +35,10 @@ void DeviceMediator::getDeviceState(DeviceParam *deviceParam)
 void DeviceMediator::getDeviceStateList(DeviceParam *deviceParam)
 {
     sendNotification("get_devicestatelist", deviceParam);
+}
+
+SensorStateResult DeviceMediator::getSensorStateList(DeviceParam *deviceParam)
+{
+    DeviceProxy deviceProxy;
+    return deviceProxy.getSensorStateList(deviceParam);
 }

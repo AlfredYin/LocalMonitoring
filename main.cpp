@@ -1,7 +1,11 @@
 #include <QApplication>
 #include "ApplicationFacade.h"
 #include "logindialog.h"
+
 #include "mysqldbmanager.h"
+#include "sqlserverdbmanager.h"
+
+#include "readconfigjsonhelper.h"
 #include "mainwindow.h"
 #include "widget_homepage.h"
 #include "drawmainwindow.h"
@@ -14,16 +18,6 @@ int main(int argc, char **argv)
     // 注册
     ApplicationFacade *af = new ApplicationFacade();
     af->startUp();
-
-    // 数据库连接
-    MySqlDBManager& dbManager = MySqlDBManager::instance();
-
-    if (!dbManager.connect("47.98.243.38", "AlfredDb", "root", "Yin1719934825")) {
-
-        qDebug() << "数据库连接失败" <<endl;
-        return -1;
-    }
-
 
     MainWindow mainWindow;
     mainWindow.show();

@@ -8,6 +8,8 @@
 #include "drawmainwindow.h"
 #include "devicerectitem.h"
 #include "refreshtextitem.h"
+#include "dialog_databaseconnectstate.h"
+
 #include <QWidget>
 #include <QLabel>
 
@@ -37,6 +39,8 @@ private slots:
     void updateTimeLabel();
     void on_pushButton_Draw_clicked();
 
+    void on_pushButton_DbState_clicked();
+
 private:
 
 
@@ -53,6 +57,8 @@ private:
     DrawMainWindow *drawMainWindow=nullptr;
 
     LoginDialog *loginDialog=nullptr;
+
+    Dialog_DataBaseConnectState *dataBaseConnectState_Dialog=nullptr;
 //    QPointer<QDialog> loginDialog;
 //    QPointer<LoginDialog> loginDialog;
     QDialog *changePwdDialog=nullptr;

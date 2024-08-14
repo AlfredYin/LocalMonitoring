@@ -1,7 +1,7 @@
 #ifndef HOMEPROXY_H
 #define HOMEPROXY_H
 
-#include "mysqldbrepository.h"
+#include "databaserepository.h"
 #include "Proxy.h"
 #include "userparam.h"
 #include "userinfo.h"
@@ -9,7 +9,7 @@
 #include <QRandomGenerator>
 #include <QDateTime>
 
-class HomeProxy: public Proxy , MySqlDBRepository
+class HomeProxy: public Proxy , DataBaseRepository
 {
 public:
     HomeProxy();

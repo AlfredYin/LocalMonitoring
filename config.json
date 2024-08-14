@@ -1,0 +1,19 @@
+{
+    "database": {
+        "type": "SQLServer",
+        "host": "47.98.243.38",
+        "databaseName": "AlfredDb",
+        "user": "sa",
+        "password": "Yin1719934825"
+    }
+}
+
+// {
+//     "database": {
+//         "type": "MySQL",
+//         "host": "47.98.243.38",
+//         "databaseName": "AlfredDb",
+//         "user": "root",
+//         "password": "Yin1719934825"
+//     }
+// }

@@ -82,9 +82,9 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_DbError">
+         <widget class="QPushButton" name="pushButton_DbState">
           <property name="text">
-           <string>数据库连接异常</string>
+           <string>数据库连接状况</string>
           </property>
          </widget>
         </item>

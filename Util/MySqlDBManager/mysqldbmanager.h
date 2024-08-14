@@ -40,6 +40,10 @@ public:
         return db;
     }
 
+    QString getDataBaseType(){
+        return "mysql";
+    }
+
 private:
     QSqlDatabase db;
     QMutex mutex;

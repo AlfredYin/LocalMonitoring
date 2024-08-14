@@ -170,7 +170,7 @@ void Widget_HomePage::loadDeviceState(DeviceStateListResult *result)
                 if(itemInfo.devicename==deviceInfo.devicename){
                     itemInfo.connectingflag=deviceInfo.connectingflag;
                     theItem->setDeviceStateInfo(itemInfo);
-                    break;
+//                    break;        // 存在不同区域使用同一台设备的状态
                 }
             }
         }
@@ -207,11 +207,20 @@ void Widget_HomePage::on_pushButton_Draw_clicked()
         return;
     }
 
-
-//    DrawMainWindow drawMainWindow;
-//    drawMainWindow.show();
     if(drawMainWindow==nullptr){
         drawMainWindow=new DrawMainWindow(this);
     }
     drawMainWindow->show();
+}
+
+void Widget_HomePage::on_pushButton_DbState_clicked()
+{
+    if(!UserHelper::instance()->isLogined()){
+        QMessageBox::warning(this,"警告","请先登录");
+        return;
+    }
+    if(dataBaseConnectState_Dialog==nullptr){
+        dataBaseConnectState_Dialog=new Dialog_DataBaseConnectState(this);
+    }
+    dataBaseConnectState_Dialog->show();
 }

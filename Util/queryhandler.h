@@ -12,13 +12,13 @@
 #include <QFutureWatcher>
 #include <QObject>
 
-#include "mysqldbrepository.h"
+#include "databaserepository.h"
 
 class QueryHandler : public QObject
 {
     Q_OBJECT
 public:
-    explicit QueryHandler(MySqlDBRepository *repo, QObject *parent = nullptr) : QObject(parent), m_repo(repo) {
+    explicit QueryHandler(DataBaseRepository *repo, QObject *parent = nullptr) : QObject(parent), m_repo(repo) {
         m_watcher = new QFutureWatcher<QSqlQuery>();
         m_future = QFuture<QSqlQuery>();
 
@@ -56,7 +56,7 @@ public slots:
 private:
     QFutureWatcher<QSqlQuery> *m_watcher;
     QFuture<QSqlQuery> m_future;
-    MySqlDBRepository *m_repo;
+    DataBaseRepository *m_repo;
 };
 
 #endif // QUERYHANDLER_H

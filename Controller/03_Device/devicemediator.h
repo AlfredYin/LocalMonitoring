@@ -2,11 +2,14 @@
 #define DEVICEMEDIATOR_H
 
 #include "Patterns/Mediator.h"
+#include "Command.h"
+#include <QtConcurrent/QtConcurrent>
 
 #include "deviceparam.h"
 #include "devicestateresult.h"
+#include "sensorstateresult.h"
 
-class DeviceMediator : public Mediator
+class DeviceMediator : public Mediator , public Command
 {
 public:
     DeviceMediator();
@@ -19,7 +22,9 @@ public:
     void getDeviceState(DeviceParam *deviceStateInfo);
 
     // 获取设备连接列表
-    void getDeviceStateList(DeviceParam *deviceStateInfo);
+    void getDeviceStateList(DeviceParam *deviceStateInfoParam);
+
+    SensorStateResult getSensorStateList(DeviceParam *deviceParam);
 
 private:
     QList<QString> m_notificationInterests;

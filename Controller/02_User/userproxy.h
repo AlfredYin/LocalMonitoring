@@ -2,7 +2,7 @@
 #define USERPROXY_H
 
 #include "loginparam.h"
-#include "mysqldbrepository.h"
+#include "databaserepository.h"
 #include "Patterns/Proxy.h"
 #include "userinfo.h"
 #include "userparam.h"
@@ -11,7 +11,7 @@
 #include <QDateTime>
 
 // Model 代表应用程序的数据和业务逻辑。它通常由 Proxy 组成。
-class UserProxy : public Proxy , MySqlDBRepository
+class UserProxy : public Proxy , DataBaseRepository
 {
 public:
     UserProxy();

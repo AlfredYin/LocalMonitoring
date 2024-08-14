@@ -37,9 +37,14 @@ public:
         sensorstate = getElementText(element, "sensorstate");
     }
 
+    int id;
+    QString sensor;
     QString sensorname;
     QString sensorstate;
     // QString sensorrealtimevalue;
+
+    QString sensorprotocol;
+    int sensorflag;
 
 private:
     QDomElement createElement(QDomDocument &doc, const QString &name, const QString &value) const {
@@ -56,6 +61,11 @@ private:
         }
         return QString();
     }
+};
+
+class ControlDeviceState {
+public:
+
 };
 
 class DeviceStateInfo : public BaseInfo {
@@ -118,6 +128,7 @@ public:
 public:
     QString devicename;
     int connectingflag;  // 0: offline / 1: online
+
     QList<SensorState> sensorstatelist;
 
 private:

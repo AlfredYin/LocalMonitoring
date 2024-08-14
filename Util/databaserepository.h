@@ -1,5 +1,5 @@
-#ifndef MYSQLDBREPOSITORY_H
-#define MYSQLDBREPOSITORY_H
+#ifndef DBREPOSITORY_H
+#define DBREPOSITORY_H
 
 #include <QSqlQuery>
 #include <QSqlError>
@@ -9,16 +9,18 @@
 #include <QFutureWatcher>
 #include <QThreadPool>
 #include <QPair>
+#include <QtConcurrent>
 
 #include "mysqldbmanager.h"
+#include "sqlserverdbmanager.h"
+#include "readconfigjsonhelper.h"
 
-class MySqlDBRepository
+class DataBaseRepository
 {
-
 public:
-    MySqlDBRepository();
+    DataBaseRepository();
 
-    ~MySqlDBRepository();
+    ~DataBaseRepository();
 
     QSqlQuery executeQuery(const QString &queryStr, const QVariantList &bindValues = QVariantList());
     QSqlQuery executeQuery(const QString &queryStr, const QVariantMap &namedBindValues);
@@ -30,6 +32,13 @@ public:
 
     signals:
         void queryFinished(QSqlQuery query);
+
+private:
+
+    QString m_DataBaseType; // MySQL,SQLServer
+
+    QSqlDatabase getDataBase();
+    bool isDataBaseConnection();
 };
 
-#endif // MYSQLDBREPOSITORY_H
+#endif // DBREPOSITORY_H

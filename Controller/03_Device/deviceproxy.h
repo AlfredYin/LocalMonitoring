@@ -4,9 +4,10 @@
 #include "Proxy.h"
 #include "deviceparam.h"
 #include "devicestateresult.h"
-#include "mysqldbrepository.h"
+#include "databaserepository.h"
+#include "sensorstateresult.h"
 
-class DeviceProxy : public Proxy , MySqlDBRepository
+class DeviceProxy : public Proxy , DataBaseRepository
 {
 public:
     DeviceProxy();
@@ -14,6 +15,8 @@ public:
     void getDeviceState(DeviceParam *deviceParam);
 
     void getDeviceStatesList(DeviceParam *deviceParam);
+
+    SensorStateResult getSensorStateList(DeviceParam *deviceParam);
 
 private:
     DeviceParam m_DeviceParam;
