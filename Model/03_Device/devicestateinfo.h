@@ -63,9 +63,16 @@ private:
     }
 };
 
+// SELECT Id,Device,DeviceName,DeviceCommands,DeviceState,GwType FROM DeviceRegister where GwClientId='Esp32_1';
 class ControlDeviceState {
 public:
-
+    int id;
+    QString device;
+    QString devicename;
+    QString devicecommands;
+    QString devicestate;
+    int gwtype;
+    QString gwclientid;
 };
 
 class DeviceStateInfo : public BaseInfo {
@@ -129,7 +136,10 @@ public:
     QString devicename;
     int connectingflag;  // 0: offline / 1: online
 
+    // 传感器子设备列表
     QList<SensorState> sensorstatelist;
+    // 控制子设备列表
+    QList<ControlDeviceState> controldevicestatelist;
 
 private:
     QDomElement createElement(QDomDocument &doc, const QString &name, const QString &value) const {

@@ -6,6 +6,7 @@
 #include "devicestateresult.h"
 #include "databaserepository.h"
 #include "sensorstateresult.h"
+#include "controldevicestateresult.h"
 
 class DeviceProxy : public Proxy , DataBaseRepository
 {
@@ -17,6 +18,8 @@ public:
     void getDeviceStatesList(DeviceParam *deviceParam);
 
     SensorStateResult getSensorStateList(DeviceParam *deviceParam);
+
+    ControlDeviceStateResult getControlDeviceStateList(DeviceParam *deviceParam);
 
 private:
     DeviceParam m_DeviceParam;

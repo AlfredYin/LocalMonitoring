@@ -22,6 +22,12 @@ public:
 
     bool isPaintLineEventOn=false;
     bool isPaintPloyLineEventOn=false;
+    bool isPaintRectEventOn=false;
+    bool isPaintEllipseEventOn=false;
+    bool isPaintCircleEventOn=false;
+
+    // 设置填充颜色
+    QColor m_Color;
 
     AlfredGraphicsScene(qreal x, qreal y, qreal width, qreal height, QObject *parent = nullptr);
 
@@ -33,12 +39,22 @@ public:
 
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
 
+    void startPloyLinePaint(bool state);
+
 private:
     SingleLineItem *currentLine;
-    PloyLineItem *currentPloyLine;
+//    PloyLineItem *currentPloyLine;
+    QGraphicsRectItem *currentRectItem;
+    QGraphicsEllipseItem *currentEllipseItem;
+    QGraphicsEllipseItem *currentCircleItem;
+
+    QPointF startPoint;
+    QPointF endPoint;   // 折线使用
+    bool flag=false;
+
+    QPointF centerPoint;
 
     QPen m_SingleLinePen;
-    QPen m_PloyLinePen;
 };
 
 #endif // ALFREDGRAPHICSSCENE_H

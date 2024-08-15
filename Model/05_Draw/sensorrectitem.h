@@ -26,7 +26,7 @@ public:
     enum {
         Type=10020    // 传感器模板001
     };
-//    int type() const;
+    int type() const;
 
 private:
     SensorState m_SensorState;

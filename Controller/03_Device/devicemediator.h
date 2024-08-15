@@ -8,6 +8,7 @@
 #include "deviceparam.h"
 #include "devicestateresult.h"
 #include "sensorstateresult.h"
+#include "controldevicestateresult.h"
 
 class DeviceMediator : public Mediator , public Command
 {
@@ -25,6 +26,8 @@ public:
     void getDeviceStateList(DeviceParam *deviceStateInfoParam);
 
     SensorStateResult getSensorStateList(DeviceParam *deviceParam);
+
+    ControlDeviceStateResult getControlDeviceStateList(DeviceParam *deviceParam);
 
 private:
     QList<QString> m_notificationInterests;

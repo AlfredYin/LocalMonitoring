@@ -138,6 +138,7 @@ include_directories(
 # 使用自动查找的存储的变量
 add_executable(${PROJECT_NAME}
     "main.cpp"
+    "Resource/res.qrc"
     ${INC}
     ${SRC}
     ${UI}

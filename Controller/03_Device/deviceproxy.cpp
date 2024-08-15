@@ -99,6 +99,33 @@ SensorStateResult DeviceProxy::getSensorStateList(DeviceParam *deviceParam)
     return sensorStateListResult;
 }
 
+ControlDeviceStateResult DeviceProxy::getControlDeviceStateList(DeviceParam *deviceParam)
+{
+    ControlDeviceStateResult controlDeviceStateResult;
+    QString queryStr="SELECT Id,Device,DeviceName,DeviceCommands,DeviceState,GwType FROM DeviceRegister";
+    queryStr=queryStr+RegisterStrFilter(deviceParam);
+    QSqlQuery query=executeQuery(queryStr,RegisterListFilter(deviceParam));
+    while(query.next()){
+        ControlDeviceState controlDeviceState;
+        int id=query.value(0).toInt();
+        QString device=query.value(1).toString();
+        QString devicename=query.value(2).toString();
+        QString devicecommands=query.value(3).toString();
+        QString devicestate=query.value(4).toString();
+        int gwtype=query.value(5).toInt();
+
+        controlDeviceState.id=id;
+        controlDeviceState.device=device;
+        controlDeviceState.devicename=devicename;
+        controlDeviceState.devicecommands=devicecommands;
+        controlDeviceState.devicestate=devicestate;
+        controlDeviceState.gwclientid=deviceParam->devicename;
+        controlDeviceState.gwtype=gwtype;
+        controlDeviceStateResult.resultControlDeviceStateList.append(controlDeviceState);
+    }
+    return controlDeviceStateResult;
+}
+
 QList<QPair<QString, QVariant> > DeviceProxy::RegisterListFilter(DeviceParam *deviceParam)
 {
     QList<QPair<QString, QVariant>> registerList;

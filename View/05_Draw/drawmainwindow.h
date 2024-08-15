@@ -117,6 +117,12 @@ private slots:
 
     void on_action_SaveFileJson_triggered();
 
+    void on_action_RectangleFree_triggered(bool checked);
+
+    void on_action_EllipseFree_triggered(bool checked);
+
+    void on_action_CircleFree_triggered(bool checked);
+
 private:
     Ui::DrawMainWindow *ui;
 

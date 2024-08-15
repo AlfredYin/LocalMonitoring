@@ -83,11 +83,16 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="action_RectangleFree"/>
    <addaction name="action_Rectangle"/>
+   <addaction name="action_EllipseFree"/>
    <addaction name="action_Ellipse"/>
+   <addaction name="action_CircleFree"/>
    <addaction name="action_Circle"/>
+   <addaction name="action_TriangleFree"/>
    <addaction name="action_Triangle"/>
    <addaction name="action_SingleLine"/>
+   <addaction name="action_Polyline"/>
    <addaction name="action_Trapezium"/>
    <addaction name="action_Text"/>
    <addaction name="separator"/>
@@ -291,6 +296,38 @@
   <action name="action_SaveFileXml">
    <property name="text">
     <string>保存文件xml</string>
+   </property>
+  </action>
+  <action name="action_RectangleFree">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>自由绘制矩形</string>
+   </property>
+  </action>
+  <action name="action_CircleFree">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>自由绘制圆形</string>
+   </property>
+  </action>
+  <action name="action_EllipseFree">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>自由绘制椭圆</string>
+   </property>
+  </action>
+  <action name="action_TriangleFree">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>自由绘制三角形</string>
    </property>
   </action>
  </widget>

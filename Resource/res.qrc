@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/controldevice/icons">
+        <file>beep.jpg</file>
+        <file>led.jpg</file>
+        <file>rgb.jpg</file>
+        <file>trigger.jpg</file>
+        <file>servo.jpg</file>
+    </qresource>
+</RCC>

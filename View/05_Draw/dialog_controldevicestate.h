@@ -1,6 +1,5 @@
-#ifndef DIALOG_DEIVCESENSORSTATE_H
-#define DIALOG_DEIVCESENSORSTATE_H
-
+#ifndef DIALOG_CONTROLDEVICESTATE_H
+#define DIALOG_CONTROLDEVICESTATE_H
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QColorDialog>
@@ -14,30 +13,30 @@
 #include "devicemediator.h"
 #include "deviceproxy.h"
 #include "devicestateresult.h"
-#include "alfredgraphicsview.h"
+
 #include "devicestateinfo.h"
 #include "sensorstateresult.h"
-#include "dialog_historydata.h"
-
-class DeviceMediator;
+#include "sensorrectitem.h"
+#include "controldevicerectitem.h"
+#include "alfredgraphicsview.h"
+#include "dialog_sendcontroldeviceorder.h"
 
 namespace Ui {
-class Dialog_DeivceSensorState;
+class Dialog_ControlDeviceState;
 }
 
-class Dialog_DeivceSensorState : public QDialog
+class Dialog_ControlDeviceState : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit Dialog_DeivceSensorState(QWidget *parent = nullptr);
-    explicit Dialog_DeivceSensorState(DeviceStateInfo deivceStateInfo,QWidget *parent = nullptr);
-    ~Dialog_DeivceSensorState();
+    explicit Dialog_ControlDeviceState(QWidget *parent = nullptr);
+    explicit Dialog_ControlDeviceState(DeviceStateInfo deivceStateInfo,QWidget *parent = nullptr);
 
-    // void update(IUpdateData *updateData);   // 虚函数继承于IviewComponent
+    ~Dialog_ControlDeviceState();
 
 private:
-    Ui::Dialog_DeivceSensorState *ui;
+    Ui::Dialog_ControlDeviceState *ui;
 
     DeviceMediator *deviceMediator;
 
@@ -48,4 +47,4 @@ private:
     QGraphicsScene *scene;
 };
 
-#endif // DIALOG_DEIVCESENSORSTATE_H
+#endif // DIALOG_CONTROLDEVICESTATE_H

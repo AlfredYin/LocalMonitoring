@@ -21,6 +21,8 @@ void SensorRectItem::setSensorState(SensorState state)
     m_SensorState=state;
 }
 
+#include <QDebug>
+
 void SensorRectItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     // 调用基类的绘制方法
@@ -32,10 +34,20 @@ void SensorRectItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
 
     QGraphicsRectItem::paint(painter, option, widget);
     painter->setPen(Qt::NoPen); // 不需要边框
+
+    if(m_SensorState.sensorstate=="offline"){
+        painter->setBrush(QBrush(Qt::red));
+    }else if(m_SensorState.sensorstate=="online"){
+        painter->setBrush(QBrush(Qt::green));
+    }else {     // 未知状态
+        painter->setBrush(QBrush(Qt::gray));
+    }
+
     QRectF rect = this->rect();
     qreal radius = 10; // 圆的半径
 
-    QPointF center(rect.center().x()-25, rect.top() + radius + 5);
+    // 在矩形的外面的右侧绘制
+    QPointF center(rect.right() + radius + 5, rect.center().y());
     painter->drawEllipse(center, radius, radius);
 
     QPen pen;
@@ -56,8 +68,16 @@ void SensorRectItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
         // 在矩形中心绘制文本
         painter->drawText(rectBelow, Qt::AlignLeft, m_SensorState.sensorname);
     }
+
+    // 在状态指示圆的后面绘制出状态的文字
+    QFontMetrics fmState(painter->font());
+    int textStateHeight = fmState.height();
+    qreal textY = center.y() + textStateHeight / 4; // 使文字的中线和圆的中线对齐
+    qreal textX = center.x() + radius + 5; // 在圆的右侧绘制文字
+    painter->drawText(QPointF(textX, textY),m_SensorState.sensorstate);
 }
 
-//int SensorRectItem::type(){
-//    return Type;
-//}
+int SensorRectItem::type() const
+{
+    return Type;
+}

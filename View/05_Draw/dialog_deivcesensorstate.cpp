@@ -19,7 +19,7 @@ Dialog_DeivceSensorState::Dialog_DeivceSensorState(DeviceStateInfo deivceStateIn
 
     Facade *facade = Facade::getInstance();
     deviceMediator = (DeviceMediator *)facade->retrieveMediator("DeviceMediator");
-    deviceMediator->registerViewComponent(this);
+//    deviceMediator->registerViewComponent(this);
 
     scene=new QGraphicsScene(0,0,50,50,this);
     ui->graphicsView->setScene(scene);
@@ -33,13 +33,6 @@ Dialog_DeivceSensorState::Dialog_DeivceSensorState(DeviceStateInfo deivceStateIn
     deviceParam->devicename=m_DeivceStateInfo.devicename;
     m_DeivceStateInfo.sensorstatelist=deviceMediator->getSensorStateList(deviceParam).resultSensorStateList;
 
-//// 测试手动添加
-//SensorState sensor1;sensor1.sensorname="温湿度传感器";sensor1.sensorstate="online";
-//SensorState sensor2;sensor2.sensorname="光照传感器";sensor2.sensorstate="offline";
-
-//m_DeivceStateInfo.sensorstatelist.append(sensor1);
-//m_DeivceStateInfo.sensorstatelist.append(sensor2);
-
     // 获取场景的边界
     QRectF sceneRect = scene->sceneRect();
 
@@ -49,7 +42,7 @@ Dialog_DeivceSensorState::Dialog_DeivceSensorState(DeviceStateInfo deivceStateIn
 
     //根据传感器个数，连接状态，往view中开始绘图
     foreach(auto sensor,m_DeivceStateInfo.sensorstatelist){
-        SensorRectItem *item=new SensorRectItem(-10,-10,180,32);
+        SensorRectItem *item=new SensorRectItem(-10,-10,200,32);
 
 //        item->setFlags(QGraphicsRectItem::ItemIsFocusable |
 //                       QGraphicsRectItem::ItemIsSelectable |
@@ -58,7 +51,7 @@ Dialog_DeivceSensorState::Dialog_DeivceSensorState(DeviceStateInfo deivceStateIn
         item->setFlags(QGraphicsRectItem::ItemIsFocusable |
                        QGraphicsRectItem::ItemIsSelectable);
 
-        item->setBrush(QBrush(Qt::yellow));
+        item->setBrush(QBrush(QColor(79,152,230)));
 
         item->setSensorState(sensor);
 
@@ -68,20 +61,38 @@ Dialog_DeivceSensorState::Dialog_DeivceSensorState(DeviceStateInfo deivceStateIn
         qreal itemHeight = item->boundingRect().height();
 
         // 设置item的位置，使其中心对齐到scene的中心
-        item->setPos(sceneCenterX - itemWidth / 2, currentPosY);
+        item->setPos(sceneCenterX - itemWidth / 2-30, currentPosY);
         currentPosY=currentPosY+10+itemHeight;
 
         scene->addItem(item);
         scene->clearSelection();
         item->setSelected(true);
     }
+
+    // 数据展示部分
+    connect(ui->graphicsView,&AlfredGraphicsView::mouseRightClicked,[this](QPoint point){
+        QPointF pointScene = ui->graphicsView->mapToScene(point);
+        QGraphicsItem *item = scene->itemAt(pointScene, ui->graphicsView->transform());
+        if (item == nullptr  || item->type()!=SensorRectItem::Type) {
+            return;
+        }
+        SensorRectItem *theItem = qgraphicsitem_cast<SensorRectItem*>(item);
+        if (theItem == nullptr) {
+            return;
+        }
+
+        SensorState sensorState=theItem->getSensorState();
+        Dialog_HistoryData *dialog=new Dialog_HistoryData(sensorState,this);
+        dialog->show();
+
+//        ControlDeviceState controlDeviceState = theItem->getControlDeviceState();
+//        Dialog_SendControlDeviceOrder *dialog = new Dialog_SendControlDeviceOrder(controlDeviceState);
+//        dialog->move(point.x(), point.y());
+
+    });
 }
 
 Dialog_DeivceSensorState::~Dialog_DeivceSensorState()
 {
     delete ui;
-}
-
-void Dialog_DeivceSensorState::update(IUpdateData *updateData){
-
 }

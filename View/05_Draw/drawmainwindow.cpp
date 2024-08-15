@@ -21,6 +21,7 @@ DrawMainWindow::DrawMainWindow(QWidget *parent) :
     label_ItemInfo->setMinimumWidth(150);
 //    scene=new QGraphicsScene(-300,-100,600,200);
     scene=new AlfredGraphicsScene(-300,-100,600,200,this);
+    scene->m_Color=m_Color;
     ui->graphicsView->setScene(scene);
 
     // 设置视图属性
@@ -665,6 +666,7 @@ void DrawMainWindow::on_action_SetColor_triggered()
 
     if (new_Color.isValid()) {
         m_Color=new_Color;
+        scene->m_Color=m_Color;
         qDebug() << "Selected color:" << m_Color.name();
     } else {
         qDebug() << "Color selection cancelled.";
@@ -729,11 +731,7 @@ void DrawMainWindow::on_action_SingleLine_triggered(bool checked)
 
 void DrawMainWindow::on_action_Polyline_triggered(bool checked)
 {
-    scene->isPaintPloyLineEventOn=checked;
-    // 退出折线绘制
-    if(!checked){
-//        emit;
-    }
+    scene->startPloyLinePaint(checked);
 }
 
 #include <QLinearGradient>
@@ -1311,4 +1309,20 @@ void DrawMainWindow::on_action_SaveFileXml_triggered()
     }else{
         QMessageBox::warning(this,"警告","文件保存失败");
     }
+}
+
+void DrawMainWindow::on_action_RectangleFree_triggered(bool checked)
+{
+
+    scene->isPaintRectEventOn=checked;
+}
+
+void DrawMainWindow::on_action_EllipseFree_triggered(bool checked)
+{
+    scene->isPaintEllipseEventOn=checked;
+}
+
+void DrawMainWindow::on_action_CircleFree_triggered(bool checked)
+{
+    scene->isPaintCircleEventOn=checked;
 }

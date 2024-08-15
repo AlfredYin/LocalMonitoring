@@ -10,6 +10,7 @@
 #include "refreshtextitem.h"
 #include "dialog_databaseconnectstate.h"
 
+#include <QMenu>
 #include <QWidget>
 #include <QLabel>
 
@@ -32,6 +33,9 @@ public:
     void loadDeviceState(DeviceStateListResult *result);
 
 private slots:
+
+    void on_mouseRightClicked(QPoint point);
+
     void on_pushButtonLogin_clicked();
 
     void on_pushButtonChangePassword_clicked();

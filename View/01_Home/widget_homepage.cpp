@@ -14,6 +14,7 @@
 #include "userhelper.h"
 #include "devicerectitem.h"
 #include "dialog_deivcesensorstate.h"
+#include "dialog_controldevicestate.h"
 
 #include <QDebug>
 #include <QMessageBox>
@@ -64,29 +65,14 @@ Widget_HomePage::Widget_HomePage(QWidget *parent) :
     refreshItem->setPos(300,10);
 
 
+
     // 获取视图信息
     DeviceParam *param=new DeviceParam();
     homeMediator->getDeviceStateList(param);
 
 
     // 右键获取改网关设备下的传感器连接状况
-    connect(ui->graphicsView,&AlfredGraphicsView::mouseRightClicked, [this](QPoint point) {
-
-        QPointF pointScene=ui->graphicsView->mapToScene(point);
-        QGraphicsItem *item=nullptr;
-        item=scene->itemAt(pointScene,ui->graphicsView->transform());
-
-        if (!item || item->type()!=DeviceRectItem::Type){
-            return;
-        }
-        DeviceRectItem *theItem;
-        theItem=qgraphicsitem_cast<DeviceRectItem *>(item);
-        qDebug()<<"item:"<<theItem->getDeviceStateInfo().devicename;
-
-        Dialog_DeivceSensorState *dialog=new Dialog_DeivceSensorState(theItem->getDeviceStateInfo(),this);
-        dialog->move(point.x(),point.y());
-        dialog->show();
-    });
+    connect(ui->graphicsView,&AlfredGraphicsView::mouseRightClicked,this,&Widget_HomePage::on_mouseRightClicked);
 }
 
 Widget_HomePage::~Widget_HomePage()
@@ -175,6 +161,46 @@ void Widget_HomePage::loadDeviceState(DeviceStateListResult *result)
             }
         }
     }
+}
+
+void Widget_HomePage::on_mouseRightClicked(QPoint point)
+{
+    QPointF pointScene=ui->graphicsView->mapToScene(point);
+    QGraphicsItem *item=nullptr;
+    item=scene->itemAt(pointScene,ui->graphicsView->transform());
+
+    if (!item || item->type()!=DeviceRectItem::Type){
+        return;
+    }
+
+    // 判断登录权限部分
+    if(!UserHelper::instance()->isLogined()){
+        QMessageBox::warning(this,"警告","未登录没有查看权限，请先登录");
+        return;
+    }
+
+    DeviceRectItem *theItem;
+    theItem=qgraphicsitem_cast<DeviceRectItem *>(item);
+
+    QMenu *cmenu = new QMenu();
+    QAction *actionSensorDialog=new QAction("传感器子设备");
+    connect(actionSensorDialog, &QAction::triggered, [this,point,theItem]() {
+        Dialog_DeivceSensorState *dialog=new Dialog_DeivceSensorState(theItem->getDeviceStateInfo(),this);
+        dialog->move(point.x(),point.y());
+        dialog->show();
+    });
+
+    QAction *actionControlDeviceDialog=new QAction("控制子设备");
+    connect(actionControlDeviceDialog, &QAction::triggered, [this,point,theItem]() {
+        Dialog_ControlDeviceState *dialog=new Dialog_ControlDeviceState(theItem->getDeviceStateInfo(),this);
+        dialog->move(point.x(),point.y());
+        dialog->show();
+    });
+
+    cmenu->addAction(actionSensorDialog);
+    cmenu->addAction(actionControlDeviceDialog);
+
+    cmenu->exec(QCursor::pos());
 }
 
 void Widget_HomePage::on_pushButtonLogin_clicked()

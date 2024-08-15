@@ -6,7 +6,7 @@
 
 #include "singlelineitem.h"
 #include "ploylineitem.h"
-#include "GraphBase.h"
+#include "graphbase.h"
 
 class AlfredGraphicsView : public QGraphicsView
 {
