@@ -6,4 +6,18 @@
         <file>trigger.jpg</file>
         <file>servo.jpg</file>
     </qresource>
+    <qresource prefix="/ssl">
+        <file>cert/ca.crt</file>
+        <file>cert/ca.key</file>
+        <file>cert/ca.srl</file>
+        <file>cert/client.crt</file>
+        <file>cert/client.csr</file>
+        <file>cert/client.key</file>
+        <file>cert/client.pfx</file>
+        <file>cert/pfx.sh</file>
+        <file>cert/server.crt</file>
+        <file>cert/server.csr</file>
+        <file>cert/server.key</file>
+        <file>cert/server.pfx</file>
+    </qresource>
 </RCC>

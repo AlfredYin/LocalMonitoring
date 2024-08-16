@@ -88,11 +88,19 @@ aux_source_directory(View/05_Draw 05_SRC)
 file(GLOB 05_INC "Model/05_Draw/*.h" "View/05_Draw/*.h")
 file(GLOB 05_UI "View/05_Draw/*.ui")
 
+list(APPEND CMAKE_AUTOUIC_SEARCH_PATHS "View/05_Draw")
+
 message(STATUS "05_SRC: ${05_SRC}")
 message(STATUS "05_INC: ${05_INC}")
 message(STATUS "05_UI: ${05_UI}")
 
-list(APPEND CMAKE_AUTOUIC_SEARCH_PATHS "View/05_Draw")
+# External QMQTT
+aux_source_directory(External/QMQTT 06_EQMQTT_SRC)
+file(GLOB 06_EQMQTT_INC "External/QMQTT/include/*.h")
+
+message(STATUS "06_EQMQTT_INC: ${06_EQMQTT_INC}")
+message(STATUS "06_EQMQTT_SRC: ${06_EQMQTT_SRC}")
+
 
 # 获取查找结果，存储到变量中 Widgets Network Multimedia
 find_package(QT NAMES Qt5 Qt6 COMPONENTS Widgets Network Multimedia Charts Sql Concurrent Xml XmlPatterns REQUIRED)
@@ -133,6 +141,8 @@ include_directories(
 
     "View/05_Draw"
     "Model/05_Draw"
+
+    "External/QMQTT/include"
     )
 
 # 使用自动查找的存储的变量
@@ -164,7 +174,25 @@ add_executable(${PROJECT_NAME}
     ${05_INC}
     ${05_SRC}
     ${05_UI}
+
+#    ${06_EQMQTT_INC}
+#    ${06_EQMQTT_SRC}
     )
+
+
+target_include_directories(${PROJECT_NAME} PUBLIC $<TARGET_FILE_DIR:${PROJECT_NAME}>)
+
+# 连接EQMQTT的库
+# 查找库的调试信息
+link_directories(C:/Users/17199/Desktop/QTDemos/LocalMonitoring/External/QMQTT/lib)
+find_library(QMQTT_LIB NAMES Qt5Qmqttd PATHS C:/Users/17199/Desktop/QTDemos/LocalMonitoring/External/QMQTT/lib)
+
+if (QMQTT_LIB)
+    message(STATUS "Found QMQTT library at ${QMQTT_LIB}")
+    target_link_libraries(${PROJECT_NAME} ${QMQTT_LIB})
+else()
+    message(FATAL_ERROR "QMQTT library not found")
+endif()
 
 target_include_directories(${PROJECT_NAME} PUBLIC $<TARGET_FILE_DIR:${PROJECT_NAME}>)
 
@@ -178,4 +206,5 @@ target_link_libraries(${PROJECT_NAME}
     Qt${QT_VERSION_MAJOR}::Concurrent
     Qt${QT_VERSION_MAJOR}::Xml
     Qt${QT_VERSION_MAJOR}::XmlPatterns
+#    Qt${QT_VERSION_MAJOR}::Mqtt
     )

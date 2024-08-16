@@ -11,6 +11,8 @@
 #include "drawmainwindow.h"
 #include "alfredgraphicsscene.h"
 
+#include "mqttclientservice.h"
+
 int main(int argc, char **argv)
 {
     QApplication app(argc, argv);
@@ -19,8 +21,8 @@ int main(int argc, char **argv)
     ApplicationFacade *af = new ApplicationFacade();
     af->startUp();
 
-    MainWindow mainWindow;
-    mainWindow.show();
+//    MainWindow mainWindow;
+//    mainWindow.show();
 
 //    DrawMainWindow drawMainWindow;
 //    drawMainWindow.show();
@@ -30,6 +32,8 @@ int main(int argc, char **argv)
 //    QGraphicsView view(&scene);
 //    view.setRenderHint(QPainter::Antialiasing);
 //    view.show();
+
+    MqttClientService *mqttClientService=new MqttClientService();
 
     return app.exec();
 }
