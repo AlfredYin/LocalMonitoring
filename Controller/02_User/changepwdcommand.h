@@ -2,7 +2,7 @@
 #define CHANGEPWDCOMMAND_H
 
 #include "loginparam.h"
-#include "Patterns/Command.h"
+#include "Command.h"
 
 class ChangePwdCommand : public Command
 {

@@ -1,11 +1,12 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "Interface/IViewComponent.h"
+#include "IViewComponent.h"
 #include "homemediator.h"
 #include "logindialog.h"
 #include "widget_homepage.h"
 #include "mainwindowmediator.h"
+#include "mqttclientservice.h"
 
 #include <QMainWindow>
 #include <QPointer>
@@ -30,6 +31,8 @@ public:
 
 private:
     Ui::MainWindow *ui;
+
+
 
     MainWindowMediator *mainWindowMediator;
 

@@ -1,7 +1,7 @@
 #include "mainwindowmediator.h"
 
 #include "INotification.h"
-#include "Patterns/Mediator.h"
+#include "Mediator.h"
 
 #include <QDebug>
 

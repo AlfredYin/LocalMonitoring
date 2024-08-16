@@ -2,9 +2,9 @@
 #define DIALOG_SENDCONTROLDEVICEORDER_H
 
 #include <QDialog>
-#include "Interface/IViewComponent.h"
+#include "IViewComponent.h"
 
-#include "Patterns/Facade.h"
+#include "Facade.h"
 #include "devicemediator.h"
 #include "deviceproxy.h"
 #include "devicestateresult.h"
@@ -29,6 +29,8 @@ public:
 
 private:
     ControlDeviceState m_ControlDeviceState;
+
+    DeviceMediator *deviceMediator;
 
     Ui::Dialog_SendControlDeviceOrder *ui;
 };

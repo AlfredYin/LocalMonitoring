@@ -2,7 +2,7 @@
 #include "ui_changepwddialog.h"
 #include "loginparam.h"
 #include "changepwdresult.h"
-#include "Patterns/Facade.h"
+#include "Facade.h"
 #include "usermediator.h"
 
 #include <QMessageBox>

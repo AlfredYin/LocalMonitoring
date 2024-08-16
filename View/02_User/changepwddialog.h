@@ -3,7 +3,7 @@
 
 #include <QDialog>
 
-#include "Interface/IViewComponent.h"
+#include "IViewComponent.h"
 #include "usermediator.h"
 #include "userinfo.h"
 

@@ -2,7 +2,7 @@
 #define HOMEMEDIATOR_H
 
 #include "deviceparam.h"
-#include "Patterns/Mediator.h"
+#include "Mediator.h"
 
 class HomeMediator : public Mediator
 {

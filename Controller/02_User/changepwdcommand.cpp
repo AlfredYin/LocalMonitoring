@@ -1,8 +1,8 @@
 #include "changepwdcommand.h"
-#include "Patterns/Facade.h"
+#include "Facade.h"
 #include "userproxy.h"
 #include "loginresult.h"
-#include "Interface/INotification.h"
+#include "INotification.h"
 
 #include <QDebug>
 

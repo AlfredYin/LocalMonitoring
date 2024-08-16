@@ -21,19 +21,11 @@ int main(int argc, char **argv)
     ApplicationFacade *af = new ApplicationFacade();
     af->startUp();
 
-//    MainWindow mainWindow;
-//    mainWindow.show();
+    MainWindow mainWindow;
+    mainWindow.show();
 
 //    DrawMainWindow drawMainWindow;
 //    drawMainWindow.show();
-
-//    AlfredGraphicsScene scene;
-
-//    QGraphicsView view(&scene);
-//    view.setRenderHint(QPainter::Antialiasing);
-//    view.show();
-
-    MqttClientService *mqttClientService=new MqttClientService();
 
     return app.exec();
 }

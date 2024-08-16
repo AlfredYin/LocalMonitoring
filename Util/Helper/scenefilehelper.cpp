@@ -175,7 +175,11 @@ bool SceneFileHelper::saveSceneItemToFileXml(QString destPath, AlfredGraphicsSce
 
             // 保存文字内容
             QDomElement textElement=doc.createElement("Text");
-            textElement.appendChild(doc.createTextNode(theItem->toPlainText()));
+            // 将 theItem->toPlainText() 转换为 UTF-8 编码
+            QString plainText = theItem->toPlainText();
+            QByteArray utf8TextByte = plainText.toUtf8();
+
+            textElement.appendChild(doc.createTextNode(QString::fromUtf8(utf8TextByte)));
             itemElement.appendChild(textElement);
 
             // 保存图形项的位置
@@ -321,7 +325,9 @@ bool SceneFileHelper::saveSceneItemToFileXml(QString destPath, AlfredGraphicsSce
     QFile file(destPath);
     if (file.open(QIODevice::WriteOnly)) {
         QTextStream stream(&file);
-        stream<<doc.toString();;
+//        stream<<doc.toString();;
+        stream.setCodec("UTF-8"); // 设置编码为 UTF-8
+        doc.save(stream, 4); // 保存 XML 文档
         file.close();
         return true;
     }else{

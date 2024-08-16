@@ -62,7 +62,7 @@ Widget_HomePage::Widget_HomePage(QWidget *parent) :
     });
 
     scene->addItem(refreshItem);
-    refreshItem->setPos(300,10);
+    refreshItem->setPos(400,-200);
 
 
 

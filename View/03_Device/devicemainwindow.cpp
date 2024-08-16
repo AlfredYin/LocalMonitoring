@@ -1,6 +1,5 @@
 #include "devicemainwindow.h"
 #include "ui_devicemainwindow.h"
-#include "Patterns/Facade.h"
 
 #include <QDebug>
 #include <QMessageBox>

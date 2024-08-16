@@ -23,6 +23,9 @@ Dialog_ControlDeviceState::Dialog_ControlDeviceState(DeviceStateInfo deivceState
 
     DeviceParam *deviceParam=new DeviceParam();
     deviceParam->devicename=m_DeivceStateInfo.devicename;
+
+    Facade *facade = Facade::getInstance();
+    deviceMediator = (DeviceMediator *)facade->retrieveMediator("DeviceMediator");
     m_DeivceStateInfo.controldevicestatelist=deviceMediator->getControlDeviceStateList(deviceParam).resultControlDeviceStateList;
 
     QRectF sceneRect = scene->sceneRect();
@@ -68,6 +71,9 @@ Dialog_ControlDeviceState::Dialog_ControlDeviceState(DeviceStateInfo deivceState
             QString selectedCommand=dialog->getSendControlCommand();
             qDebug() << "SelectedCommand:" << selectedCommand;
             if(!selectedCommand.isEmpty()){
+//                deviceMediator->
+                controlDeviceState.devicecommands=selectedCommand;
+                deviceMediator->sendMqttControlDeviceCommand(&controlDeviceState);
                 qDebug() << "MQTTClientService Had Send Command:"+selectedCommand+" GwClientId:"+controlDeviceState.gwclientid+"  Done!";
             }
         }

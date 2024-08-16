@@ -1,7 +1,7 @@
 #ifndef MAINWINDOWMEDIATOR_H
 #define MAINWINDOWMEDIATOR_H
 
-#include "Patterns/Mediator.h"
+#include "Mediator.h"
 
 class MainWindowMediator : public Mediator
 {

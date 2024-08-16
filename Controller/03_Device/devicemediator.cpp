@@ -1,6 +1,5 @@
 #include "devicemediator.h"
 #include "deviceproxy.h"
-#include "Interface/INotification.h"
 
 DeviceMediator::DeviceMediator()
 {
@@ -47,4 +46,9 @@ ControlDeviceStateResult DeviceMediator::getControlDeviceStateList(DeviceParam *
 {
     DeviceProxy deviceProxy;
     return deviceProxy.getControlDeviceStateList(deviceParam);
+}
+
+void DeviceMediator::sendMqttControlDeviceCommand(ControlDeviceState *controlDeviceParam)
+{
+    sendNotification("send_mqttcontroldevicecommand",controlDeviceParam);
 }

@@ -13,12 +13,12 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-aux_source_directory(Core SRC)
-aux_source_directory(Patterns SRC)
+aux_source_directory(External/PureMvc/Core SRC)
+aux_source_directory(External/PureMvc/Patterns SRC)
 aux_source_directory(Model SRC)
 aux_source_directory(Controller SRC)
 aux_source_directory(. SRC)
-file(GLOB INC "Core/*.h" "Interface/*.h" "Patterns/*.h" "Model/*.h")
+file(GLOB INC "External/PureMvc/Core/*.h" "External/PureMvc/Interface/*.h" "External/PureMvc/Patterns/*.h" "Model/*.h")
 
 message(STATUS "SRC: ${SRC}")
 message(STATUS "INC: ${INC}")
@@ -117,9 +117,10 @@ endif()
 # 添加该行用于将include目录添加到头文件搜索路径中
 include_directories(
     "Controller"
-    "Core"
-    "Interface"
-    "Patterns"
+    "External/PureMvc/Core"
+    "External/PureMvc/Interface"
+    "External/PureMvc/Patterns"
+
     "Model"
     "Util/MySqlDBManager"
     "Util/SqlServerDBManager"
@@ -183,9 +184,12 @@ add_executable(${PROJECT_NAME}
 target_include_directories(${PROJECT_NAME} PUBLIC $<TARGET_FILE_DIR:${PROJECT_NAME}>)
 
 # 连接EQMQTT的库
+
+message(STATUS "CMAKE_CURRENT_SOURCE_DIR: ${CMAKE_CURRENT_SOURCE_DIR}")
+
 # 查找库的调试信息
-link_directories(C:/Users/17199/Desktop/QTDemos/LocalMonitoring/External/QMQTT/lib)
-find_library(QMQTT_LIB NAMES Qt5Qmqttd PATHS C:/Users/17199/Desktop/QTDemos/LocalMonitoring/External/QMQTT/lib)
+# link_directories(C:/Users/17199/Desktop/QTDemos/LocalMonitoring/External/QMQTT/lib)
+find_library(QMQTT_LIB NAMES Qt5Qmqttd PATHS PATHS "${CMAKE_CURRENT_SOURCE_DIR}/External/QMQTT/lib")
 
 if (QMQTT_LIB)
     message(STATUS "Found QMQTT library at ${QMQTT_LIB}")

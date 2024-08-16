@@ -3,8 +3,8 @@
 
 #include "Command.h"
 
-#include "Patterns/Facade.h"
-#include "Interface/INotification.h"
+#include "Facade.h"
+#include "INotification.h"
 #include <QtConcurrent/QtConcurrent>
 
 class DeviceStateListCommand : public Command

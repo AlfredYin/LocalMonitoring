@@ -1,7 +1,7 @@
 #ifndef APPLICATIONFACADE_H
 #define APPLICATIONFACADE_H
 
-#include "Patterns/Facade.h"
+#include "Facade.h"
 #include "mainwindowmediator.h"
 
 class ApplicationFacade : public Facade

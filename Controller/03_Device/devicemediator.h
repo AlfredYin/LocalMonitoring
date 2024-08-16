@@ -1,7 +1,7 @@
 #ifndef DEVICEMEDIATOR_H
 #define DEVICEMEDIATOR_H
 
-#include "Patterns/Mediator.h"
+#include "Mediator.h"
 #include "Command.h"
 #include <QtConcurrent/QtConcurrent>
 
@@ -28,6 +28,9 @@ public:
     SensorStateResult getSensorStateList(DeviceParam *deviceParam);
 
     ControlDeviceStateResult getControlDeviceStateList(DeviceParam *deviceParam);
+
+//    void sendMqtt
+    void sendMqttControlDeviceCommand(ControlDeviceState *controlDeviceParam);
 
 private:
     QList<QString> m_notificationInterests;

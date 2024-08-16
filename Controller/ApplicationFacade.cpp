@@ -12,6 +12,7 @@
 #include "homemediator.h"
 #include "homentptimecommand.h"
 #include "mainwindowmediator.h"
+#include "devicecontrolcommand.h"
 
 // 客户端初始化时须对Mediator，Command，Proxy进行注册，以表明各自感兴趣的消息（观察者模式中的订阅）。
 ApplicationFacade::ApplicationFacade() : Facade()
@@ -41,6 +42,7 @@ void ApplicationFacade::initializeCommand()
     registerCommand("change_passwd", new ChangePwdCommand());
 
     registerCommand("get_devicestatelist",new DeviceStateListCommand());
+    registerCommand("send_mqttcontroldevicecommand",new DeviceControlCommand());
 }
 
 // 负责处理真正的业务逻辑和数据操作。可以作为数据模型的抽象层，与数据库或其他数据源交互。

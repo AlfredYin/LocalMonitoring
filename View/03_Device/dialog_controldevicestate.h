@@ -7,9 +7,9 @@
 #include <QPointF>
 #include <QDialog>
 
-#include "Interface/IViewComponent.h"
+#include "IViewComponent.h"
 
-#include "Patterns/Facade.h"
+#include "Facade.h"
 #include "devicemediator.h"
 #include "deviceproxy.h"
 #include "devicestateresult.h"

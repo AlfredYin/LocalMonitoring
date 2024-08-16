@@ -3,7 +3,7 @@
 
 #include "loginparam.h"
 #include "databaserepository.h"
-#include "Patterns/Proxy.h"
+#include "Proxy.h"
 #include "userinfo.h"
 #include "userparam.h"
 

@@ -1,7 +1,7 @@
 #ifndef LOGINMEDIATOR_H
 #define LOGINMEDIATOR_H
 
-#include "Patterns/Mediator.h"
+#include "Mediator.h"
 #include "loginparam.h"
 #include "loginresult.h"
 #include "userinfo.h"

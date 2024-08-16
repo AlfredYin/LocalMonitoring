@@ -1,7 +1,7 @@
 #ifndef DEVICECOMMAND_H
 #define DEVICECOMMAND_H
 
-#include "Patterns/Command.h"
+#include "Command.h"
 
 class DeviceCommand : public Command
 {
