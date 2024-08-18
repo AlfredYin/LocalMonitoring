@@ -15,6 +15,9 @@ class Dialog_HistoryData : public QDialog
 public:
     explicit Dialog_HistoryData(QWidget *parent = nullptr);
     explicit Dialog_HistoryData(SensorState sensorState,QWidget *parent = nullptr);
+
+    // 再添加一个参数,这个Dialog不负责获取参数
+
     ~Dialog_HistoryData();
 
 private:

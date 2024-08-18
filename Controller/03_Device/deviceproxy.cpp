@@ -1,5 +1,4 @@
 #include "deviceproxy.h"
-#include "mysqldbmanager.h"
 #include "baseresult.h"
 #include "deviceparam.h"
 #include "devicestateresult.h"
@@ -12,7 +11,7 @@ DeviceProxy::DeviceProxy()
     PROXY_NAME = "DeviceProxy";
 }
 
-void DeviceProxy::getDeviceState(DeviceParam *deviceParam)
+void DeviceProxy::getDeviceState(DeviceParam *deviceParam)      // 暂时已经弃用
 {
     DeviceStateListResult *deviceStateListResult=new DeviceStateListResult();
     deviceStateListResult->result=false;
@@ -44,7 +43,10 @@ void DeviceProxy::getDeviceState(DeviceParam *deviceParam)
 void DeviceProxy::getDeviceStatesList(DeviceParam *deviceParam)
 {
     m_DeviceParam=*deviceParam;
-    QString queryStr="SELECT GwId,GwClientId,GwConnectingFlag,GwType FROM SysGatewayConnected;";
+//    QString queryStr="SELECT GwId,GwClientId,GwConnectingFlag,GwType FROM SysGatewayConnected;";
+    QString queryStr=QString("SELECT SysGatewayConnected.GwId,SysGatewayConnected.GwClientId,SysGatewayConnected.GwConnectingFlag,SysGatewayConnected.GwType,")+
+            QString("SysGatewayRegister.GwSubTopic,SysGatewayRegister.GwPubTopic,SysGatewayRegister.GwPubStatusTopic FROM SysGatewayConnected ")+
+            QString("JOIN SysGatewayRegister ON SysGatewayConnected.GwClientId=SysGatewayRegister.GwClientId;");        // 多表联合查询
     queryStr=queryStr+RegisterStrFilter(deviceParam);
     QueryHandler *handler=new QueryHandler(this);
 
@@ -57,12 +59,20 @@ void DeviceProxy::getDeviceStatesList(DeviceParam *deviceParam)
             int id = query.value(0).toInt();
             QString device_name = query.value(1).toString();
             int connection_status=query.value(2).toInt();
+            int gwtype=query.value(3).toInt();
+            QString gwsubtopic=query.value(4).toString();
+            QString gwpubtopic=query.value(5).toString();
+            QString gwpubstatustopic=query.value(6).toString();
 
-            DeviceStateInfo deviceStateInfo;
+            DeviceStateInfo deviceStateInfo;        // 网关设备
             deviceStateInfo.devicename=device_name;
             deviceStateInfo.connectingflag=connection_status;
-            // 传感器部分，忽略
-            deviceStateListResult->resultList.append(deviceStateInfo);
+            deviceStateInfo.gwtype=gwtype;
+            deviceStateInfo.gwsubtopic=gwsubtopic;
+            deviceStateInfo.gwpubtopic=gwpubtopic;
+            deviceStateInfo.gwpubstatustopic=gwpubstatustopic;
+            // 传感器子设备，控制子设备部分，忽略
+            deviceStateListResult->resultList.append(deviceStateInfo);  // 将网关设备添加到放回结果的列表中
             deviceStateListResult->result=true;
         }
 
@@ -99,9 +109,9 @@ SensorStateResult DeviceProxy::getSensorStateList(DeviceParam *deviceParam)
     return sensorStateListResult;
 }
 
-ControlDeviceStateResult DeviceProxy::getControlDeviceStateList(DeviceParam *deviceParam)
+ControlDeviceListResult DeviceProxy::getControlDeviceStateList(DeviceParam *deviceParam)
 {
-    ControlDeviceStateResult controlDeviceStateResult;
+    ControlDeviceListResult controlDeviceListResult;
     QString queryStr="SELECT Id,Device,DeviceName,DeviceCommands,DeviceState,GwType FROM DeviceRegister";
     queryStr=queryStr+RegisterStrFilter(deviceParam);
     QSqlQuery query=executeQuery(queryStr,RegisterListFilter(deviceParam));
@@ -121,9 +131,9 @@ ControlDeviceStateResult DeviceProxy::getControlDeviceStateList(DeviceParam *dev
         controlDeviceState.devicestate=devicestate;
         controlDeviceState.gwclientid=deviceParam->devicename;
         controlDeviceState.gwtype=gwtype;
-        controlDeviceStateResult.resultControlDeviceStateList.append(controlDeviceState);
+        controlDeviceListResult.resultControlDeviceStateList.append(controlDeviceState);
     }
-    return controlDeviceStateResult;
+    return controlDeviceListResult;
 }
 
 QList<QPair<QString, QVariant> > DeviceProxy::RegisterListFilter(DeviceParam *deviceParam)

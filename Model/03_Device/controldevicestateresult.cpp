@@ -2,5 +2,5 @@
 
 ControlDeviceStateResult::ControlDeviceStateResult()
 {
-
+    m_updateDataName = "ControlDeviceStateResult";
 }

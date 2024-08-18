@@ -28,6 +28,9 @@ Dialog_ControlDeviceState::Dialog_ControlDeviceState(DeviceStateInfo deivceState
     deviceMediator = (DeviceMediator *)facade->retrieveMediator("DeviceMediator");
     m_DeivceStateInfo.controldevicestatelist=deviceMediator->getControlDeviceStateList(deviceParam).resultControlDeviceStateList;
 
+    deviceControlMediator=(DeviceControlMediator *)facade->retrieveMediator("DeviceControlMediator");
+    deviceControlMediator->registerViewComponent(this);
+
     QRectF sceneRect = scene->sceneRect();
     qreal sceneCenterX = sceneRect.center().x();
     qreal currentPosY = sceneRect.center().y() - (m_DeivceStateInfo.controldevicestatelist.size() * 42) / 2;
@@ -74,6 +77,7 @@ Dialog_ControlDeviceState::Dialog_ControlDeviceState(DeviceStateInfo deivceState
 //                deviceMediator->
                 controlDeviceState.devicecommands=selectedCommand;
                 deviceMediator->sendMqttControlDeviceCommand(&controlDeviceState);
+                sendCommandFlag=true;
                 qDebug() << "MQTTClientService Had Send Command:"+selectedCommand+" GwClientId:"+controlDeviceState.gwclientid+"  Done!";
             }
         }
@@ -83,4 +87,34 @@ Dialog_ControlDeviceState::Dialog_ControlDeviceState(DeviceStateInfo deivceState
 Dialog_ControlDeviceState::~Dialog_ControlDeviceState()
 {
     delete ui;
+}
+
+void Dialog_ControlDeviceState::update(IUpdateData *updateData)
+{
+    if (sendCommandFlag && updateData->getName() == "ControlDeviceCommandSendResult")
+       {
+           ControlDeviceCommandSendResult *result = (ControlDeviceCommandSendResult *)updateData;
+
+           if (result->result)
+           {
+               QMessageBox::information(nullptr, "提示", "远程控制成功 "+result->publishTopic+" !");
+               // 跟新状态
+               foreach(auto item,scene->items()){
+                   ControlDeviceRectItem *theItem = qgraphicsitem_cast<ControlDeviceRectItem*>(item);
+                   ControlDeviceState theControlDeviceState=theItem->getControlDeviceState();
+                   foreach(auto controlDeviceState,result->resultControlDeviceStateList){
+                       if(theControlDeviceState.device==controlDeviceState.device){
+                           theControlDeviceState.devicestate=controlDeviceState.devicestate;
+                       }
+                   }
+                   theItem->setControlDeviceState(theControlDeviceState);
+               }
+               sendCommandFlag=false;
+           }
+           else
+           {
+               QMessageBox::information(nullptr, "提示", "远程控制失败");
+               sendCommandFlag=false;
+           }
+       }
 }

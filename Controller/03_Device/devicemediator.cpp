@@ -42,7 +42,7 @@ SensorStateResult DeviceMediator::getSensorStateList(DeviceParam *deviceParam)
     return deviceProxy.getSensorStateList(deviceParam);
 }
 
-ControlDeviceStateResult DeviceMediator::getControlDeviceStateList(DeviceParam *deviceParam)
+ControlDeviceListResult DeviceMediator::getControlDeviceStateList(DeviceParam *deviceParam)
 {
     DeviceProxy deviceProxy;
     return deviceProxy.getControlDeviceStateList(deviceParam);

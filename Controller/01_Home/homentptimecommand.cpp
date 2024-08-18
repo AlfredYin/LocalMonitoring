@@ -68,7 +68,7 @@ void WorkerNtpTimeThread::on_TimeoutGetNtpTime()
 //    QDateTime ntpTime = ntpService->getNtpTime();
 
     connect(ntpService, &NtpService::updateData, [this](QString mess) {
-        qDebug() << "NtpService 日志记录:" << mess;
+//        qDebug() << "NtpService 日志记录:" << mess;
     });
 
     connect(ntpService, &NtpService::updateNtpTime, [this](QDateTime ntpTime) {
@@ -79,7 +79,7 @@ void WorkerNtpTimeThread::on_TimeoutGetNtpTime()
         }
         else{
             QString ntpTimeStr = ntpTime.toString("yyyy-MM-dd hh:mm:ss zzz");
-            qDebug() << "Ntp时间获取成功:" << ntpTimeStr;
+//            qDebug() << "Ntp时间获取成功:" << ntpTimeStr;
             updateNtpTime(ntpTime);
         }
 

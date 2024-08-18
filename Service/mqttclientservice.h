@@ -8,9 +8,12 @@
 #include <QtNetwork>
 #include <QNetworkAccessManager>
 
+#include "Proxy.h"
 #include "mqttclientsingleton.h"
+#include "jsonhelper.h"
+#include "controldevicecommandsendresult.h"
 
-class MqttClientService : public QObject
+class MqttClientService : public QObject , public Proxy
 {
     Q_OBJECT
 public:
@@ -22,8 +25,12 @@ public:
 
     QMQTT::Client* getQmqttClient();
 
-signals:
-    void messageReceived(const QByteArray& message, const QString& topic);
+    void setSendCommandFlag(bool flag);
+
+    void setSubTopicList(QList<QString> topicList);
+
+//signals:
+//    void messageReceived(const QByteArray& message, const QString& topic);
 
 private slots:
     void onMessageReceived(const QMQTT::Message& message);
@@ -33,7 +40,11 @@ private:
 private:
     QMQTT::Client *m_QmqttClient;
 
+    QList<QString> subTopicList;
+
     QSslConfiguration config;   // Since QT 5.14, SSL transport config
+
+    bool m_SendCommandFlag=false;
 };
 
 #endif // MQTTCLIENTSERVICE_H

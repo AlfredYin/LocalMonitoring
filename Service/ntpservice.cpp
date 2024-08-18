@@ -152,6 +152,6 @@ void NtpService::sendData()
     qint64 len = m_socket->write(arr);
     if(len != arr.count())
     {
-        qWarning() << "发送NTP请求帧失败：" << arr.toHex(' ');
+        qDebug() << "发送NTP请求帧失败：" << arr.toHex(' ');
     }
 }

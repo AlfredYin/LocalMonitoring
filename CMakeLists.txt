@@ -81,6 +81,17 @@ message(STATUS "03_SRC: ${03_SRC}")
 message(STATUS "03_INC: ${03_INC}")
 message(STATUS "03_UI: ${03_UI}")
 
+# 04 Data
+aux_source_directory(Controller/04_Data 04_SRC)
+aux_source_directory(Model/04_Data 04_SRC)
+aux_source_directory(View/04_Data 04_SRC)
+file(GLOB 04_INC "Model/04_Data/*.h" "View/04_Data/*.h")
+file(GLOB 04_UI "View/04_Data/*.ui")
+
+message(STATUS "04_SRC: ${04_SRC}")
+message(STATUS "04_INC: ${04_INC}")
+message(STATUS "04_UI: ${04_UI}")
+
 # 05 Draw
 #aux_source_directory(Controller/03_Device 05_SRC)
 aux_source_directory(Model/05_Draw 05_SRC)
@@ -140,6 +151,10 @@ include_directories(
     "Model/03_Device"
     "View/03_Device"
 
+    "Controller/04_Data"
+    "Model/04_Data"
+    "View/04_Data"
+
     "View/05_Draw"
     "Model/05_Draw"
 
@@ -171,6 +186,10 @@ add_executable(${PROJECT_NAME}
     ${03_INC}
     ${03_SRC}
     ${03_UI}
+
+    ${04_INC}
+    ${04_SRC}
+    ${04_UI}
 
     ${05_INC}
     ${05_SRC}

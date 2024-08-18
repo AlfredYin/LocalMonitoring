@@ -9,6 +9,7 @@
 #include "devicestateresult.h"
 #include "sensorstateresult.h"
 #include "controldevicestateresult.h"
+#include "controldevicelistresult.h"
 
 class DeviceMediator : public Mediator , public Command
 {
@@ -27,7 +28,7 @@ public:
 
     SensorStateResult getSensorStateList(DeviceParam *deviceParam);
 
-    ControlDeviceStateResult getControlDeviceStateList(DeviceParam *deviceParam);
+    ControlDeviceListResult getControlDeviceStateList(DeviceParam *deviceParam);
 
 //    void sendMqtt
     void sendMqttControlDeviceCommand(ControlDeviceState *controlDeviceParam);

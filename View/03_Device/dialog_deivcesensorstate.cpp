@@ -82,13 +82,18 @@ Dialog_DeivceSensorState::Dialog_DeivceSensorState(DeviceStateInfo deivceStateIn
         }
 
         SensorState sensorState=theItem->getSensorState();
+
+        qDebug()<<m_DeivceStateInfo.devicename;
+
+        // 通过dataMeidiaor获取该网关设备下的所有数据库数据
+
+        // 将获取到的数据传给Dialog历史数据展示
+
+        // 由Dialog根据两个参数进行列与行的填充
+
         Dialog_HistoryData *dialog=new Dialog_HistoryData(sensorState,this);
+        dialog->move(point.x(), point.y());
         dialog->show();
-
-//        ControlDeviceState controlDeviceState = theItem->getControlDeviceState();
-//        Dialog_SendControlDeviceOrder *dialog = new Dialog_SendControlDeviceOrder(controlDeviceState);
-//        dialog->move(point.x(), point.y());
-
     });
 }
 

@@ -7,17 +7,16 @@ DeviceControlCommand::DeviceControlCommand()
 
     // 订阅主题
     // 订阅数据库中获取
-    m_MqttClientService->subscribeToTopic("Esp32_1_Pub");
+    QList<QString> topicList;
+    topicList.append("Esp32_1_Pub");
+    topicList.append("Esp32_2_Pub");
 
-    // 设置连接函数
-    connect(m_MqttClientService,&MqttClientService::messageReceived,[this](const QByteArray& message, const QString& topic){
-        if()
-    });
+    // 传入订阅列表 MqttClientService 自动订阅并且注册监听
+    m_MqttClientService->setSubTopicList(topicList);
 }
 
 void DeviceControlCommand::excute(INotification *notification)
 {
-    qDebug()<<"void DeviceControlCommand::excute(INotification *notification)";
     ControlDeviceState *controlDeviceParam=static_cast<ControlDeviceState *>(notification->getBody());
 
     QString publicTopic=controlDeviceParam->gwclientid+"_Sub";
@@ -25,5 +24,6 @@ void DeviceControlCommand::excute(INotification *notification)
     QString payloadMess="{\"action\":\"control\",\"device\":\""+controlDeviceParam->device+
             "\",\"state\":\""+controlDeviceParam->devicecommands+"\"}";
 
+    m_MqttClientService->setSendCommandFlag(true);
     m_MqttClientService->publishMessage(publicTopic,payloadMess);
 }

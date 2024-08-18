@@ -7,6 +7,7 @@
 #include "widget_homepage.h"
 #include "mainwindowmediator.h"
 #include "mqttclientservice.h"
+#include "widget_historydata.h"
 
 #include <QMainWindow>
 #include <QPointer>
@@ -37,6 +38,7 @@ private:
     MainWindowMediator *mainWindowMediator;
 
     QWidget *widget_HomePage;
+    QWidget *widget_HistoryData;
 
     // 状态栏 QLabel
     QLabel *label_ntp_status;

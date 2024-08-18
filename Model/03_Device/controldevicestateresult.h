@@ -2,13 +2,15 @@
 #define CONTROLDEVICESTATERESULT_H
 
 #include "devicestateinfo.h"
+#include "baseresult.h"
 
-class ControlDeviceStateResult
+class ControlDeviceStateResult : public BaseResult
 {
 public:
     ControlDeviceStateResult();
 
-     QList<ControlDeviceState> resultControlDeviceStateList;
+//     QList<ControlDeviceState> resultControlDeviceStateList;
+    ControlDeviceState resultControlDeviceState;
 };
 
 #endif // CONTROLDEVICESTATERESULT_H

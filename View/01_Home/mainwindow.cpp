@@ -28,6 +28,9 @@ MainWindow::MainWindow(QWidget *parent) :
     widget_HomePage=new Widget_HomePage(this);
     ui->tabWidget->addTab(widget_HomePage,"主页");
 
+    widget_HistoryData=new Widget_HistoryData(this);
+    ui->tabWidget->addTab(widget_HistoryData,"历史数据");
+
 
     mainWindowMediator->startGetNtpTime();
 

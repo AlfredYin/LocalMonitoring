@@ -136,6 +136,12 @@ public:
     QString devicename;
     int connectingflag;  // 0: offline / 1: online
 
+    int gwtype;
+
+    QString gwsubtopic;
+    QString gwpubtopic;
+    QString gwpubstatustopic;
+
     // 传感器子设备列表
     QList<SensorState> sensorstatelist;
     // 控制子设备列表
