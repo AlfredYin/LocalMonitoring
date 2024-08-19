@@ -36,3 +36,13 @@ void HomeMediator::getDeviceStateList(DeviceParam *deviceParam)
 {
     sendNotification("get_devicestatelist", deviceParam);
 }
+
+QString HomeMediator::getConnectingDBType()
+{
+    return DataBaseStateHelper::getConnectingDBType();
+}
+
+bool HomeMediator::isConnectedDb()
+{
+    return DataBaseStateHelper::isConnectedDb();
+}

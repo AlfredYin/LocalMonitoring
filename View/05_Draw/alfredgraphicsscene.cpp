@@ -164,15 +164,8 @@ void AlfredGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
 void AlfredGraphicsScene::startPloyLinePaint(bool state)
 {
-    if(state){  // 开始绘制
-        isPaintPloyLineEventOn=true;
-        startPoint=QPointF();
-        endPoint=QPointF();
-        currentLine=nullptr;
-    }else{
-        isPaintPloyLineEventOn=false;
-        startPoint=QPointF();
-        endPoint=QPointF();
-        currentLine=nullptr;
-    }
+    isPaintPloyLineEventOn=state;
+    startPoint=QPointF();
+    endPoint=QPointF();
+    currentLine=nullptr;
 }

@@ -11,6 +11,8 @@ Dialog_DataBaseConnectState::Dialog_DataBaseConnectState(QWidget *parent) :
     Facade *facade = Facade::getInstance();
     homeMediator = (HomeMediator *)facade->retrieveMediator("HomeMediator");
 
+    ui->label_DbType->setText(DataBaseStateHelper::getConnectingDBType());
+    ui->label_DbState->setText(DataBaseStateHelper::isConnectedDb()?"已连接":"连接已断开");
 }
 
 Dialog_DataBaseConnectState::~Dialog_DataBaseConnectState()

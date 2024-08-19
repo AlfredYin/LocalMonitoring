@@ -13,6 +13,7 @@ public:
 
     void get_HistoryData(SensorParam *sensorParam);
 
+    QList<SensorHistoryData> get_HistoryDataSync(SensorParam *sensorParam);
 
 private:
     QList<QPair<QString, QVariant>> RegisterListFilter(SensorParam *sensorParam);

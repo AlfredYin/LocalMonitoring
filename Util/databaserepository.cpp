@@ -40,23 +40,13 @@ DataBaseRepository::~DataBaseRepository()
 QSqlQuery DataBaseRepository::executeQuery(const QString &queryStr, const QVariantList &bindValues)
 {
 
+    QElapsedTimer timer;
+    timer.start(); // 启动计时器
+
     if(!isDataBaseConnection()){
         qDebug()<<"Database is not Open !!!";
         return QSqlQuery();
     }
-
-#if defined(QT_DEBUG) || defined(DEBUG)
-
-    qDebug() << "Executing SQL Query:" << queryStr;
-    if(!bindValues.isEmpty()){
-        qDebug() << "Bound Values:";
-        for (int i = 0; i < bindValues.size(); ++i)
-        {
-            qDebug() << "Position" << i << ":" << bindValues[i].toString();
-        }
-    }
-
-#endif
 
     QSqlQuery query(getDataBase());
     query.prepare(queryStr);
@@ -69,25 +59,33 @@ QSqlQuery DataBaseRepository::executeQuery(const QString &queryStr, const QVaria
         qDebug() << "Error executing query:" << query.lastError().text();
     }
 
+#if defined(QT_DEBUG) || defined(DEBUG)
+
+    qDebug() << "Executing SQL Query:" << queryStr;
+    if(!bindValues.isEmpty() && bindValues.count()!=0){
+        qDebug() << "Bound Values:";
+        for (int i = 0; i < bindValues.size(); ++i)
+        {
+            qDebug() << "Position" << i << ":" << bindValues[i].toString();
+        }
+    }
+    qint64 elapsedDBTime = timer.elapsed();
+    qDebug() << "Time taken for Db processing:" << elapsedDBTime << "ms";
+#endif
+
     return query;
 }
 
 QSqlQuery DataBaseRepository::executeQuery(const QString &queryStr, const QVariantMap &namedBindValues)
 {
+
+    QElapsedTimer timer;
+    timer.start(); // 启动计时器
+
     if(!isDataBaseConnection()){
         qDebug()<<"Database is not Open !!!";
         return QSqlQuery();
     }
-
-#if defined(QT_DEBUG) || defined(DEBUG)
-    qDebug() << "Executing SQL Query:" << queryStr;
-    qDebug() << "Bound Values:";
-
-    for (auto it = namedBindValues.begin(); it != namedBindValues.end(); ++it)
-    {
-        qDebug() << "Name" << it.key() << ":" << it.value().toString();
-    }
-#endif
 
     QSqlQuery query(getDataBase());
     query.prepare(queryStr);
@@ -99,25 +97,33 @@ QSqlQuery DataBaseRepository::executeQuery(const QString &queryStr, const QVaria
     {
         qDebug() << "Error executing query:" << query.lastError().text();
     }
+
+#if defined(QT_DEBUG) || defined(DEBUG)
+
+    qDebug() << "Executing SQL Query:" << queryStr;
+    if(!namedBindValues.isEmpty() && namedBindValues.count()!=0){
+        qDebug() << "Bound Values:";
+        for (auto it = namedBindValues.begin(); it != namedBindValues.end(); ++it)
+        {
+            qDebug() << "Name" << it.key() << ":" << it.value().toString();
+        }
+    }
+    qint64 elapsedDBTime = timer.elapsed();
+    qDebug() << "Time taken for Db processing:" << elapsedDBTime << "ms";
+
+#endif
+
     return query;
 }
 
 QSqlQuery DataBaseRepository::executeQuery(const QString &queryStr, const QList<QPair<QString, QVariant>> &namedBindValues)
 {
+    QElapsedTimer timer;
+    timer.start(); // 启动计时器
     if(!isDataBaseConnection()){
         qDebug()<<"Database is not Open !!!";
         return QSqlQuery();
     }
-
-#if defined(QT_DEBUG) || defined(DEBUG)
-    qDebug() << "Executing SQL Query:" << queryStr;
-    qDebug() << "Bound Values:";
-
-    for (const auto &pair : namedBindValues)
-    {
-        qDebug() << "Name" << pair.first << ":" << pair.second.toString();
-    }
-#endif
 
     QSqlQuery query(getDataBase());
 
@@ -139,30 +145,33 @@ QSqlQuery DataBaseRepository::executeQuery(const QString &queryStr, const QList<
         // 处理错误
         qDebug() << "Error executing query:" << query.lastError().text();
     }
+
+#if defined(QT_DEBUG) || defined(DEBUG)
+
+    qDebug() << "Executing SQL Query:" << queryStr;
+    if(!namedBindValues.isEmpty() && namedBindValues.count()!=0){
+        qDebug() << "Bound Values:";
+        for (const auto &pair : namedBindValues)
+        {
+            qDebug() << "Name" << pair.first << ":" << pair.second.toString();
+        }
+    }
+    qint64 elapsedDBTime = timer.elapsed();
+    qDebug() << "Time taken for Db processing:" << elapsedDBTime << "ms";
+#endif
+
     return query;
 }
 
 QFuture<QSqlQuery> DataBaseRepository::executeQueryAsync(const QString &queryStr, const QVariantList &bindValues)
 {
     return QtConcurrent::run([this, queryStr, bindValues]() {
-
+        QElapsedTimer timer;
+        timer.start(); // 启动计时器
         if(!isDataBaseConnection()){
             qDebug()<<"Database is not Open !!!";
             return QSqlQuery();
         }
-
-    #if defined(QT_DEBUG) || defined(DEBUG)
-
-        qDebug() << "Executing SQL Query:" << queryStr;
-        if(!bindValues.isEmpty()){
-            qDebug() << "Bound Values:";
-            for (int i = 0; i < bindValues.size(); ++i)
-            {
-                qDebug() << "Position" << i << ":" << bindValues[i].toString();
-            }
-        }
-
-    #endif
 
         QSqlQuery query(getDataBase());
         query.prepare(queryStr);
@@ -175,6 +184,20 @@ QFuture<QSqlQuery> DataBaseRepository::executeQueryAsync(const QString &queryStr
             qDebug() << "Error executing query:" << query.lastError().text();
         }
 
+#if defined(QT_DEBUG) || defined(DEBUG)
+
+    qDebug() << "Executing SQL Query:" << queryStr;
+    if(!bindValues.isEmpty() && bindValues.count()!=0){
+        qDebug() << "Bound Values:";
+        for (int i = 0; i < bindValues.size(); ++i)
+        {
+            qDebug() << "Position" << i << ":" << bindValues[i].toString();
+        }
+    }
+    qint64 elapsedDBTime = timer.elapsed();
+    qDebug() << "Time taken for Db processing:" << elapsedDBTime << "ms";
+
+#endif
         return query;
     });
 }
@@ -182,21 +205,12 @@ QFuture<QSqlQuery> DataBaseRepository::executeQueryAsync(const QString &queryStr
 QFuture<QSqlQuery> DataBaseRepository::executeQueryAsync(const QString &queryStr, const QVariantMap &namedBindValues)
 {
     return QtConcurrent::run([this, queryStr, namedBindValues]() {
-
+        QElapsedTimer timer;
+        timer.start(); // 启动计时器
         if(!isDataBaseConnection()){
             qDebug()<<"Database is not Open !!!";
             return QSqlQuery();
         }
-
-    #if defined(QT_DEBUG) || defined(DEBUG)
-        qDebug() << "Executing SQL Query:" << queryStr;
-        qDebug() << "Bound Values:";
-
-        for (auto it = namedBindValues.begin(); it != namedBindValues.end(); ++it)
-        {
-            qDebug() << "Name" << it.key() << ":" << it.value().toString();
-        }
-    #endif
 
         QSqlQuery query(getDataBase());
         query.prepare(queryStr);
@@ -208,6 +222,21 @@ QFuture<QSqlQuery> DataBaseRepository::executeQueryAsync(const QString &queryStr
         {
             qDebug() << "Error executing query:" << query.lastError().text();
         }
+
+#if defined(QT_DEBUG) || defined(DEBUG)
+
+    qDebug() << "Executing SQL Query:" << queryStr;
+    if(!namedBindValues.isEmpty() && namedBindValues.count()!=0){
+        qDebug() << "Bound Values:";
+        for (auto it = namedBindValues.begin(); it != namedBindValues.end(); ++it)
+        {
+            qDebug() << "Name" << it.key() << ":" << it.value().toString();
+        }
+    }
+
+    qint64 elapsedDBTime = timer.elapsed();
+    qDebug() << "Time taken for Db processing:" << elapsedDBTime << "ms";
+#endif
         return query;
 
     });
@@ -216,23 +245,14 @@ QFuture<QSqlQuery> DataBaseRepository::executeQueryAsync(const QString &queryStr
 QFuture<QSqlQuery> DataBaseRepository::executeQueryAsync(const QString &queryStr, const QList<QPair<QString, QVariant>> &namedBindValues)
 {
     return QtConcurrent::run([this, queryStr, namedBindValues]() {
-
+        QElapsedTimer timer;
+        timer.start(); // 启动计时器
 //        qDebug() << "Starting async query: " << queryStr;
         // 异步查询实现
         if(!isDataBaseConnection()){
             qDebug()<<"Database is not Open !!!";
             return QSqlQuery();
         }
-
-    #if defined(QT_DEBUG) || defined(DEBUG)
-        qDebug() << "Executing SQL Query:" << queryStr;
-        qDebug() << "Bound Values:";
-
-        for (const auto &pair : namedBindValues)
-        {
-            qDebug() << "Name" << pair.first << ":" << pair.second.toString();
-        }
-    #endif
 
         QSqlQuery query(getDataBase());
 
@@ -255,8 +275,20 @@ QFuture<QSqlQuery> DataBaseRepository::executeQueryAsync(const QString &queryStr
             qDebug() << "Error executing query:" << query.lastError().text();
         }
 
-        // 在查询完成时输出调试信息
-//        qDebug() << "Async query completed: " << queryStr;
+#if defined(QT_DEBUG) || defined(DEBUG)
+
+    qDebug() << "Executing SQL Query:" << queryStr;
+    if(!namedBindValues.isEmpty() && namedBindValues.count()!=0){
+        qDebug() << "Bound Values:";
+        for (const auto &pair : namedBindValues)
+        {
+            qDebug() << "Name" << pair.first << ":" << pair.second.toString();
+        }
+    }
+    qint64 elapsedDBTime = timer.elapsed();
+    qDebug() << "Time taken for Db processing:" << elapsedDBTime << "ms";
+
+#endif
         return query;
     });
 }

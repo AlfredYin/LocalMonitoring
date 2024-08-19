@@ -3,6 +3,7 @@
 
 #include "deviceparam.h"
 #include "Mediator.h"
+#include "databasestatehelper.h"
 
 class HomeMediator : public Mediator
 {
@@ -14,6 +15,10 @@ public:
     void handleNotification(INotification *notification);
 
     void getDeviceStateList(DeviceParam *deviceParam);
+
+    QString getConnectingDBType();
+
+    bool isConnectedDb();
 
 private:
     QList<QString> m_notificationInterests;

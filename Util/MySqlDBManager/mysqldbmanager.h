@@ -20,12 +20,17 @@ public:
     bool connect(const QString& host, const QString& dbName, const QString& user, const QString& password) {
         QMutexLocker locker(&mutex);
 
+        m_host=host;
+        m_dbName=dbName;
+        m_user=user;
+        m_password=password;
+
         if (!db.isOpen()) {
             db = QSqlDatabase::addDatabase("QMYSQL");
-            db.setHostName(host);
-            db.setDatabaseName(dbName);
-            db.setUserName(user);
-            db.setPassword(password);
+            db.setHostName(m_host);
+            db.setDatabaseName(m_dbName);
+            db.setUserName(m_user);
+            db.setPassword(m_password);
 
             if (!db.open()) {
                 qDebug() << "Failed to connect to database:" << db.lastError().text();
@@ -37,6 +42,18 @@ public:
     }
 
     QSqlDatabase getDatabase() {
+        if (!db.isOpen()) {
+            db = QSqlDatabase::addDatabase("QMYSQL");
+            db.setHostName(m_host);
+            db.setDatabaseName(m_dbName);
+            db.setUserName(m_user);
+            db.setPassword(m_password);
+            if (!db.open()){
+                qDebug() << "Failed to connect to database:" << db.lastError().text();
+                return QSqlDatabase();
+            }
+            qDebug() << "Reconnected to database successfully!";
+        }
         return db;
     }
 
@@ -47,6 +64,11 @@ public:
 private:
     QSqlDatabase db;
     QMutex mutex;
+
+    QString m_host;
+    QString m_dbName;
+    QString m_user;
+    QString m_password;
 
     // 私有构造函数和析构函数
     MySqlDBManager() {}

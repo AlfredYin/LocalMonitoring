@@ -30,4 +30,10 @@ void HistoryDataMediator::getSensorHistoryData(SensorParam *sensorParam)
     sendNotification("get_historydata",sensorParam);
 }
 
+QList<SensorHistoryData> HistoryDataMediator::get_HistoryDataSync(SensorParam *sensorParam)
+{
+    DataProxy *dataProxy=new DataProxy();
+    return dataProxy->get_HistoryDataSync(sensorParam);
+}
+
 

@@ -21,6 +21,8 @@ Dialog_DeivceSensorState::Dialog_DeivceSensorState(DeviceStateInfo deivceStateIn
     deviceMediator = (DeviceMediator *)facade->retrieveMediator("DeviceMediator");
 //    deviceMediator->registerViewComponent(this);
 
+    historyDataMediator=(HistoryDataMediator*)facade->retrieveMediator("HistoryDataMediator");
+
     scene=new QGraphicsScene(0,0,50,50,this);
     ui->graphicsView->setScene(scene);
 
@@ -83,15 +85,15 @@ Dialog_DeivceSensorState::Dialog_DeivceSensorState(DeviceStateInfo deivceStateIn
 
         SensorState sensorState=theItem->getSensorState();
 
-        qDebug()<<m_DeivceStateInfo.devicename;
-
         // 通过dataMeidiaor获取该网关设备下的所有数据库数据
-
         // 将获取到的数据传给Dialog历史数据展示
-
         // 由Dialog根据两个参数进行列与行的填充
+        SensorParam *sensorParam=new SensorParam();
+        sensorParam->devicename=m_DeivceStateInfo.devicename;
+        sensorParam->sensorname=sensorState.sensor;
+        QList<SensorHistoryData> list=historyDataMediator->get_HistoryDataSync(sensorParam);
 
-        Dialog_HistoryData *dialog=new Dialog_HistoryData(sensorState,this);
+        Dialog_HistoryData *dialog=new Dialog_HistoryData(list,sensorState,this);
         dialog->move(point.x(), point.y());
         dialog->show();
     });

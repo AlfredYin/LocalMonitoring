@@ -18,6 +18,8 @@
 #include "devicestateinfo.h"
 #include "sensorstateresult.h"
 #include "dialog_historydata.h"
+#include "historydatamediator.h"
+#include "sensorparam.h"
 
 class DeviceMediator;
 
@@ -38,6 +40,8 @@ public:
 
 private:
     Ui::Dialog_DeivceSensorState *ui;
+
+    HistoryDataMediator *historyDataMediator;
 
     DeviceMediator *deviceMediator;
 

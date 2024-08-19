@@ -45,7 +45,7 @@ void LoginDialog::update(IUpdateData *updateData)
 
            if (loginResult->result)
            {
-               QMessageBox::information(nullptr, "提示", "登录成功");
+//               QMessageBox::information(nullptr, "提示", "登录成功");
                qDebug() << "Login Success";
            }
            else

@@ -9,6 +9,8 @@ public:
     SensorParam();
 
     QString devicename;     // 网关设备ClientId名称
+
+    QString sensorname;
 };
 
 #endif // SENSORPARAM_H
